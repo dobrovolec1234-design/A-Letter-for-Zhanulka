@@ -1,7 +1,1 @@
-<button onclick="document.getElementById('song').play()">
-  включить песню
-</button>
 
-<audio id="song" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
