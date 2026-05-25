@@ -105,6 +105,25 @@
     .music-btn:hover {
       background: rgba(255,255,255,0.12);
     }
+
+    .gallery {
+      display: grid;
+      gap: 18px;
+      margin-bottom: 32px;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+      transition: 0.3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.01);
+    }
+
   </style>
 </head>
 
@@ -113,6 +132,15 @@
     <section class="content">
 
       <h1>Для Жанульки</h1>
+
+      <div class="gallery">
+        <img src="photo1.jpg">
+        <img src="photo2.jpg">
+        <img src="photo3.jpg">
+        <img src="photo4.jpg">
+        <img src="photo5.jpg">
+        <img src="photo6.jpg">
+      </div>
 
       <p>Мой путь прослушивания твоей музыки начался с сериала «Трудные подростки». В 3 сезоне 1 серии я услышал песню «Синдром Бога», и с того самого момента твоя музыка начала звучать у меня буквально 24/7.</p>
 
