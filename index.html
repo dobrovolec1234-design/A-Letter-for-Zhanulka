@@ -128,7 +128,14 @@
       <p>Я очень благодарен, что однажды услышал твои песни.</p>
 
       <div class="quote">thank you for the music</div>
-      <div class="small">скрытое письмо, открытое через QR-код</div>
+      <div class="small">скрытое письмо, открытое через QR-код</div> 
+      <button onclick="document.getElementById('song').play()" class="music-btn">
+  включить песню
+</button>
+
+<audio id="song" loop>
+  <source src="zhanulka.mp3" type="audio/mpeg">
+</audio>
     </section>
   </main>
 </body>
