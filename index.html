@@ -86,35 +86,32 @@
       text-align: center;
       font-size: 14px;
       opacity: 0.56;
-    } .music-btn {
-  margin-top: 30px;
-  width: 100%;
-  padding: 14px;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 14px;
-  background: rgba(255,255,255,0.06);
-  color: #f4eee6;
-  font-size: 18px;
-  font-family: "Literata", serif;
-  cursor: pointer;
-  transition: 0.3s;
-}
+    }
 
-.music-btn:hover {
-  background: rgba(255,255,255,0.12);
-}
+    .music-btn {
+      margin-top: 30px;
+      width: 100%;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.06);
+      color: #f4eee6;
+      font-size: 18px;
+      font-family: "Literata", serif;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .music-btn:hover {
+      background: rgba(255,255,255,0.12);
+    }
   </style>
 </head>
-<body> 
-  <button onclick="document.getElementById('song').play()" class="music-btn">
-  включить песню
-</button>
 
-<audio id="song" loop>
-  <source src="zhanulka.mp3" type="audio/mpeg">
-</audio>
+<body>
   <main class="card">
     <section class="content">
+
       <h1>Для Жанульки</h1>
 
       <p>Мой путь прослушивания твоей музыки начался с сериала «Трудные подростки». В 3 сезоне 1 серии я услышал песню «Синдром Бога», и с того самого момента твоя музыка начала звучать у меня буквально 24/7.</p>
@@ -128,14 +125,19 @@
       <p>Я очень благодарен, что однажды услышал твои песни.</p>
 
       <div class="quote">thank you for the music</div>
-      <div class="small">скрытое письмо, открытое через QR-код</div> 
-      <button onclick="document.getElementById('song').play()" class="music-btn">
-  включить песню
-</button>
 
-<audio id="song" loop>
-  <source src="zhanulka.mp3" type="audio/mpeg">
-</audio>
+      <div class="small">
+        скрытое письмо, открытое через QR-код
+      </div>
+
+      <button onclick="document.getElementById('song').play()" class="music-btn">
+        включить песню
+      </button>
+
+      <audio id="song" loop>
+        <source src="zhanulka.mp3" type="audio/mpeg">
+      </audio>
+
     </section>
   </main>
 </body>
