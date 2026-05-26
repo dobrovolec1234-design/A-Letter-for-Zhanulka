@@ -14,7 +14,6 @@
   <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
 
   <style>
-
     * {
       box-sizing: border-box;
     }
@@ -36,44 +35,42 @@
       overflow-x: hidden;
     }
 
-    /* КОТИКИ */
-
-    .cat-left-top{
+    .cat-left-top {
       position: fixed;
-      left: -40px;
-      top: 40px;
-      width: 180px;
-      z-index: 0;
+      left: -45px;
+      top: 35px;
+      width: 190px;
+      z-index: 1;
       pointer-events: none;
       opacity: 0.95;
     }
 
-    .cat-right-top{
+    .cat-right-top {
       position: fixed;
-      right: -40px;
-      top: 40px;
-      width: 180px;
-      z-index: 0;
+      right: -45px;
+      top: 35px;
+      width: 190px;
+      z-index: 1;
       pointer-events: none;
       opacity: 0.95;
     }
 
-    .cat-left-bottom{
+    .cat-left-bottom {
       position: fixed;
-      left: -30px;
-      bottom: 40px;
-      width: 180px;
-      z-index: 0;
+      left: -35px;
+      bottom: 55px;
+      width: 190px;
+      z-index: 1;
       pointer-events: none;
       opacity: 0.95;
     }
 
-    .cat-right-bottom{
+    .cat-right-bottom {
       position: fixed;
-      right: -30px;
-      bottom: 40px;
-      width: 180px;
-      z-index: 0;
+      right: -35px;
+      bottom: 55px;
+      width: 190px;
+      z-index: 1;
       pointer-events: none;
       opacity: 0.95;
     }
@@ -191,7 +188,6 @@
     }
 
     @keyframes floatUp {
-
       0% {
         transform: translate(-50%, -50%) scale(1);
         opacity: 1;
@@ -201,29 +197,53 @@
         transform: translate(-50%, -180px) scale(1.8) rotate(20deg);
         opacity: 0;
       }
-
     }
 
+    @media (max-width: 900px) {
+      .cat-left-top,
+      .cat-right-top,
+      .cat-left-bottom,
+      .cat-right-bottom {
+        width: 120px;
+        opacity: 0.75;
+      }
+
+      .cat-left-top {
+        left: -50px;
+        top: 20px;
+      }
+
+      .cat-right-top {
+        right: -50px;
+        top: 20px;
+      }
+
+      .cat-left-bottom {
+        left: -45px;
+        bottom: 20px;
+      }
+
+      .cat-right-bottom {
+        right: -45px;
+        bottom: 20px;
+      }
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- КОТИКИ -->
-
-  <img src="cat.png" class="cat-left-top">
-  <img src="cat2.png" class="cat-right-top">
-  <img src="cat3.png" class="cat-left-bottom">
-  <img src="cat4.png" class="cat-right-bottom">
+  <img src="cat.jpg" class="cat-left-top">
+  <img src="cat2.jpg" class="cat-right-top">
+  <img src="cat3.jpg" class="cat-left-bottom">
+  <img src="cat4.jpg" class="cat-right-bottom">
 
   <main class="card">
-
     <section class="content">
 
       <h1>Для Жанульки</h1>
 
       <div class="slider">
-
         <div class="slide-track">
 
           <img src="photo1.jpg">
@@ -249,7 +269,6 @@
           <img src="photo10.jpg">
 
         </div>
-
       </div>
 
       <p>
@@ -294,7 +313,6 @@
       <audio id="song"></audio>
 
       <script>
-
         const tracks = [
           "track1.mp3",
           "track2.mp3",
@@ -306,15 +324,11 @@
         const audio = document.getElementById("song");
 
         function playMusic() {
-
           audio.src = tracks[currentTrack];
-
           audio.play();
-
         }
 
         audio.addEventListener("ended", () => {
-
           currentTrack++;
 
           if (currentTrack >= tracks.length) {
@@ -322,19 +336,15 @@
           }
 
           audio.src = tracks[currentTrack];
-
           audio.play();
-
         });
 
         const hearts = ["🖤", "❤️", "💜", "💔", "✨", "♡"];
 
         document.addEventListener("click", function(e) {
-
           const heart = document.createElement("div");
 
           heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
-
           heart.className = "heart";
 
           heart.style.left = e.pageX + "px";
@@ -345,13 +355,10 @@
           setTimeout(() => {
             heart.remove();
           }, 2000);
-
         });
-
       </script>
 
     </section>
-
   </main>
 
 </body>
