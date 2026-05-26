@@ -37,6 +37,15 @@
       overflow-x: hidden;
     }
 
+    .cats-overlay{
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+
     .card {
       width: min(900px, 100%);
       padding: 42px 32px;
@@ -204,6 +213,8 @@
 </head>
 
 <body>
+
+  <img src="cats.png" class="cats-overlay">
 
   <main class="card">
 
