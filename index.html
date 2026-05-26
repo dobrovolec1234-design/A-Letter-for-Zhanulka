@@ -26,11 +26,9 @@
       justify-content: center;
       padding: 32px 16px;
       color: #f4eee6;
-
       background:
         radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 35%),
         linear-gradient(135deg, #0b0b0f, #171119 45%, #050506);
-
       font-family: "Literata", serif;
       overflow-x: hidden;
     }
@@ -38,54 +36,63 @@
     .cat-left-top {
       position: fixed;
       left: -45px;
-      top: 35px;
-      width: 190px;
+      top: 45px;
+      width: 210px;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 28px;
       z-index: 1;
       pointer-events: none;
-      opacity: 0.95;
+      opacity: 0.9;
     }
 
     .cat-right-top {
       position: fixed;
       right: -45px;
-      top: 35px;
-      width: 190px;
+      top: 45px;
+      width: 210px;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 28px;
       z-index: 1;
       pointer-events: none;
-      opacity: 0.95;
+      opacity: 0.9;
     }
 
     .cat-left-bottom {
       position: fixed;
-      left: -35px;
-      bottom: 55px;
-      width: 190px;
+      left: -45px;
+      bottom: 45px;
+      width: 210px;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 28px;
       z-index: 1;
       pointer-events: none;
-      opacity: 0.95;
+      opacity: 0.9;
     }
 
     .cat-right-bottom {
       position: fixed;
-      right: -35px;
-      bottom: 55px;
-      width: 190px;
+      right: -45px;
+      bottom: 45px;
+      width: 210px;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 28px;
       z-index: 1;
       pointer-events: none;
-      opacity: 0.95;
+      opacity: 0.9;
     }
 
     .card {
       width: min(900px, 100%);
       padding: 42px 32px;
-
       border: 1px solid rgba(255,255,255,0.16);
       border-radius: 28px;
-
       background: rgba(10,10,12,0.68);
       box-shadow: 0 24px 80px rgba(0,0,0,0.45);
       backdrop-filter: blur(14px);
-
       position: relative;
       overflow: hidden;
       z-index: 5;
@@ -204,28 +211,29 @@
       .cat-right-top,
       .cat-left-bottom,
       .cat-right-bottom {
-        width: 120px;
-        opacity: 0.75;
+        width: 115px;
+        height: 115px;
+        opacity: 0.65;
       }
 
       .cat-left-top {
-        left: -50px;
-        top: 20px;
+        left: -55px;
+        top: 25px;
       }
 
       .cat-right-top {
-        right: -50px;
-        top: 20px;
+        right: -55px;
+        top: 25px;
       }
 
       .cat-left-bottom {
-        left: -45px;
-        bottom: 20px;
+        left: -55px;
+        bottom: 25px;
       }
 
       .cat-right-bottom {
-        right: -45px;
-        bottom: 20px;
+        right: -55px;
+        bottom: 25px;
       }
     }
   </style>
@@ -233,10 +241,10 @@
 
 <body>
 
-  <img src="cat.jpg" class="cat-left-top">
-  <img src="cat2.jpg" class="cat-right-top">
-  <img src="cat3.jpg" class="cat-left-bottom">
-  <img src="cat4.jpg" class="cat-right-bottom">
+  <img src="cats.jpg" class="cat-left-top">
+  <img src="cats2.jpg" class="cat-right-top">
+  <img src="cats3.jpg" class="cat-left-bottom">
+  <img src="cats4.jpg" class="cat-right-bottom">
 
   <main class="card">
     <section class="content">
@@ -320,7 +328,6 @@
         ];
 
         let currentTrack = 0;
-
         const audio = document.getElementById("song");
 
         function playMusic() {
