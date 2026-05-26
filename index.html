@@ -36,35 +36,6 @@
       overflow-x: hidden;
     }
 
-    .cat-corner {
-      position: fixed;
-      width: 240px;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    .cat-top-left {
-      top: -10px;
-      left: -10px;
-    }
-
-    .cat-top-right {
-      top: -10px;
-      right: -10px;
-      transform: scaleX(-1);
-    }
-
-    .cat-bottom-left {
-      bottom: 40px;
-      left: -10px;
-    }
-
-    .cat-bottom-right {
-      bottom: -10px;
-      right: -10px;
-      transform: scaleX(-1);
-    }
-
     .card {
       width: min(900px, 100%);
       padding: 42px 32px;
@@ -194,11 +165,6 @@
 
 <body>
 
-  <img src="cat.png" class="cat-corner cat-top-left">
-  <img src="cat.png" class="cat-corner cat-top-right">
-  <img src="cat.png" class="cat-corner cat-bottom-left">
-  <img src="cat.png" class="cat-corner cat-bottom-right">
-
   <main class="card">
     <section class="content">
 
@@ -286,8 +252,10 @@
         const audio = document.getElementById("song");
 
         function playMusic() {
+
           audio.src = tracks[currentTrack];
           audio.play();
+
         }
 
         audio.addEventListener("ended", () => {
