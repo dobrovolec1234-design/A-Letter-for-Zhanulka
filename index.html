@@ -168,6 +168,18 @@
       opacity: 0.56;
     }
 
+    .autograph{
+      width: 260px;
+      display: block;
+      margin: 35px auto 10px;
+      opacity: 0.18;
+      pointer-events: none;
+      user-select: none;
+
+      filter:
+        drop-shadow(0 0 14px rgba(255,255,255,0.08));
+    }
+
     .music-control {
       display: flex;
       gap: 14px;
@@ -220,6 +232,7 @@
     }
 
     @media (max-width: 900px) {
+
       .cat-left-top,
       .cat-right-top,
       .cat-left-bottom,
@@ -255,6 +268,11 @@
 
       .volume-control {
         width: 100%;
+      }
+
+      .autograph{
+        width: 180px;
+        opacity: 0.14;
       }
     }
   </style>
@@ -335,7 +353,10 @@
         скрытое письмо, открытое через QR-код
       </div>
 
+      <img src="Autograph.jpg" class="autograph">
+
       <div class="music-control">
+
         <button onclick="playMusic()" class="music-btn">
           включить музыку
         </button>
@@ -349,11 +370,13 @@
           id="volumeControl"
           class="volume-control"
         >
+
       </div>
 
       <audio id="song"></audio>
 
       <script>
+
         const tracks = [
           "track1.mp3",
           "track2.mp3",
@@ -361,14 +384,19 @@
         ];
 
         let currentTrack = 0;
+
         const audio = document.getElementById("song");
 
         function playMusic() {
+
           audio.src = tracks[currentTrack];
+
           audio.play();
+
         }
 
         audio.addEventListener("ended", () => {
+
           currentTrack++;
 
           if (currentTrack >= tracks.length) {
@@ -376,21 +404,27 @@
           }
 
           audio.src = tracks[currentTrack];
+
           audio.play();
+
         });
 
         const volumeControl = document.getElementById("volumeControl");
 
         volumeControl.addEventListener("input", function() {
+
           audio.volume = this.value;
+
         });
 
         const hearts = ["🖤", "❤️", "💜", "💔", "✨", "♡"];
 
         document.addEventListener("click", function(e) {
+
           const heart = document.createElement("div");
 
           heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+
           heart.className = "heart";
 
           heart.style.left = e.pageX + "px";
@@ -401,7 +435,9 @@
           setTimeout(() => {
             heart.remove();
           }, 2000);
+
         });
+
       </script>
 
     </section>
