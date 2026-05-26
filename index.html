@@ -37,44 +37,26 @@
       overflow-x: hidden;
     }
 
-    .cat-top-left{
+    .cats-overlay{
       position: fixed;
-      top: -20px;
-      left: -20px;
-      width: 250px;
-      z-index: 0;
+
+      top: 0;
+      left: 0;
+
+      width: 100vw;
+      height: 100vh;
+
+      object-fit: cover;
+
       pointer-events: none;
-    }
-
-    .cat-top-right{
-      position: fixed;
-      top: -20px;
-      right: -20px;
-      width: 250px;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .cat-bottom-left{
-      position: fixed;
-
-      bottom: 120px;
-      left: -40px;
-
-      width: 260px;
 
       z-index: 0;
 
-      pointer-events: none;
-    }
+      opacity: 0.95;
 
-    .cat-bottom-right{
-      position: fixed;
-      bottom: -20px;
-      right: -20px;
-      width: 250px;
-      z-index: 0;
-      pointer-events: none;
+      padding: 40px;
+
+      box-sizing: border-box;
     }
 
     .card {
@@ -247,10 +229,7 @@
 
 <body>
 
-  <img src="cat1.png" class="cat-top-left">
-  <img src="cat2.png" class="cat-top-right">
-  <img src="cat3.png" class="cat-bottom-left">
-  <img src="cat4.png" class="cat-bottom-right">
+  <img src="cats.png" class="cats-overlay">
 
   <main class="card">
 
