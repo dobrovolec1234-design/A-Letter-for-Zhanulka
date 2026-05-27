@@ -14,392 +14,248 @@
   <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
 
   <style>
+    * { box-sizing: border-box; }
 
-    *{
-      box-sizing:border-box;
-    }
-
-    body{
-      margin:0;
-      min-height:100vh;
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-
-      padding:32px 16px;
-
-      color:#f4eee6;
-
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+      color: #f4eee6;
       background:
-        radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 35%),
-        linear-gradient(135deg,#0b0b0f,#171119 45%,#050506);
-
-      font-family:"Literata", serif;
-
-      overflow-x:hidden;
+        radial-gradient(circle at top, rgba(120,70,160,0.18), transparent 35%),
+        linear-gradient(135deg, #07070a, #140b18 45%, #030304);
+      font-family: "Literata", serif;
+      overflow-x: hidden;
+      position: relative;
     }
 
-    /* АВТОГРАФ */
-
-    .signature-bg{
-      position:fixed;
-
-      top:50%;
-      left:50%;
-
-      transform:
-        translate(-50%, -50%)
-        scale(2.5);
-
-      width:1200px;
-
-      opacity:0.06;
-
-      z-index:0;
-
-      pointer-events:none;
-
+    .signature-bg {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 1350px;
+      max-width: none;
+      transform: translate(-50%, -50%) rotate(-5deg);
+      opacity: 0.16;
+      z-index: 0;
+      pointer-events: none;
+      user-select: none;
       filter:
-        drop-shadow(0 0 25px rgba(255,255,255,0.15))
-        blur(0.4px);
+        drop-shadow(0 0 18px rgba(255,255,255,0.16))
+        drop-shadow(0 0 38px rgba(160,90,255,0.14));
     }
 
-    /* КОТИКИ */
-
-    .cat-left-top{
-      position:fixed;
-      left:-45px;
-      top:45px;
-
-      width:210px;
-      height:210px;
-
-      object-fit:cover;
-
-      border-radius:28px;
-
-      z-index:1;
-
-      pointer-events:none;
-
-      opacity:0.9;
+    .rain {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden;
     }
 
-    .cat-right-top{
-      position:fixed;
-      right:-45px;
-      top:45px;
-
-      width:210px;
-      height:210px;
-
-      object-fit:cover;
-
-      border-radius:28px;
-
-      z-index:1;
-
-      pointer-events:none;
-
-      opacity:0.9;
+    .drop {
+      position: absolute;
+      top: -120px;
+      width: 1px;
+      height: 90px;
+      background: linear-gradient(transparent, rgba(255,255,255,0.28));
+      animation: rainFall linear infinite;
+      opacity: 0.45;
     }
 
-    .cat-left-bottom{
-      position:fixed;
-      left:-45px;
-      bottom:45px;
-
-      width:210px;
-      height:210px;
-
-      object-fit:cover;
-
-      border-radius:28px;
-
-      z-index:1;
-
-      pointer-events:none;
-
-      opacity:0.9;
+    @keyframes rainFall {
+      to {
+        transform: translateY(120vh);
+      }
     }
 
-    .cat-right-bottom{
-      position:fixed;
-      right:-45px;
-      bottom:45px;
-
-      width:210px;
-      height:210px;
-
-      object-fit:cover;
-
-      border-radius:28px;
-
-      z-index:1;
-
-      pointer-events:none;
-
-      opacity:0.9;
+    .cat-left-top,
+    .cat-right-top,
+    .cat-left-bottom,
+    .cat-right-bottom {
+      position: fixed;
+      width: 210px;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 28px;
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0.9;
     }
 
-    .card{
-      width:min(900px,100%);
+    .cat-left-top { left: -45px; top: 45px; }
+    .cat-right-top { right: -45px; top: 45px; }
+    .cat-left-bottom { left: -45px; bottom: 45px; }
+    .cat-right-bottom { right: -45px; bottom: 45px; }
 
-      padding:42px 32px;
-
-      border:1px solid rgba(255,255,255,0.16);
-      border-radius:28px;
-
-      background:rgba(10,10,12,0.68);
-
-      box-shadow:0 24px 80px rgba(0,0,0,0.45);
-
-      backdrop-filter:blur(14px);
-
-      position:relative;
-
-      overflow:hidden;
-
-      z-index:5;
+    .card {
+      width: min(900px, 100%);
+      padding: 42px 32px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 28px;
+      background: rgba(10,10,12,0.72);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.55);
+      backdrop-filter: blur(14px);
+      position: relative;
+      overflow: hidden;
+      z-index: 5;
     }
 
-    .content{
-      position:relative;
-      z-index:2;
+    .content {
+      position: relative;
+      z-index: 1;
     }
 
-    h1{
-      margin:0 0 26px;
-
-      font-family:"UnifrakturMaguntia", serif;
-
-      font-size:clamp(48px,10vw,86px);
-
-      font-weight:400;
-
-      text-align:center;
-
-      color:#fff7ec;
+    h1 {
+      margin: 0 0 26px;
+      font-family: "UnifrakturMaguntia", serif;
+      font-size: clamp(48px, 10vw, 86px);
+      font-weight: 400;
+      text-align: center;
+      color: #fff7ec;
     }
 
-    .slider{
-      width:100%;
-
-      overflow:hidden;
-
-      margin-bottom:32px;
-
-      border-radius:24px;
+    .slider {
+      width: 100%;
+      overflow: hidden;
+      margin-bottom: 32px;
+      border-radius: 24px;
     }
 
-    .slide-track{
-      display:flex;
-
-      gap:18px;
-
-      width:max-content;
-
-      animation:scroll 50s linear infinite;
+    .slide-track {
+      display: flex;
+      gap: 18px;
+      width: max-content;
+      animation: scroll 50s linear infinite;
     }
 
-    .slide-track img{
-      width:300px;
-      height:400px;
-
-      object-fit:cover;
-
-      border-radius:22px;
-
-      flex-shrink:0;
-
-      box-shadow:0 12px 40px rgba(0,0,0,0.45);
+    .slide-track img {
+      width: 300px;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 22px;
+      flex-shrink: 0;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.45);
     }
 
-    @keyframes scroll{
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-3180px); }
+    }
 
-      from{
-        transform:translateX(0);
+    p {
+      margin: 0 0 18px;
+      font-size: clamp(17px, 2.5vw, 21px);
+      line-height: 1.75;
+    }
+
+    .quote {
+      margin-top: 30px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,255,255,0.18);
+      font-family: "UnifrakturMaguntia", serif;
+      font-size: clamp(24px, 5vw, 38px);
+      text-align: center;
+      opacity: 0.9;
+    }
+
+    .small, .stats {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 14px;
+      opacity: 0.65;
+    }
+
+    .music-control {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .music-btn {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.06);
+      color: #f4eee6;
+      font-size: 18px;
+      font-family: "Literata", serif;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .music-btn:hover {
+      background: rgba(255,255,255,0.12);
+    }
+
+    .volume-control {
+      width: 150px;
+      accent-color: white;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      pointer-events: none;
+      animation: floatUp 2s linear forwards;
+      z-index: 9999;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
       }
 
-      to{
-        transform:translateX(-3180px);
+      100% {
+        transform: translate(-50%, -180px) scale(1.8) rotate(20deg);
+        opacity: 0;
       }
-
     }
 
-    p{
-      margin:0 0 18px;
-
-      font-size:clamp(17px,2.5vw,21px);
-
-      line-height:1.75;
-    }
-
-    .quote{
-      margin-top:30px;
-
-      padding-top:22px;
-
-      border-top:1px solid rgba(255,255,255,0.18);
-
-      font-family:"UnifrakturMaguntia", serif;
-
-      font-size:clamp(24px,5vw,38px);
-
-      text-align:center;
-
-      opacity:0.9;
-    }
-
-    .small{
-      margin-top:18px;
-
-      text-align:center;
-
-      font-size:14px;
-
-      opacity:0.56;
-    }
-
-    .music-control{
-      display:flex;
-
-      gap:14px;
-
-      align-items:center;
-
-      margin-top:30px;
-    }
-
-    .music-btn{
-      width:100%;
-
-      padding:14px;
-
-      border:1px solid rgba(255,255,255,0.2);
-
-      border-radius:14px;
-
-      background:rgba(255,255,255,0.06);
-
-      color:#f4eee6;
-
-      font-size:18px;
-
-      font-family:"Literata", serif;
-
-      cursor:pointer;
-
-      transition:0.3s;
-    }
-
-    .music-btn:hover{
-      background:rgba(255,255,255,0.12);
-    }
-
-    .volume-control{
-      width:150px;
-
-      accent-color:white;
-
-      cursor:pointer;
-
-      flex-shrink:0;
-    }
-
-    .heart{
-      position:absolute;
-
-      font-size:24px;
-
-      pointer-events:none;
-
-      animation:floatUp 2s linear forwards;
-
-      z-index:9999;
-    }
-
-    @keyframes floatUp{
-
-      0%{
-        transform:translate(-50%, -50%) scale(1);
-        opacity:1;
-      }
-
-      100%{
-        transform:
-          translate(-50%, -180px)
-          scale(1.8)
-          rotate(20deg);
-
-        opacity:0;
-      }
-
-    }
-
-    @media(max-width:900px){
-
-      .signature-bg{
-        width:700px;
-
-        transform:
-          translate(-50%, -50%)
-          scale(2.1);
-
-        opacity:0.05;
+    @media (max-width: 900px) {
+      .signature-bg {
+        width: 1050px;
+        opacity: 0.12;
       }
 
       .cat-left-top,
       .cat-right-top,
       .cat-left-bottom,
-      .cat-right-bottom{
-        width:115px;
-        height:115px;
-
-        opacity:0.65;
+      .cat-right-bottom {
+        width: 115px;
+        height: 115px;
+        opacity: 0.65;
       }
 
-      .cat-left-top{
-        left:-55px;
-        top:25px;
+      .cat-left-top { left: -55px; top: 25px; }
+      .cat-right-top { right: -55px; top: 25px; }
+      .cat-left-bottom { left: -55px; bottom: 25px; }
+      .cat-right-bottom { right: -55px; bottom: 25px; }
+
+      .music-control {
+        flex-direction: column;
       }
 
-      .cat-right-top{
-        right:-55px;
-        top:25px;
+      .volume-control {
+        width: 100%;
       }
-
-      .cat-left-bottom{
-        left:-55px;
-        bottom:25px;
-      }
-
-      .cat-right-bottom{
-        right:-55px;
-        bottom:25px;
-      }
-
-      .music-control{
-        flex-direction:column;
-      }
-
-      .volume-control{
-        width:100%;
-      }
-
     }
-
   </style>
 </head>
 
 <body>
 
-  <!-- АВТОГРАФ -->
+  <img src="Autograph.jpg" class="signature-bg">
 
-  <img src="autograph.png" class="signature-bg">
-
-  <!-- КОТИКИ -->
+  <div class="rain" id="rain"></div>
 
   <img src="cats.jpg" class="cat-left-top">
   <img src="cats2.jpg" class="cat-right-top">
@@ -407,15 +263,12 @@
   <img src="cats4.jpg" class="cat-right-bottom">
 
   <main class="card">
-
     <section class="content">
 
       <h1>Для Жанульки</h1>
 
       <div class="slider">
-
         <div class="slide-track">
-
           <img src="photo1.jpg">
           <img src="photo2.jpg">
           <img src="photo3.jpg">
@@ -437,9 +290,7 @@
           <img src="photo8.jpg">
           <img src="photo9.jpg">
           <img src="photo10.jpg">
-
         </div>
-
       </div>
 
       <p>
@@ -477,8 +328,11 @@
         скрытое письмо, открытое через QR-код
       </div>
 
-      <div class="music-control">
+      <div class="stats">
+        ❤️ Сердечек нажато: <span id="heartCount">0</span>
+      </div>
 
+      <div class="music-control">
         <button onclick="playMusic()" class="music-btn">
           включить музыку
         </button>
@@ -492,12 +346,23 @@
           id="volumeControl"
           class="volume-control"
         >
-
       </div>
 
       <audio id="song"></audio>
 
       <script>
+        const rain = document.getElementById("rain");
+
+        for (let i = 0; i < 90; i++) {
+          const drop = document.createElement("span");
+          drop.className = "drop";
+          drop.style.left = Math.random() * 100 + "vw";
+          drop.style.animationDuration = 0.8 + Math.random() * 1.4 + "s";
+          drop.style.animationDelay = Math.random() * 2 + "s";
+          drop.style.opacity = 0.15 + Math.random() * 0.35;
+          drop.style.height = 45 + Math.random() * 95 + "px";
+          rain.appendChild(drop);
+        }
 
         const tracks = [
           "track1.mp3",
@@ -506,57 +371,42 @@
         ];
 
         let currentTrack = 0;
-
         const audio = document.getElementById("song");
 
-        function playMusic(){
-
+        function playMusic() {
           audio.src = tracks[currentTrack];
-
           audio.play();
-
         }
 
         audio.addEventListener("ended", () => {
-
           currentTrack++;
 
-          if(currentTrack >= tracks.length){
+          if (currentTrack >= tracks.length) {
             currentTrack = 0;
           }
 
           audio.src = tracks[currentTrack];
-
           audio.play();
-
         });
 
-        const volumeControl =
-          document.getElementById("volumeControl");
+        const volumeControl = document.getElementById("volumeControl");
 
-        volumeControl.addEventListener("input", function(){
-
+        volumeControl.addEventListener("input", function() {
           audio.volume = this.value;
-
         });
 
-        const hearts = [
-          "🖤",
-          "❤️",
-          "💜",
-          "💔",
-          "✨",
-          "♡"
-        ];
+        let heartCount = 0;
+        const heartCountText = document.getElementById("heartCount");
 
-        document.addEventListener("click", function(e){
+        const hearts = ["🖤", "❤️", "💜", "💔", "✨", "♡"];
 
-          const heart =
-            document.createElement("div");
+        document.addEventListener("click", function(e) {
+          heartCount++;
+          heartCountText.textContent = heartCount;
 
-          heart.innerHTML =
-            hearts[Math.floor(Math.random() * hearts.length)];
+          const heart = document.createElement("div");
 
+          heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
           heart.className = "heart";
 
           heart.style.left = e.pageX + "px";
@@ -565,17 +415,12 @@
           document.body.appendChild(heart);
 
           setTimeout(() => {
-
             heart.remove();
-
           }, 2000);
-
         });
-
       </script>
 
     </section>
-
   </main>
 
 </body>
