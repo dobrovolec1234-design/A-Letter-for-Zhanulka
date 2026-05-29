@@ -3,14 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Для Жанульки</title>
 
   <link rel="icon" type="image/png" href="favicon.png">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
 
   <style>
@@ -92,19 +89,14 @@
     .card {
       width: min(900px, 100%);
       padding: 42px 32px;
-
       border: 1px solid rgba(255,255,255,0.12);
       border-radius: 28px;
-
       background: rgba(8,8,12,0.32);
-
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-
       box-shadow:
         0 0 40px rgba(180,120,255,0.08),
         0 24px 80px rgba(0,0,0,0.45);
-
       position: relative;
       overflow: hidden;
       z-index: 5;
@@ -172,7 +164,23 @@
       margin-top: 18px;
       text-align: center;
       font-size: 14px;
-      opacity: 0.65;
+      opacity: 0.75;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .stat-box {
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      text-align: center;
+      font-size: 14px;
     }
 
     .music-control {
@@ -182,7 +190,9 @@
       margin-top: 30px;
     }
 
-    .music-btn {
+    .music-btn,
+    .save-btn,
+    .send-btn {
       width: 100%;
       padding: 14px;
       border: 1px solid rgba(255,255,255,0.2);
@@ -195,7 +205,9 @@
       transition: 0.3s;
     }
 
-    .music-btn:hover {
+    .music-btn:hover,
+    .save-btn:hover,
+    .send-btn:hover {
       background: rgba(255,255,255,0.12);
     }
 
@@ -204,6 +216,56 @@
       accent-color: white;
       cursor: pointer;
       flex-shrink: 0;
+    }
+
+    .user-panel,
+    .message-panel {
+      margin-top: 28px;
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .user-panel input,
+    .message-panel textarea {
+      width: 100%;
+      margin-top: 10px;
+      padding: 13px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.25);
+      color: #f4eee6;
+      font-family: "Literata", serif;
+      font-size: 15px;
+      outline: none;
+    }
+
+    .message-panel textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .message-list {
+      margin-top: 26px;
+    }
+
+    .message-item {
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .message-name {
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .message-text {
+      opacity: 0.86;
+      line-height: 1.55;
     }
 
     .heart {
@@ -252,6 +314,10 @@
 
       .volume-control {
         width: 100%;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -334,8 +400,33 @@
         скрытое письмо, открытое через QR-код
       </div>
 
-      <div class="stats">
-        ❤️ Сердечек нажато: <span id="heartCount">0</span>
+      <div class="stats-grid">
+        <div class="stat-box">❤️ Сердечек: <span id="heartCount">0</span></div>
+        <div class="stat-box">👀 Просмотров: <span id="viewCount">0</span></div>
+        <div class="stat-box">🎵 Музыку включали: <span id="musicCount">0</span></div>
+      </div>
+
+      <div class="user-panel">
+        <div>👤 Твой ник:</div>
+        <input id="nicknameInput" maxlength="24" placeholder="Например: MoonCat">
+        <button class="save-btn" id="saveNicknameBtn" style="margin-top:12px;">
+          сохранить ник
+        </button>
+        <div class="small">Твой ID создаётся случайно. Почта, имя и IP не сохраняются.</div>
+      </div>
+
+      <div class="message-panel">
+        <div>💌 Написать пожелание Жанульке:</div>
+        <textarea id="messageInput" maxlength="700" placeholder="Напиши свою историю или пожелание..."></textarea>
+        <button class="send-btn" id="sendMessageBtn" style="margin-top:12px;">
+          отправить на модерацию
+        </button>
+        <div class="small">Сообщение появится на сайте только после одобрения.</div>
+      </div>
+
+      <div class="message-list">
+        <div class="quote" style="font-size:28px;">пожелания</div>
+        <div id="approvedMessages"></div>
       </div>
 
       <div class="music-control">
@@ -356,7 +447,32 @@
 
       <audio id="song"></audio>
 
-      <script>
+      <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+        import {
+          getDatabase,
+          ref,
+          onValue,
+          runTransaction,
+          set,
+          push,
+          serverTimestamp,
+          update
+        } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-database.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyAnBQnt8bK-3G0zjNyIQsLY5s--rjIV2Mk",
+          authDomain: "a-letter-for-zhanulka.firebaseapp.com",
+          databaseURL: "https://a-letter-for-zhanulka-default-rtdb.europe-west1.firebasedatabase.app",
+          projectId: "a-letter-for-zhanulka",
+          storageBucket: "a-letter-for-zhanulka.firebasestorage.app",
+          messagingSenderId: "479179895784",
+          appId: "1:479179895784:web:7f3bcd70ed9070c0816a5d"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
         const rain = document.getElementById("rain");
 
         for (let i = 0; i < 90; i++) {
@@ -370,6 +486,128 @@
           rain.appendChild(drop);
         }
 
+        let userId = localStorage.getItem("zhanulkaUserId");
+
+        if (!userId) {
+          userId = "user_" + Math.random().toString(36).slice(2, 10);
+          localStorage.setItem("zhanulkaUserId", userId);
+        }
+
+        const savedNickname = localStorage.getItem("zhanulkaNickname") || "";
+        const nicknameInput = document.getElementById("nicknameInput");
+        nicknameInput.value = savedNickname;
+
+        const userRef = ref(db, "users/" + userId);
+
+        update(userRef, {
+          lastVisit: serverTimestamp()
+        });
+
+        const visitedKey = "zhanulkaVisited";
+
+        if (!sessionStorage.getItem(visitedKey)) {
+          sessionStorage.setItem(visitedKey, "yes");
+
+          runTransaction(ref(db, "stats/views"), (current) => {
+            return (current || 0) + 1;
+          });
+        }
+
+        onValue(ref(db, "stats/hearts"), (snapshot) => {
+          document.getElementById("heartCount").textContent = snapshot.val() || 0;
+        });
+
+        onValue(ref(db, "stats/views"), (snapshot) => {
+          document.getElementById("viewCount").textContent = snapshot.val() || 0;
+        });
+
+        onValue(ref(db, "stats/music"), (snapshot) => {
+          document.getElementById("musicCount").textContent = snapshot.val() || 0;
+        });
+
+        document.getElementById("saveNicknameBtn").addEventListener("click", async () => {
+          const nickname = nicknameInput.value.trim().slice(0, 24);
+
+          if (!nickname) {
+            alert("Напиши ник");
+            return;
+          }
+
+          localStorage.setItem("zhanulkaNickname", nickname);
+
+          await update(userRef, {
+            nickname: nickname,
+            updatedAt: serverTimestamp()
+          });
+
+          alert("Ник сохранён");
+        });
+
+        document.getElementById("sendMessageBtn").addEventListener("click", async () => {
+          const text = document.getElementById("messageInput").value.trim();
+          const nickname = nicknameInput.value.trim() || "Гость";
+
+          if (text.length < 5) {
+            alert("Сообщение слишком короткое");
+            return;
+          }
+
+          const newMessageRef = push(ref(db, "messages"));
+
+          await set(newMessageRef, {
+            userId: userId,
+            nickname: nickname.slice(0, 24),
+            text: text.slice(0, 700),
+            status: "pending",
+            createdAt: serverTimestamp()
+          });
+
+          document.getElementById("messageInput").value = "";
+          alert("Отправлено на модерацию");
+        });
+
+        onValue(ref(db, "messages"), (snapshot) => {
+          const box = document.getElementById("approvedMessages");
+          box.innerHTML = "";
+
+          const messages = snapshot.val();
+
+          if (!messages) {
+            box.innerHTML = `<div class="small">Пока нет одобренных пожеланий.</div>`;
+            return;
+          }
+
+          const approved = Object.values(messages)
+            .filter(msg => msg.status === "approved")
+            .sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+          if (approved.length === 0) {
+            box.innerHTML = `<div class="small">Пока нет одобренных пожеланий.</div>`;
+            return;
+          }
+
+          approved.forEach(msg => {
+            const item = document.createElement("div");
+            item.className = "message-item";
+
+            item.innerHTML = `
+              <div class="message-name">💜 ${escapeHTML(msg.nickname || "Гость")}</div>
+              <div class="message-text">${escapeHTML(msg.text || "")}</div>
+            `;
+
+            box.appendChild(item);
+          });
+        });
+
+        function escapeHTML(text) {
+          return String(text)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+        }
+
         const tracks = [
           "track1.mp3",
           "track2.mp3",
@@ -378,11 +616,20 @@
 
         let currentTrack = 0;
         const audio = document.getElementById("song");
+        let musicCounted = false;
 
-        function playMusic() {
+        window.playMusic = function() {
           audio.src = tracks[currentTrack];
           audio.play();
-        }
+
+          if (!musicCounted) {
+            musicCounted = true;
+
+            runTransaction(ref(db, "stats/music"), (current) => {
+              return (current || 0) + 1;
+            });
+          }
+        };
 
         audio.addEventListener("ended", () => {
           currentTrack++;
@@ -401,14 +648,16 @@
           audio.volume = this.value;
         });
 
-        let heartCount = 0;
-        const heartCountText = document.getElementById("heartCount");
-
         const hearts = ["🖤", "❤️", "💜", "💔", "✨", "♡"];
 
         document.addEventListener("click", function(e) {
-          heartCount++;
-          heartCountText.textContent = heartCount;
+          runTransaction(ref(db, "stats/hearts"), (current) => {
+            return (current || 0) + 1;
+          });
+
+          runTransaction(ref(db, "users/" + userId + "/hearts"), (current) => {
+            return (current || 0) + 1;
+          });
 
           const heart = document.createElement("div");
 
