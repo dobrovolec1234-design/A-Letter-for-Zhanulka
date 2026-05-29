@@ -114,7 +114,7 @@
 
     .tabs {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(5, 1fr);
       gap: 10px;
       margin-bottom: 28px;
     }
@@ -370,37 +370,63 @@
       white-space: pre-wrap;
     }
 
+    .story-form-title {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .story-viewer {
+      display: grid;
+      grid-template-columns: 54px 1fr 54px;
+      gap: 12px;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .story-arrow {
+      height: 54px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      color: #f4eee6;
+      font-size: 26px;
+      cursor: pointer;
+    }
+
+    .story-arrow:hover {
+      background: rgba(255,255,255,0.14);
+    }
+
     .story-card {
       padding: 18px;
       border-radius: 20px;
       background: rgba(255,255,255,0.055);
       border: 1px solid rgba(255,255,255,0.12);
-      margin-top: 18px;
     }
 
     .story-title {
-      font-family: "UnifrakturMaguntia", serif;
-      font-size: clamp(26px, 5vw, 40px);
-      text-align: center;
-      margin-bottom: 18px;
-      color: #fff7ec;
+      font-weight: 700;
+      color: #f1c9ff;
+      margin-bottom: 8px;
+      font-size: 20px;
+    }
+
+    .story-author {
+      opacity: 0.7;
+      margin-bottom: 12px;
+      font-size: 14px;
     }
 
     .story-text {
+      opacity: 0.9;
+      line-height: 1.65;
       white-space: pre-wrap;
-    }
-
-    .story-nav {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 18px;
     }
 
     .story-counter {
       text-align: center;
-      margin-top: 12px;
       opacity: 0.65;
+      margin-top: 12px;
       font-size: 14px;
     }
 
@@ -461,7 +487,7 @@
         grid-template-columns: 56px 1fr 56px;
       }
 
-      .story-nav {
+      .story-viewer {
         grid-template-columns: 1fr;
       }
     }
@@ -510,6 +536,7 @@
         <button class="tab-btn" data-tab="wishes">💌 Пожелания</button>
         <button class="tab-btn" data-tab="top">🏆 Топ</button>
         <button class="tab-btn" data-tab="stats">📊 Статистика</button>
+        <button class="tab-btn" data-tab="stories">📖 Истории</button>
       </div>
 
       <div class="tab active" id="letter">
@@ -522,17 +549,32 @@
           </div>
         </div>
 
-        <div class="story-card">
-          <div class="story-title" id="storyTitle">История</div>
-          <div class="story-text" id="storyText"></div>
+        <p>
+          Мой путь прослушивания твоей музыки начался с сериала
+          «Трудные подростки». В 3 сезоне 1 серии я услышал песню
+          «Синдром Бога», и с того самого момента твоя музыка начала
+          звучать у меня буквально 24/7.
+        </p>
 
-          <div class="story-nav">
-            <button class="save-btn" id="prevStoryBtn">← предыдущая история</button>
-            <button class="save-btn" id="nextStoryBtn">следующая история →</button>
-          </div>
+        <p>
+          Твои песни были рядом в моменты, когда внутри было слишком
+          много мыслей и слишком мало нужных слов.
+        </p>
 
-          <div class="story-counter" id="storyCounter">История 1 / 1</div>
-        </div>
+        <p>
+          А потом я услышал твои треки в «Зайчике» и снова почувствовал
+          тот самый первый вайб знакомства с твоим творчеством.
+        </p>
+
+        <p>
+          Спасибо тебе за искренность, атмосферу и эмоции, которые ты
+          вкладываешь в свои песни. Ты даже не представляешь, сколько
+          тепла и смысла твоя музыка может дать человеку.
+        </p>
+
+        <p>
+          Я очень благодарен, что однажды услышал твои песни.
+        </p>
 
         <div class="quote">thank you for the music</div>
 
@@ -592,6 +634,38 @@
           <div class="stat-box">🎧 Твои запуски: <span id="myMusic">0</span></div>
           <div class="stat-box">🆔 ID: <span id="myId">не вошёл</span></div>
         </div>
+      </div>
+
+      <div class="tab" id="stories">
+        <div class="panel">
+          <div class="story-form-title">📖 Отправить историю</div>
+
+          <input id="storyTitleInput" maxlength="80" placeholder="Название истории">
+
+          <textarea
+            id="storyTextInput"
+            maxlength="3000"
+            placeholder="Напиши свою историю о Жанульке..."
+          ></textarea>
+
+          <button class="send-btn" id="sendStoryBtn" style="margin-top:12px;">
+            отправить историю на модерацию
+          </button>
+
+          <div class="small">
+            История появится на сайте только после одобрения в админке.
+          </div>
+        </div>
+
+        <div class="quote" style="font-size:28px;">📚 Истории фанатов</div>
+
+        <div class="story-viewer">
+          <button class="story-arrow" id="storyPrev">←</button>
+          <div id="storyContainer"></div>
+          <button class="story-arrow" id="storyNext">→</button>
+        </div>
+
+        <div class="story-counter" id="storyCounter">История 0 / 0</div>
       </div>
 
       <div class="music-player">
@@ -782,81 +856,6 @@
           });
         });
 
-        const fallbackStories = [
-          {
-            title: "Мой путь к твоей музыке",
-            text: `Мой путь прослушивания твоей музыки начался с сериала
-«Трудные подростки». В 3 сезоне 1 серии я услышал песню
-«Синдром Бога», и с того самого момента твоя музыка начала
-звучать у меня буквально 24/7.
-
-Твои песни были рядом в моменты, когда внутри было слишком
-много мыслей и слишком мало нужных слов.
-
-А потом я услышал твои треки в «Зайчике» и снова почувствовал
-тот самый первый вайб знакомства с твоим творчеством.
-
-Спасибо тебе за искренность, атмосферу и эмоции, которые ты
-вкладываешь в свои песни. Ты даже не представляешь, сколько
-тепла и смысла твоя музыка может дать человеку.
-
-Я очень благодарен, что однажды услышал твои песни.`
-          }
-        ];
-
-        let stories = fallbackStories;
-        let currentStory = 0;
-
-        function renderStory() {
-          const story = stories[currentStory] || fallbackStories[0];
-
-          document.getElementById("storyTitle").textContent = story.title || "История";
-          document.getElementById("storyText").textContent = story.text || "";
-          document.getElementById("storyCounter").textContent =
-            "История " + (currentStory + 1) + " / " + stories.length;
-        }
-
-        document.getElementById("prevStoryBtn").addEventListener("click", () => {
-          currentStory--;
-
-          if (currentStory < 0) {
-            currentStory = stories.length - 1;
-          }
-
-          renderStory();
-        });
-
-        document.getElementById("nextStoryBtn").addEventListener("click", () => {
-          currentStory++;
-
-          if (currentStory >= stories.length) {
-            currentStory = 0;
-          }
-
-          renderStory();
-        });
-
-        onValue(ref(db, "stories"), snapshot => {
-          const data = snapshot.val();
-
-          if (!data) {
-            stories = fallbackStories;
-            currentStory = 0;
-            renderStory();
-            return;
-          }
-
-          const approvedStories = Object.values(data)
-            .filter(story => story.status === "approved")
-            .sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
-
-          stories = approvedStories.length > 0 ? approvedStories : fallbackStories;
-          currentStory = 0;
-          renderStory();
-        });
-
-        renderStory();
-
         const visitedKey = "zhanulkaVisited";
 
         if (!sessionStorage.getItem(visitedKey)) {
@@ -932,6 +931,49 @@
           alert("Отправлено на модерацию");
         });
 
+        document.getElementById("sendStoryBtn").addEventListener("click", async () => {
+          if (!requireLogin()) return;
+
+          const title = document.getElementById("storyTitleInput").value.trim();
+          const text = document.getElementById("storyTextInput").value.trim();
+          const nickname = nicknameInput.value.trim() || "Гость";
+
+          const lastStoryTime = Number(localStorage.getItem("lastStoryTime") || 0);
+          const now = Date.now();
+
+          if (now - lastStoryTime < 60000) {
+            alert("Можно отправлять только 1 историю в минуту");
+            return;
+          }
+
+          if (title.length < 3) {
+            alert("Напиши название истории");
+            return;
+          }
+
+          if (text.length < 20) {
+            alert("История слишком короткая");
+            return;
+          }
+
+          const newStoryRef = push(ref(db, "stories"));
+
+          await set(newStoryRef, {
+            userId: userId,
+            nickname: nickname.slice(0, 24),
+            title: title.slice(0, 80),
+            text: text.slice(0, 3000),
+            status: "pending",
+            createdAt: serverTimestamp()
+          });
+
+          localStorage.setItem("lastStoryTime", String(now));
+          document.getElementById("storyTitleInput").value = "";
+          document.getElementById("storyTextInput").value = "";
+
+          alert("История отправлена на модерацию");
+        });
+
         onValue(ref(db, "messages"), snapshot => {
           const box = document.getElementById("approvedMessages");
           box.innerHTML = "";
@@ -974,6 +1016,77 @@
             left: 320,
             behavior: "smooth"
           });
+        });
+
+        let approvedStories = [];
+        let currentStory = 0;
+
+        onValue(ref(db, "stories"), snapshot => {
+          const data = snapshot.val();
+
+          const box = document.getElementById("storyContainer");
+
+          if (!data) {
+            approvedStories = [];
+            currentStory = 0;
+            box.innerHTML = "<div class='small'>Пока нет опубликованных историй.</div>";
+            document.getElementById("storyCounter").textContent = "История 0 / 0";
+            return;
+          }
+
+          approvedStories = Object.values(data)
+            .filter(story => story.status === "approved")
+            .sort((a, b) => (b.approvedAt || b.createdAt || 0) - (a.approvedAt || a.createdAt || 0));
+
+          currentStory = 0;
+          renderStory();
+        });
+
+        function renderStory() {
+          const box = document.getElementById("storyContainer");
+
+          if (approvedStories.length === 0) {
+            box.innerHTML = "<div class='small'>Пока нет опубликованных историй.</div>";
+            document.getElementById("storyCounter").textContent = "История 0 / 0";
+            return;
+          }
+
+          const story = approvedStories[currentStory];
+
+          box.innerHTML = `
+            <div class="story-card">
+              <div class="story-title">${escapeHTML(story.title || "История")}</div>
+              <div class="story-author">✍ ${escapeHTML(story.nickname || "Гость")}</div>
+              <div class="story-text">${escapeHTML(story.text || "")}</div>
+            </div>
+          `;
+
+          document.getElementById("storyCounter").textContent =
+            "История " + (currentStory + 1) + " / " + approvedStories.length;
+        }
+
+        document.getElementById("storyPrev").addEventListener("click", () => {
+          if (approvedStories.length === 0) return;
+
+          currentStory--;
+
+          if (currentStory < 0) {
+            currentStory = approvedStories.length - 1;
+          }
+
+          renderStory();
+        });
+
+        document.getElementById("storyNext").addEventListener("click", () => {
+          if (approvedStories.length === 0) return;
+
+          currentStory++;
+
+          if (currentStory >= approvedStories.length) {
+            currentStory = 0;
+          }
+
+          renderStory();
         });
 
         onValue(ref(db, "users"), snapshot => {
