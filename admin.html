@@ -20,7 +20,7 @@
     }
 
     .box {
-      width: min(900px, 100%);
+      width: min(950px, 100%);
       margin: 0 auto;
       padding: 32px;
       border-radius: 26px;
@@ -33,16 +33,25 @@
         0 24px 80px rgba(0,0,0,0.45);
     }
 
-    h1, h2 {
-      text-align: center;
-      margin-top: 0;
-    }
+    h1, h2 { text-align: center; margin-top: 0; }
 
     .small {
       text-align: center;
       opacity: 0.65;
       font-size: 14px;
       margin-top: 10px;
+    }
+
+    input {
+      width: 100%;
+      margin-top: 10px;
+      padding: 13px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.25);
+      color: #f4eee6;
+      font-size: 15px;
+      outline: none;
     }
 
     button {
@@ -59,17 +68,25 @@
       transition: 0.25s;
     }
 
-    button:hover {
-      background: rgba(255,255,255,0.14);
+    button:hover { background: rgba(255,255,255,0.14); }
+    .danger:hover { background: rgba(255,80,80,0.22); }
+    .approve:hover { background: rgba(80,255,120,0.18); }
+
+    .auth-grid,
+    .buttons,
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
     }
 
-    .danger:hover {
-      background: rgba(255,80,80,0.22);
+    .tabs {
+      grid-template-columns: repeat(3, 1fr);
+      margin-bottom: 20px;
     }
 
-    .approve:hover {
-      background: rgba(80,255,120,0.18);
-    }
+    .tab-btn.active { background: rgba(255,255,255,0.18); }
 
     .message {
       margin-top: 18px;
@@ -98,17 +115,8 @@
       word-break: break-all;
     }
 
-    .buttons {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 14px;
-    }
-
     #adminPanel,
-    #blocked {
-      display: none;
-    }
+    #blocked { display: none; }
 
     .topbar {
       display: flex;
@@ -130,17 +138,11 @@
     }
 
     @media (max-width: 700px) {
-      .buttons {
-        grid-template-columns: 1fr;
-      }
-
-      .box {
-        padding: 22px;
-      }
-
-      .logout {
-        max-width: none;
-      }
+      .buttons,
+      .auth-grid,
+      .tabs { grid-template-columns: 1fr; }
+      .box { padding: 22px; }
+      .logout { max-width: none; }
     }
   </style>
 </head>
@@ -150,25 +152,27 @@
   <div class="box" id="login">
     <h2>🔒 Вход в админку</h2>
 
-    <button id="loginBtn">
-      Войти через Google
-    </button>
+    <button id="googleLoginBtn">Войти через Google</button>
+
+    <input id="emailInput" type="email" placeholder="Email">
+    <input id="passwordInput" type="password" placeholder="Пароль">
+
+    <div class="auth-grid">
+      <button id="emailLoginBtn">Войти по почте</button>
+      <button id="emailRegisterBtn">Регистрация</button>
+    </div>
 
     <div class="small">
-      Доступ разрешён только администратору.
+      Доступ разрешён только администратору: dobrovolec1234@gmail.com
     </div>
   </div>
 
   <div class="box" id="blocked">
     <h2>⛔ Доступ запрещён</h2>
-
     <div class="small">
-      Этот Google-аккаунт не является администратором.
+      Этот аккаунт не является администратором.
     </div>
-
-    <button id="logoutBtnBlocked">
-      Выйти
-    </button>
+    <button id="logoutBtnBlocked">Выйти</button>
   </div>
 
   <div class="box" id="adminPanel">
@@ -178,13 +182,13 @@
         <div class="email" id="adminEmail"></div>
       </div>
 
-      <button class="logout" id="logoutBtn">
-        Выйти
-      </button>
+      <button class="logout" id="logoutBtn">Выйти</button>
     </div>
 
-    <div class="small">
-      Здесь отображаются сообщения со статусом <b>pending</b>.
+    <div class="tabs">
+      <button class="tab-btn active" id="showPendingBtn">⏳ На модерации</button>
+      <button class="tab-btn" id="showApprovedBtn">✅ Одобренные</button>
+      <button class="tab-btn" id="showAllBtn">📋 Все</button>
     </div>
 
     <div id="messages"></div>
@@ -197,6 +201,8 @@
       getAuth,
       GoogleAuthProvider,
       signInWithPopup,
+      signInWithEmailAndPassword,
+      createUserWithEmailAndPassword,
       onAuthStateChanged,
       signOut
     } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
@@ -212,19 +218,21 @@
     const ADMIN_EMAIL = "dobrovolec1234@gmail.com";
 
     const firebaseConfig = {
-      apiKey: "AIzaSyAnBQnt8bK-3G0zjNyIQsLY5s-_rjIV2Mk",
-      authDomain: "a-letter-for-zhanulka.firebaseapp.com",
-      databaseURL: "https://a-letter-for-zhanulka-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "a-letter-for-zhanulka",
-      storageBucket: "a-letter-for-zhanulka.firebasestorage.app",
-      messagingSenderId: "479179895784",
-      appId: "1:479179895784:web:7f3bcd70ed9070c0816a5d"
-    };
+          apiKey: "AIzaSyAnBQnt8bK-3G0zjNyIQsLY5s-_rjIV2Mk",
+          authDomain: "a-letter-for-zhanulka.firebaseapp.com",
+          databaseURL: "https://a-letter-for-zhanulka-default-rtdb.europe-west1.firebasedatabase.app",
+          projectId: "a-letter-for-zhanulka",
+          storageBucket: "a-letter-for-zhanulka.firebasestorage.app",
+          messagingSenderId: "479179895784",
+          appId: "1:479179895784:web:7f3bcd70ed9070c0816a5d"
+        };
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getDatabase(app);
     const provider = new GoogleAuthProvider();
+
+    let currentFilter = "pending";
 
     const login = document.getElementById("login");
     const blocked = document.getElementById("blocked");
@@ -232,11 +240,43 @@
     const messagesBox = document.getElementById("messages");
     const adminEmail = document.getElementById("adminEmail");
 
-    document.getElementById("loginBtn").addEventListener("click", async () => {
+    document.getElementById("googleLoginBtn").addEventListener("click", async () => {
       try {
         await signInWithPopup(auth, provider);
       } catch (error) {
         alert("Ошибка входа: " + error.message);
+      }
+    });
+
+    document.getElementById("emailLoginBtn").addEventListener("click", async () => {
+      const email = document.getElementById("emailInput").value.trim();
+      const password = document.getElementById("passwordInput").value;
+
+      if (!email || !password) {
+        alert("Введи email и пароль");
+        return;
+      }
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (error) {
+        alert("Ошибка входа: " + error.message);
+      }
+    });
+
+    document.getElementById("emailRegisterBtn").addEventListener("click", async () => {
+      const email = document.getElementById("emailInput").value.trim();
+      const password = document.getElementById("passwordInput").value;
+
+      if (!email || password.length < 6) {
+        alert("Пароль должен быть минимум 6 символов");
+        return;
+      }
+
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+      } catch (error) {
+        alert("Ошибка регистрации: " + error.message);
       }
     });
 
@@ -249,6 +289,22 @@
       await signOut(auth);
       location.reload();
     });
+
+    document.getElementById("showPendingBtn").addEventListener("click", () => setFilter("pending"));
+    document.getElementById("showApprovedBtn").addEventListener("click", () => setFilter("approved"));
+    document.getElementById("showAllBtn").addEventListener("click", () => setFilter("all"));
+
+    function setFilter(filter) {
+      currentFilter = filter;
+
+      document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+
+      if (filter === "pending") document.getElementById("showPendingBtn").classList.add("active");
+      if (filter === "approved") document.getElementById("showApprovedBtn").classList.add("active");
+      if (filter === "all") document.getElementById("showAllBtn").classList.add("active");
+
+      loadMessages();
+    }
 
     onAuthStateChanged(auth, (user) => {
       if (!user) {
@@ -285,32 +341,40 @@
           return;
         }
 
-        const pendingMessages = Object.entries(messages)
-          .filter(([id, msg]) => msg.status === "pending")
-          .sort((a, b) => (b[1].createdAt || 0) - (a[1].createdAt || 0));
+        const filteredMessages = Object.entries(messages)
+          .filter(([id, msg]) => {
+            if (currentFilter === "all") return true;
+            return msg.status === currentFilter;
+          })
+          .sort((a, b) => (b[1].createdAt || b[1].approvedAt || 0) - (a[1].createdAt || a[1].approvedAt || 0));
 
-        if (pendingMessages.length === 0) {
-          messagesBox.innerHTML = "<div class='small'>Нет сообщений на модерации.</div>";
+        if (filteredMessages.length === 0) {
+          messagesBox.innerHTML = "<div class='small'>Сообщений в этом разделе нет.</div>";
           return;
         }
 
-        pendingMessages.forEach(([id, msg]) => {
+        filteredMessages.forEach(([id, msg]) => {
           const div = document.createElement("div");
           div.className = "message";
+
+          const status = msg.status || "unknown";
 
           div.innerHTML = `
             <div class="nickname">👤 ${escapeHTML(msg.nickname || "Гость")}</div>
             <div class="text">${escapeHTML(msg.text || "")}</div>
 
             <div class="meta">
+              Статус: ${escapeHTML(status)}<br>
               ID сообщения: ${escapeHTML(id)}<br>
               ID пользователя: ${escapeHTML(msg.userId || "unknown")}
             </div>
 
             <div class="buttons">
-              <button class="approve" onclick="approveMessage('${id}')">
-                ✅ Одобрить
-              </button>
+              ${status !== "approved" ? `
+                <button class="approve" onclick="approveMessage('${id}')">
+                  ✅ Одобрить
+                </button>
+              ` : ""}
 
               <button class="danger" onclick="deleteMessage('${id}')">
                 ❌ Удалить
