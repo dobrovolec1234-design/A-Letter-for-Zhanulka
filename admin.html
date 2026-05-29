@@ -20,7 +20,7 @@
     }
 
     .box {
-      width: min(950px, 100%);
+      width: min(980px, 100%);
       margin: 0 auto;
       padding: 32px;
       border-radius: 26px;
@@ -42,7 +42,7 @@
       margin-top: 10px;
     }
 
-    input {
+    input, textarea {
       width: 100%;
       margin-top: 10px;
       padding: 13px 14px;
@@ -52,6 +52,13 @@
       color: #f4eee6;
       font-size: 15px;
       outline: none;
+      font-family: Georgia, serif;
+    }
+
+    textarea {
+      min-height: 160px;
+      resize: vertical;
+      line-height: 1.5;
     }
 
     button {
@@ -82,13 +89,13 @@
     }
 
     .tabs {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       margin-bottom: 20px;
     }
 
     .tab-btn.active { background: rgba(255,255,255,0.18); }
 
-    .message {
+    .item {
       margin-top: 18px;
       padding: 18px;
       border-radius: 20px;
@@ -96,7 +103,7 @@
       border: 1px solid rgba(255,255,255,0.12);
     }
 
-    .nickname {
+    .title {
       font-weight: 700;
       color: #f1c9ff;
       margin-bottom: 8px;
@@ -169,16 +176,14 @@
 
   <div class="box" id="blocked">
     <h2>⛔ Доступ запрещён</h2>
-    <div class="small">
-      Этот аккаунт не является администратором.
-    </div>
+    <div class="small">Этот аккаунт не является администратором.</div>
     <button id="logoutBtnBlocked">Выйти</button>
   </div>
 
   <div class="box" id="adminPanel">
     <div class="topbar">
       <div>
-        <h1>Модерация сообщений</h1>
+        <h1>Админка</h1>
         <div class="email" id="adminEmail"></div>
       </div>
 
@@ -186,12 +191,30 @@
     </div>
 
     <div class="tabs">
-      <button class="tab-btn active" id="showPendingBtn">⏳ На модерации</button>
-      <button class="tab-btn" id="showApprovedBtn">✅ Одобренные</button>
-      <button class="tab-btn" id="showAllBtn">📋 Все</button>
+      <button class="tab-btn active" id="messagesPendingBtn">⏳ Пожелания</button>
+      <button class="tab-btn" id="messagesApprovedBtn">✅ Одобренные</button>
+      <button class="tab-btn" id="storiesBtn">📖 Истории</button>
+      <button class="tab-btn" id="storiesApprovedBtn">📚 Опубликованные</button>
     </div>
 
-    <div id="messages"></div>
+    <div id="messagesPanel">
+      <div id="messages"></div>
+    </div>
+
+    <div id="storiesPanel" style="display:none;">
+      <h2>Добавить историю</h2>
+
+      <input id="storyTitleInput" maxlength="80" placeholder="Название истории">
+      <textarea id="storyTextInput" maxlength="3000" placeholder="Текст истории"></textarea>
+
+      <button id="addStoryBtn">➕ Добавить историю на модерацию</button>
+
+      <div class="small">
+        История появится на главном сайте только после кнопки «Опубликовать».
+      </div>
+
+      <div id="stories"></div>
+    </div>
   </div>
 
   <script type="module">
@@ -211,33 +234,40 @@
       getDatabase,
       ref,
       onValue,
+      set,
+      push,
       update,
-      remove
+      remove,
+      serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-database.js";
 
     const ADMIN_EMAIL = "dobrovolec1234@gmail.com";
 
     const firebaseConfig = {
-          apiKey: "AIzaSyAnBQnt8bK-3G0zjNyIQsLY5s-_rjIV2Mk",
-          authDomain: "a-letter-for-zhanulka.firebaseapp.com",
-          databaseURL: "https://a-letter-for-zhanulka-default-rtdb.europe-west1.firebasedatabase.app",
-          projectId: "a-letter-for-zhanulka",
-          storageBucket: "a-letter-for-zhanulka.firebasestorage.app",
-          messagingSenderId: "479179895784",
-          appId: "1:479179895784:web:7f3bcd70ed9070c0816a5d"
-        };
+      apiKey: "AIzaSyAnBQnt8bK-3G0zjNyIQsLY5s-_rjIV2Mk",
+      authDomain: "a-letter-for-zhanulka.firebaseapp.com",
+      databaseURL: "https://a-letter-for-zhanulka-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "a-letter-for-zhanulka",
+      storageBucket: "a-letter-for-zhanulka.firebasestorage.app",
+      messagingSenderId: "479179895784",
+      appId: "1:479179895784:web:7f3bcd70ed9070c0816a5d"
+    };
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getDatabase(app);
     const provider = new GoogleAuthProvider();
 
-    let currentFilter = "pending";
+    let messagesFilter = "pending";
+    let storiesFilter = "pending";
 
     const login = document.getElementById("login");
     const blocked = document.getElementById("blocked");
     const adminPanel = document.getElementById("adminPanel");
+    const messagesPanel = document.getElementById("messagesPanel");
+    const storiesPanel = document.getElementById("storiesPanel");
     const messagesBox = document.getElementById("messages");
+    const storiesBox = document.getElementById("stories");
     const adminEmail = document.getElementById("adminEmail");
 
     document.getElementById("googleLoginBtn").addEventListener("click", async () => {
@@ -290,20 +320,47 @@
       location.reload();
     });
 
-    document.getElementById("showPendingBtn").addEventListener("click", () => setFilter("pending"));
-    document.getElementById("showApprovedBtn").addEventListener("click", () => setFilter("approved"));
-    document.getElementById("showAllBtn").addEventListener("click", () => setFilter("all"));
+    document.getElementById("messagesPendingBtn").addEventListener("click", () => {
+      showMessages("pending");
+    });
 
-    function setFilter(filter) {
-      currentFilter = filter;
+    document.getElementById("messagesApprovedBtn").addEventListener("click", () => {
+      showMessages("approved");
+    });
 
+    document.getElementById("storiesBtn").addEventListener("click", () => {
+      showStories("pending");
+    });
+
+    document.getElementById("storiesApprovedBtn").addEventListener("click", () => {
+      showStories("approved");
+    });
+
+    function setActiveButton(activeId) {
       document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+      document.getElementById(activeId).classList.add("active");
+    }
 
-      if (filter === "pending") document.getElementById("showPendingBtn").classList.add("active");
-      if (filter === "approved") document.getElementById("showApprovedBtn").classList.add("active");
-      if (filter === "all") document.getElementById("showAllBtn").classList.add("active");
+    function showMessages(filter) {
+      messagesFilter = filter;
+      messagesPanel.style.display = "block";
+      storiesPanel.style.display = "none";
+
+      if (filter === "pending") setActiveButton("messagesPendingBtn");
+      if (filter === "approved") setActiveButton("messagesApprovedBtn");
 
       loadMessages();
+    }
+
+    function showStories(filter) {
+      storiesFilter = filter;
+      messagesPanel.style.display = "none";
+      storiesPanel.style.display = "block";
+
+      if (filter === "pending") setActiveButton("storiesBtn");
+      if (filter === "approved") setActiveButton("storiesApprovedBtn");
+
+      loadStories();
     }
 
     onAuthStateChanged(auth, (user) => {
@@ -328,6 +385,7 @@
       adminEmail.textContent = "Вы вошли как: " + user.email;
 
       loadMessages();
+      loadStories();
     });
 
     function loadMessages() {
@@ -342,10 +400,7 @@
         }
 
         const filteredMessages = Object.entries(messages)
-          .filter(([id, msg]) => {
-            if (currentFilter === "all") return true;
-            return msg.status === currentFilter;
-          })
+          .filter(([id, msg]) => msg.status === messagesFilter)
           .sort((a, b) => (b[1].createdAt || b[1].approvedAt || 0) - (a[1].createdAt || a[1].approvedAt || 0));
 
         if (filteredMessages.length === 0) {
@@ -355,34 +410,99 @@
 
         filteredMessages.forEach(([id, msg]) => {
           const div = document.createElement("div");
-          div.className = "message";
-
-          const status = msg.status || "unknown";
+          div.className = "item";
 
           div.innerHTML = `
-            <div class="nickname">👤 ${escapeHTML(msg.nickname || "Гость")}</div>
+            <div class="title">👤 ${escapeHTML(msg.nickname || "Гость")}</div>
             <div class="text">${escapeHTML(msg.text || "")}</div>
 
             <div class="meta">
-              Статус: ${escapeHTML(status)}<br>
+              Статус: ${escapeHTML(msg.status || "unknown")}<br>
               ID сообщения: ${escapeHTML(id)}<br>
               ID пользователя: ${escapeHTML(msg.userId || "unknown")}
             </div>
 
             <div class="buttons">
-              ${status !== "approved" ? `
-                <button class="approve" onclick="approveMessage('${id}')">
-                  ✅ Одобрить
-                </button>
+              ${msg.status !== "approved" ? `
+                <button class="approve" onclick="approveMessage('${id}')">✅ Одобрить</button>
               ` : ""}
 
-              <button class="danger" onclick="deleteMessage('${id}')">
-                ❌ Удалить
-              </button>
+              <button class="danger" onclick="deleteMessage('${id}')">❌ Удалить</button>
             </div>
           `;
 
           messagesBox.appendChild(div);
+        });
+      });
+    }
+
+    document.getElementById("addStoryBtn").addEventListener("click", async () => {
+      const title = document.getElementById("storyTitleInput").value.trim();
+      const text = document.getElementById("storyTextInput").value.trim();
+
+      if (!title || text.length < 5) {
+        alert("Напиши название и текст истории");
+        return;
+      }
+
+      const newStoryRef = push(ref(db, "stories"));
+
+      await set(newStoryRef, {
+        title: title.slice(0, 80),
+        text: text.slice(0, 3000),
+        status: "pending",
+        createdAt: Date.now()
+      });
+
+      document.getElementById("storyTitleInput").value = "";
+      document.getElementById("storyTextInput").value = "";
+
+      alert("История добавлена на модерацию");
+    });
+
+    function loadStories() {
+      onValue(ref(db, "stories"), (snapshot) => {
+        storiesBox.innerHTML = "";
+
+        const stories = snapshot.val();
+
+        if (!stories) {
+          storiesBox.innerHTML = "<div class='small'>Пока историй нет.</div>";
+          return;
+        }
+
+        const filteredStories = Object.entries(stories)
+          .filter(([id, story]) => story.status === storiesFilter)
+          .sort((a, b) => (b[1].createdAt || b[1].approvedAt || 0) - (a[1].createdAt || a[1].approvedAt || 0));
+
+        if (filteredStories.length === 0) {
+          storiesBox.innerHTML = "<div class='small'>Историй в этом разделе нет.</div>";
+          return;
+        }
+
+        filteredStories.forEach(([id, story]) => {
+          const div = document.createElement("div");
+          div.className = "item";
+
+          div.innerHTML = `
+            <div class="title">📖 ${escapeHTML(story.title || "Без названия")}</div>
+            <div class="text">${escapeHTML(story.text || "")}</div>
+
+            <div class="meta">
+              Статус: ${escapeHTML(story.status || "unknown")}<br>
+              ID истории: ${escapeHTML(id)}
+            </div>
+
+            <div class="buttons">
+              ${story.status !== "approved" ? `
+                <button class="approve" onclick="approveStory('${id}')">✅ Опубликовать</button>
+              ` : ""}
+
+              <button class="danger" onclick="deleteStory('${id}')">❌ Удалить</button>
+            </div>
+          `;
+
+          storiesBox.appendChild(div);
         });
       });
     }
@@ -397,6 +517,19 @@
     window.deleteMessage = async function(id) {
       if (confirm("Удалить это сообщение?")) {
         await remove(ref(db, "messages/" + id));
+      }
+    };
+
+    window.approveStory = async function(id) {
+      await update(ref(db, "stories/" + id), {
+        status: "approved",
+        approvedAt: Date.now()
+      });
+    };
+
+    window.deleteStory = async function(id) {
+      if (confirm("Удалить эту историю?")) {
+        await remove(ref(db, "stories/" + id));
       }
     };
 
