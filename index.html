@@ -4,15 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Для Жанульки</title>
- 
+
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap" rel="stylesheet">
- 
+
   <style>
     * { box-sizing: border-box; }
- 
+
     body {
       margin: 0;
       min-height: 100vh;
@@ -28,7 +28,7 @@
       overflow-x: hidden;
       position: relative;
     }
- 
+
     .signature-bg {
       position: fixed;
       top: 50%;
@@ -44,7 +44,7 @@
         drop-shadow(0 0 18px rgba(255,255,255,0.16))
         drop-shadow(0 0 38px rgba(160,90,255,0.14));
     }
- 
+
     .rain {
       position: fixed;
       inset: 0;
@@ -52,7 +52,7 @@
       pointer-events: none;
       overflow: hidden;
     }
- 
+
     .drop {
       position: absolute;
       top: -120px;
@@ -62,11 +62,11 @@
       animation: rainFall linear infinite;
       opacity: 0.45;
     }
- 
+
     @keyframes rainFall {
       to { transform: translateY(120vh); }
     }
- 
+
     .cat-left-top,
     .cat-right-top,
     .cat-left-bottom,
@@ -80,12 +80,12 @@
       pointer-events: none;
       opacity: 0.9;
     }
- 
+
     .cat-left-top { left: -45px; top: 45px; }
     .cat-right-top { right: -45px; top: 45px; }
     .cat-left-bottom { left: -45px; bottom: 45px; }
     .cat-right-bottom { right: -45px; bottom: 45px; }
- 
+
     .card {
       width: min(900px, 100%);
       padding: 42px 32px;
@@ -101,9 +101,9 @@
       overflow: hidden;
       z-index: 5;
     }
- 
+
     .content { position: relative; z-index: 1; }
- 
+
     h1 {
       margin: 0 0 26px;
       font-family: "UnifrakturMaguntia", serif;
@@ -112,14 +112,14 @@
       text-align: center;
       color: #fff7ec;
     }
- 
+
     .tabs {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 10px;
       margin-bottom: 28px;
     }
- 
+
     .tab-btn {
       padding: 12px;
       border: 1px solid rgba(255,255,255,0.16);
@@ -129,33 +129,28 @@
       cursor: pointer;
       font-family: "Literata", serif;
     }
- 
+
     .tab-btn.active {
       background: rgba(255,255,255,0.16);
     }
- 
-    .tab {
-      display: none;
-    }
- 
-    .tab.active {
-      display: block;
-    }
- 
+
+    .tab { display: none; }
+    .tab.active { display: block; }
+
     .slider {
       width: 100%;
       overflow: hidden;
       margin-bottom: 32px;
       border-radius: 24px;
     }
- 
+
     .slide-track {
       display: flex;
       gap: 18px;
       width: max-content;
       animation: scroll 50s linear infinite;
     }
- 
+
     .slide-track img {
       width: 300px;
       height: 400px;
@@ -164,18 +159,18 @@
       flex-shrink: 0;
       box-shadow: 0 12px 40px rgba(0,0,0,0.45);
     }
- 
+
     @keyframes scroll {
       from { transform: translateX(0); }
       to { transform: translateX(-3180px); }
     }
- 
+
     p {
       margin: 0 0 18px;
       font-size: clamp(17px, 2.5vw, 21px);
       line-height: 1.75;
     }
- 
+
     .quote {
       margin-top: 30px;
       padding-top: 22px;
@@ -185,32 +180,30 @@
       text-align: center;
       opacity: 0.9;
     }
- 
+
     .small, .stats {
       margin-top: 18px;
       text-align: center;
       font-size: 14px;
       opacity: 0.75;
     }
- 
+
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
       margin-top: 24px;
     }
- 
+
     .stat-box, .panel, .message-item, .top-item {
       padding: 14px;
       border-radius: 16px;
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.12);
     }
- 
-    .panel {
-      margin-top: 20px;
-    }
- 
+
+    .panel { margin-top: 20px; }
+
     input, textarea {
       width: 100%;
       margin-top: 10px;
@@ -223,24 +216,14 @@
       font-size: 15px;
       outline: none;
     }
- 
+
     textarea {
       min-height: 120px;
       resize: vertical;
     }
- 
-    button {
-      font-family: "Literata", serif;
-    }
- 
-    .music-control {
-      display: flex;
-      gap: 14px;
-      align-items: center;
-      margin-top: 30px;
-    }
- 
-    .music-btn,
+
+    button { font-family: "Literata", serif; }
+
     .save-btn,
     .send-btn {
       width: 100%;
@@ -253,43 +236,96 @@
       cursor: pointer;
       transition: 0.3s;
     }
- 
-    .music-btn:hover,
+
     .save-btn:hover,
     .send-btn:hover {
       background: rgba(255,255,255,0.12);
     }
- 
-    .volume-control {
-      width: 150px;
+
+    .music-player {
+      margin-top: 30px;
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+    }
+
+    .track-title {
+      text-align: center;
+      margin-bottom: 14px;
+      opacity: 0.88;
+      font-size: 15px;
+    }
+
+    .player-buttons {
+      display: grid;
+      grid-template-columns: 70px 1fr 70px;
+      gap: 10px;
+    }
+
+    .player-buttons button {
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.06);
+      color: #f4eee6;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .player-buttons button:hover {
+      background: rgba(255,255,255,0.13);
+    }
+
+    .volume-control,
+    .progress-control {
+      width: 100%;
       accent-color: white;
       cursor: pointer;
-      flex-shrink: 0;
     }
- 
-    .message-item {
-      margin-top: 12px;
+
+    .progress-control {
+      margin-top: 16px;
     }
- 
+
+    .time-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+      font-size: 12px;
+      opacity: 0.65;
+    }
+
+    .volume-label {
+      margin-top: 14px;
+      font-size: 13px;
+      opacity: 0.75;
+      text-align: center;
+    }
+
+    .message-item { margin-top: 12px; }
+
     .message-name {
       font-weight: 600;
       margin-bottom: 6px;
       color: #f1c9ff;
     }
- 
+
     .message-text {
       opacity: 0.9;
       line-height: 1.55;
       white-space: pre-wrap;
     }
- 
+
     .top-item {
       display: flex;
       justify-content: space-between;
       gap: 12px;
       margin-top: 10px;
     }
- 
+
     .heart {
       position: absolute;
       font-size: 24px;
@@ -297,25 +333,25 @@
       animation: floatUp 2s linear forwards;
       z-index: 9999;
     }
- 
+
     @keyframes floatUp {
       0% {
         transform: translate(-50%, -50%) scale(1);
         opacity: 1;
       }
- 
+
       100% {
         transform: translate(-50%, -180px) scale(1.8) rotate(20deg);
         opacity: 0;
       }
     }
- 
+
     @media (max-width: 900px) {
       .signature-bg {
         width: 1050px;
         opacity: 0.12;
       }
- 
+
       .cat-left-top,
       .cat-right-top,
       .cat-left-bottom,
@@ -324,171 +360,165 @@
         height: 115px;
         opacity: 0.65;
       }
- 
+
       .cat-left-top { left: -55px; top: 25px; }
       .cat-right-top { right: -55px; top: 25px; }
       .cat-left-bottom { left: -55px; bottom: 25px; }
       .cat-right-bottom { right: -55px; bottom: 25px; }
- 
-      .music-control {
-        flex-direction: column;
-      }
- 
-      .volume-control {
-        width: 100%;
-      }
- 
+
       .stats-grid,
       .tabs {
         grid-template-columns: 1fr;
       }
+
+      .player-buttons {
+        grid-template-columns: 56px 1fr 56px;
+      }
     }
   </style>
 </head>
- 
+
 <body>
- 
+
   <img src="Autograph.jpg" class="signature-bg">
   <div class="rain" id="rain"></div>
- 
+
   <img src="cats.jpg" class="cat-left-top">
   <img src="cats2.jpg" class="cat-right-top">
   <img src="cats3.jpg" class="cat-left-bottom">
   <img src="cats4.jpg" class="cat-right-bottom">
- 
+
   <main class="card">
     <section class="content">
- 
+
       <h1>Для Жанульки</h1>
- 
+
       <div class="tabs">
         <button class="tab-btn active" data-tab="letter">📜 Письмо</button>
         <button class="tab-btn" data-tab="wishes">💌 Пожелания</button>
         <button class="tab-btn" data-tab="top">🏆 Топ</button>
         <button class="tab-btn" data-tab="stats">📊 Статистика</button>
       </div>
- 
+
       <div class="tab active" id="letter">
         <div class="slider">
           <div class="slide-track">
-            <img src="photo1.jpg">
-            <img src="photo2.jpg">
-            <img src="photo3.jpg">
-            <img src="photo4.jpg">
-            <img src="photo5.jpg">
-            <img src="photo6.jpg">
-            <img src="photo7.jpg">
-            <img src="photo8.jpg">
-            <img src="photo9.jpg">
-            <img src="photo10.jpg">
- 
-            <img src="photo1.jpg">
-            <img src="photo2.jpg">
-            <img src="photo3.jpg">
-            <img src="photo4.jpg">
-            <img src="photo5.jpg">
-            <img src="photo6.jpg">
-            <img src="photo7.jpg">
-            <img src="photo8.jpg">
-            <img src="photo9.jpg">
-            <img src="photo10.jpg">
+            <img src="photo1.jpg"><img src="photo2.jpg"><img src="photo3.jpg"><img src="photo4.jpg"><img src="photo5.jpg">
+            <img src="photo6.jpg"><img src="photo7.jpg"><img src="photo8.jpg"><img src="photo9.jpg"><img src="photo10.jpg">
+            <img src="photo1.jpg"><img src="photo2.jpg"><img src="photo3.jpg"><img src="photo4.jpg"><img src="photo5.jpg">
+            <img src="photo6.jpg"><img src="photo7.jpg"><img src="photo8.jpg"><img src="photo9.jpg"><img src="photo10.jpg">
           </div>
         </div>
- 
+
         <p>
           Мой путь прослушивания твоей музыки начался с сериала
           «Трудные подростки». В 3 сезоне 1 серии я услышал песню
           «Синдром Бога», и с того самого момента твоя музыка начала
           звучать у меня буквально 24/7.
         </p>
- 
+
         <p>
           Твои песни были рядом в моменты, когда внутри было слишком
           много мыслей и слишком мало нужных слов.
         </p>
- 
+
         <p>
           А потом я услышал твои треки в «Зайчике» и снова почувствовал
           тот самый первый вайб знакомства с твоим творчеством.
         </p>
- 
+
         <p>
           Спасибо тебе за искренность, атмосферу и эмоции, которые ты
           вкладываешь в свои песни. Ты даже не представляешь, сколько
           тепла и смысла твоя музыка может дать человеку.
         </p>
- 
+
         <p>
           Я очень благодарен, что однажды услышал твои песни.
         </p>
- 
+
         <div class="quote">thank you for the music</div>
- 
+
         <div class="small">
           скрытое письмо, открытое через QR-код
         </div>
       </div>
- 
+
       <div class="tab" id="wishes">
         <div class="panel">
           <div>👤 Твой ник:</div>
- 
           <input id="nicknameInput" maxlength="24" placeholder="Например: MoonCat">
- 
           <button class="save-btn" id="saveNicknameBtn" style="margin-top:12px;">
             сохранить ник
           </button>
- 
           <div class="small">
             Ник можно менять. Сердечки и музыка не сбросятся, потому что они привязаны к твоему ID.
           </div>
         </div>
- 
+
         <div class="panel">
           <div>💌 Написать пожелание Жанульке:</div>
- 
           <textarea id="messageInput" maxlength="700" placeholder="Напиши свою историю или пожелание..."></textarea>
- 
           <button class="send-btn" id="sendMessageBtn" style="margin-top:12px;">
             отправить на модерацию
           </button>
- 
           <div class="small">
             Сообщение появится на сайте только после одобрения.
           </div>
         </div>
- 
+
         <div class="quote" style="font-size:28px;">одобренные пожелания</div>
         <div id="approvedMessages"></div>
       </div>
- 
+
       <div class="tab" id="top">
         <div class="quote" style="font-size:28px;">🏆 топ по сердечкам</div>
         <div id="topHearts"></div>
- 
+
         <div class="quote" style="font-size:28px;">🎵 топ по музыке</div>
         <div id="topMusic"></div>
       </div>
- 
+
       <div class="tab" id="stats">
         <div class="stats-grid">
           <div class="stat-box">❤️ Всего сердечек: <span id="heartCount">0</span></div>
           <div class="stat-box">👀 Просмотров: <span id="viewCount">0</span></div>
           <div class="stat-box">🎵 Запусков музыки: <span id="musicCount">0</span></div>
         </div>
- 
+
         <div class="stats-grid">
           <div class="stat-box">🖤 Твои сердечки: <span id="myHearts">0</span></div>
           <div class="stat-box">🎧 Твои запуски: <span id="myMusic">0</span></div>
           <div class="stat-box">🆔 ID: <span id="myId">...</span></div>
         </div>
       </div>
- 
-      <div class="music-control">
-        <button onclick="playMusic()" class="music-btn">
-          включить музыку
-        </button>
- 
+
+      <div class="music-player">
+        <div class="track-title" id="trackTitle">track1.mp3</div>
+
+        <div class="player-buttons">
+          <button id="prevTrackBtn">⏮</button>
+          <button id="playPauseBtn">▶️ включить</button>
+          <button id="nextTrackBtn">⏭</button>
+        </div>
+
+        <input
+          type="range"
+          min="0"
+          max="100"
+          step="1"
+          value="0"
+          id="progressControl"
+          class="progress-control"
+        >
+
+        <div class="time-row">
+          <span id="currentTime">0:00</span>
+          <span id="durationTime">0:00</span>
+        </div>
+
+        <div class="volume-label">громкость</div>
+
         <input
           type="range"
           min="0"
@@ -499,9 +529,9 @@
           class="volume-control"
         >
       </div>
- 
+
       <audio id="song"></audio>
- 
+
       <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
         import {
@@ -514,7 +544,7 @@
           serverTimestamp,
           update
         } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-database.js";
- 
+
         const firebaseConfig = {
           apiKey: "AIzaSyAnBQnt8bK-3G0zjNyIQsLY5s-_rjIV2Mk",
           authDomain: "a-letter-for-zhanulka.firebaseapp.com",
@@ -524,12 +554,12 @@
           messagingSenderId: "479179895784",
           appId: "1:479179895784:web:7f3bcd70ed9070c0816a5d"
         };
- 
+
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
- 
+
         const rain = document.getElementById("rain");
- 
+
         for (let i = 0; i < 90; i++) {
           const drop = document.createElement("span");
           drop.className = "drop";
@@ -540,113 +570,113 @@
           drop.style.height = 45 + Math.random() * 95 + "px";
           rain.appendChild(drop);
         }
- 
+
         document.querySelectorAll(".tab-btn").forEach(btn => {
           btn.addEventListener("click", () => {
             document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
             document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
- 
+
             btn.classList.add("active");
             document.getElementById(btn.dataset.tab).classList.add("active");
           });
         });
- 
+
         let userId = localStorage.getItem("zhanulkaUserId");
- 
+
         if (!userId) {
           userId = "user_" + Math.random().toString(36).slice(2, 10);
           localStorage.setItem("zhanulkaUserId", userId);
         }
- 
+
         document.getElementById("myId").textContent = userId.replace("user_", "");
- 
+
         const userRef = ref(db, "users/" + userId);
- 
+
         const savedNickname = localStorage.getItem("zhanulkaNickname") || "";
         const nicknameInput = document.getElementById("nicknameInput");
         nicknameInput.value = savedNickname;
- 
+
         update(userRef, {
           lastVisit: serverTimestamp()
         });
- 
+
         if (savedNickname) {
           update(userRef, {
             nickname: savedNickname
           });
         }
- 
+
         const visitedKey = "zhanulkaVisited";
- 
+
         if (!sessionStorage.getItem(visitedKey)) {
           sessionStorage.setItem(visitedKey, "yes");
- 
+
           runTransaction(ref(db, "stats/views"), current => {
             return (current || 0) + 1;
           });
         }
- 
+
         onValue(ref(db, "stats/hearts"), snapshot => {
           document.getElementById("heartCount").textContent = snapshot.val() || 0;
         });
- 
+
         onValue(ref(db, "stats/views"), snapshot => {
           document.getElementById("viewCount").textContent = snapshot.val() || 0;
         });
- 
+
         onValue(ref(db, "stats/music"), snapshot => {
           document.getElementById("musicCount").textContent = snapshot.val() || 0;
         });
- 
+
         onValue(userRef, snapshot => {
           const user = snapshot.val() || {};
- 
+
           document.getElementById("myHearts").textContent = user.hearts || 0;
           document.getElementById("myMusic").textContent = user.musicPlays || 0;
- 
+
           if (user.nickname && !nicknameInput.value) {
             nicknameInput.value = user.nickname;
             localStorage.setItem("zhanulkaNickname", user.nickname);
           }
         });
- 
+
         document.getElementById("saveNicknameBtn").addEventListener("click", async () => {
           const nickname = nicknameInput.value.trim().slice(0, 24);
- 
+
           if (!nickname) {
             alert("Напиши ник");
             return;
           }
- 
+
           localStorage.setItem("zhanulkaNickname", nickname);
- 
+
           await update(userRef, {
             nickname: nickname,
             updatedAt: serverTimestamp()
           });
- 
+
           alert("Ник сохранён");
         });
- 
+
         document.getElementById("sendMessageBtn").addEventListener("click", async () => {
           const text = document.getElementById("messageInput").value.trim();
           const nickname = nicknameInput.value.trim() || "Гость";
- 
+
           const lastMessageTime = Number(localStorage.getItem("lastMessageTime") || 0);
           const now = Date.now();
- 
+
           if (now - lastMessageTime < 60000) {
             alert("Можно отправлять только 1 сообщение в минуту");
             return;
           }
- 
+
           if (text.length < 5) {
             alert("Сообщение слишком короткое");
             return;
           }
- 
+
           const newMessageRef = push(ref(db, "messages"));
- 
+
           await set(newMessageRef, {
             userId: userId,
             nickname: nickname.slice(0, 24),
@@ -654,181 +684,276 @@
             status: "pending",
             createdAt: serverTimestamp()
           });
- 
+
           localStorage.setItem("lastMessageTime", String(now));
           document.getElementById("messageInput").value = "";
- 
+
           alert("Отправлено на модерацию");
         });
- 
+
         onValue(ref(db, "messages"), snapshot => {
           const box = document.getElementById("approvedMessages");
           box.innerHTML = "";
- 
+
           const messages = snapshot.val();
- 
+
           if (!messages) {
             box.innerHTML = `<div class="small">Пока нет одобренных пожеланий.</div>`;
             return;
           }
- 
+
           const approved = Object.values(messages)
             .filter(msg => msg.status === "approved")
             .sort((a, b) => (b.approvedAt || b.createdAt || 0) - (a.approvedAt || a.createdAt || 0));
- 
+
           if (approved.length === 0) {
             box.innerHTML = `<div class="small">Пока нет одобренных пожеланий.</div>`;
             return;
           }
- 
+
           approved.forEach(msg => {
             const item = document.createElement("div");
             item.className = "message-item";
- 
+
             item.innerHTML = `
               <div class="message-name">💜 ${escapeHTML(msg.nickname || "Гость")}</div>
               <div class="message-text">${escapeHTML(msg.text || "")}</div>
             `;
- 
+
             box.appendChild(item);
           });
         });
- 
+
         onValue(ref(db, "users"), snapshot => {
           const users = snapshot.val();
- 
+
           console.log("USERS DATA:", users);
- 
+
           const topHeartsBox = document.getElementById("topHearts");
           const topMusicBox = document.getElementById("topMusic");
- 
+
           if (!users) {
             topHeartsBox.innerHTML = "<div class='small'>Нет данных пользователей</div>";
             topMusicBox.innerHTML = "<div class='small'>Нет данных пользователей</div>";
             return;
           }
- 
+
           renderTop(users, "hearts", "topHearts", "❤️");
           renderTop(users, "musicPlays", "topMusic", "🎵");
         });
- 
+
         function renderTop(users, field, elementId, icon) {
           const box = document.getElementById(elementId);
           box.innerHTML = "";
- 
+
           if (!users) {
             box.innerHTML = "<div class='small'>Пока нет данных</div>";
             return;
           }
- 
+
           const sorted = Object.entries(users)
             .map(([id, user]) => ({
               nickname: user.nickname || ("Гость_" + id.slice(-4)),
               value: Number(user[field] || 0)
             }))
+            .filter(user => user.value > 0)
             .sort((a, b) => b.value - a.value)
             .slice(0, 10);
- 
+
           if (sorted.length === 0) {
             box.innerHTML = "<div class='small'>Пока нет данных</div>";
             return;
           }
- 
+
           sorted.forEach((user, index) => {
             const item = document.createElement("div");
             item.className = "top-item";
- 
+
             item.innerHTML = `
               <span>#${index + 1} ${escapeHTML(user.nickname)}</span>
               <span>${icon} ${user.value}</span>
             `;
- 
+
             box.appendChild(item);
           });
         }
- 
+
         const tracks = [
           "track1.mp3",
           "track2.mp3",
           "track3.mp3"
         ];
- 
+
         let currentTrack = 0;
+
         const audio = document.getElementById("song");
+        const playPauseBtn = document.getElementById("playPauseBtn");
+        const prevTrackBtn = document.getElementById("prevTrackBtn");
+        const nextTrackBtn = document.getElementById("nextTrackBtn");
+        const trackTitle = document.getElementById("trackTitle");
+        const volumeControl = document.getElementById("volumeControl");
+        const progressControl = document.getElementById("progressControl");
+        const currentTimeText = document.getElementById("currentTime");
+        const durationTimeText = document.getElementById("durationTime");
+
+        let isPlaying = false;
         let lastMusicCount = Number(localStorage.getItem("lastMusicCount") || 0);
- 
-        window.playMusic = function() {
+
+        function loadTrack() {
           audio.src = tracks[currentTrack];
-          audio.play();
- 
+          trackTitle.textContent = tracks[currentTrack];
+          progressControl.value = 0;
+          currentTimeText.textContent = "0:00";
+        }
+
+        function countMusicPlay() {
           const now = Date.now();
- 
+
           if (now - lastMusicCount > 30000) {
             lastMusicCount = now;
             localStorage.setItem("lastMusicCount", String(now));
- 
+
             runTransaction(ref(db, "stats/music"), current => {
               return (current || 0) + 1;
             });
- 
+
             runTransaction(ref(db, "users/" + userId + "/musicPlays"), current => {
               return (current || 0) + 1;
             });
           }
-        };
- 
-        audio.addEventListener("ended", () => {
+        }
+
+        function playMusic() {
+          audio.play();
+          isPlaying = true;
+          playPauseBtn.textContent = "⏸ выключить";
+          countMusicPlay();
+        }
+
+        function pauseMusic() {
+          audio.pause();
+          isPlaying = false;
+          playPauseBtn.textContent = "▶️ включить";
+        }
+
+        playPauseBtn.addEventListener("click", () => {
+          if (isPlaying) {
+            pauseMusic();
+          } else {
+            playMusic();
+          }
+        });
+
+        prevTrackBtn.addEventListener("click", () => {
+          currentTrack--;
+
+          if (currentTrack < 0) {
+            currentTrack = tracks.length - 1;
+          }
+
+          loadTrack();
+
+          if (isPlaying) {
+            audio.play();
+          }
+        });
+
+        nextTrackBtn.addEventListener("click", () => {
           currentTrack++;
- 
+
           if (currentTrack >= tracks.length) {
             currentTrack = 0;
           }
- 
-          audio.src = tracks[currentTrack];
-          audio.play();
+
+          loadTrack();
+
+          if (isPlaying) {
+            audio.play();
+            countMusicPlay();
+          }
         });
- 
-        const volumeControl = document.getElementById("volumeControl");
- 
+
+        audio.addEventListener("loadedmetadata", () => {
+          durationTimeText.textContent = formatTime(audio.duration);
+        });
+
+        audio.addEventListener("timeupdate", () => {
+          if (!audio.duration) return;
+
+          progressControl.value = (audio.currentTime / audio.duration) * 100;
+          currentTimeText.textContent = formatTime(audio.currentTime);
+        });
+
+        progressControl.addEventListener("input", () => {
+          if (!audio.duration) return;
+
+          audio.currentTime = (progressControl.value / 100) * audio.duration;
+        });
+
+        audio.addEventListener("ended", () => {
+          currentTrack++;
+
+          if (currentTrack >= tracks.length) {
+            currentTrack = 0;
+          }
+
+          loadTrack();
+
+          if (isPlaying) {
+            audio.play();
+          }
+        });
+
         volumeControl.addEventListener("input", function() {
           audio.volume = this.value;
         });
- 
+
+        function formatTime(seconds) {
+          if (!seconds || isNaN(seconds)) return "0:00";
+
+          const minutes = Math.floor(seconds / 60);
+          const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
+
+          return `${minutes}:${secs}`;
+        }
+
+        loadTrack();
+
         const hearts = ["🖤", "❤️", "💜", "💔", "✨", "♡"];
         let lastHeartClick = 0;
- 
+
         document.addEventListener("click", function(e) {
           const heart = document.createElement("div");
- 
+
           heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
           heart.className = "heart";
- 
+
           heart.style.left = e.pageX + "px";
           heart.style.top = e.pageY + "px";
- 
+
           document.body.appendChild(heart);
- 
+
           setTimeout(() => {
             heart.remove();
           }, 2000);
- 
+
           const now = Date.now();
- 
+
           if (now - lastHeartClick < 2000) {
             return;
           }
- 
+
           lastHeartClick = now;
- 
+
           runTransaction(ref(db, "stats/hearts"), current => {
             return (current || 0) + 1;
           });
- 
+
           runTransaction(ref(db, "users/" + userId + "/hearts"), current => {
             return (current || 0) + 1;
           });
         });
- 
+
         function escapeHTML(text) {
           return String(text)
             .replaceAll("&", "&amp;")
@@ -838,9 +963,9 @@
             .replaceAll("'", "&#039;");
         }
       </script>
- 
+
     </section>
   </main>
- 
+
 </body>
 </html>
