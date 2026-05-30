@@ -707,8 +707,9 @@
         </iframe>
 
         <div class="small">
-          Музыка теперь проигрывается через Spotify, поэтому MP3-файлы можно удалить из GitHub.
+          Громкость Spotify меняется в самом плеере, браузере или на устройстве.
         </div>
+
       </div>
 
       <script type="module">
@@ -1195,54 +1196,6 @@
           });
         }
 
-if (isPlaying) audio.play();
-        });
-
-        nextTrackBtn.addEventListener("click", () => {
-          currentTrack++;
-
-          if (currentTrack >= tracks.length) currentTrack = 0;
-
-          loadTrack();
-
-          if (isPlaying) {
-            audio.play();
-            countMusicPlay();
-          }
-        });
-
-        audio.addEventListener("loadedmetadata", () => {
-          durationTimeText.textContent = formatTime(audio.duration);
-        });
-
-        audio.addEventListener("timeupdate", () => {
-          if (!audio.duration) return;
-
-          progressControl.value = (audio.currentTime / audio.duration) * 100;
-          currentTimeText.textContent = formatTime(audio.currentTime);
-        });
-
-        progressControl.addEventListener("input", () => {
-          if (!audio.duration) return;
-          audio.currentTime = (progressControl.value / 100) * audio.duration;
-        });
-
-        audio.addEventListener("ended", () => {
-          currentTrack++;
-
-          if (currentTrack >= tracks.length) currentTrack = 0;
-
-          loadTrack();
-
-          if (isPlaying) audio.play();
-        });
-
-        volumeControl.addEventListener("input", function() {
-          audio.volume = this.value;
-        });
-
-        loadTrack();
-
         const hearts = ["🖤", "❤️", "💜", "💔", "✨", "♡"];
         let lastHeartClick = 0;
 
@@ -1274,14 +1227,6 @@ if (isPlaying) audio.play();
             return (current || 0) + 1;
           });
         });
-
-        function formatTime(seconds) {
-          if (!seconds || isNaN(seconds)) return "0:00";
-          const minutes = Math.floor(seconds / 60);
-          const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
-          return `${minutes}:${secs}`;
-        }
-
         function escapeHTML(text) {
           return String(text)
             .replaceAll("&", "&amp;")
