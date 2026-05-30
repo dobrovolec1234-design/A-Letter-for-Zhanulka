@@ -616,23 +616,17 @@
       </div>
 
       <div class="tab" id="top">
-        <div class="quote" style="font-size:28px;">🏆 топ по сердечкам</div>
+        <div class="quote" style="font-size:28px;">🏆 топ по сердечкам до 100 мест</div>
         <div id="topHearts"></div>
-
-        <div class="quote" style="font-size:28px;">🎵 топ по музыке</div>
-        <div id="topMusic"></div>
       </div>
 
       <div class="tab" id="stats">
         <div class="stats-grid">
           <div class="stat-box">❤️ Всего сердечек: <span id="heartCount">0</span></div>
-          <div class="stat-box">👀 Просмотров: <span id="viewCount">0</span></div>
-          <div class="stat-box">🎵 Запусков музыки: <span id="musicCount">0</span></div>
         </div>
 
         <div class="stats-grid">
           <div class="stat-box">🖤 Твои сердечки: <span id="myHearts">0</span></div>
-          <div class="stat-box">🎧 Твои запуски: <span id="myMusic">0</span></div>
           <div class="stat-box">👤 Аккаунт: <span id="myPublicStatus">не вошёл</span></div>
         </div>
       </div>
@@ -654,7 +648,6 @@
           <div class="stats-grid">
             <div class="stat-box">📧 Почта: <span id="aboutEmail">не вошёл</span></div>
             <div class="stat-box">🖤 Твои сердечки: <span id="aboutHearts">0</span></div>
-            <div class="stat-box">🎧 Твои запуски: <span id="aboutMusic">0</span></div>
           </div>
         </div>
       </div>
@@ -705,10 +698,6 @@
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
           loading="lazy">
         </iframe>
-
-        <div class="small">
-          Громкость Spotify меняется в самом плеере, браузере или на устройстве.
-        </div>
 
       </div>
 
@@ -819,7 +808,6 @@
             document.getElementById("myPublicStatus").textContent = "не вошёл";
             document.getElementById("aboutEmail").textContent = "не вошёл";
             document.getElementById("myHearts").textContent = "0";
-            document.getElementById("myMusic").textContent = "0";
             return;
           }
 
@@ -853,9 +841,7 @@
             const dbUser = snapshot.val() || {};
 
             document.getElementById("myHearts").textContent = dbUser.hearts || 0;
-            document.getElementById("myMusic").textContent = dbUser.musicPlays || 0;
             document.getElementById("aboutHearts").textContent = dbUser.hearts || 0;
-            document.getElementById("aboutMusic").textContent = dbUser.musicPlays || 0;
 
             if (dbUser.nickname && !nicknameInput.value) {
               nicknameInput.value = dbUser.nickname;
@@ -899,14 +885,6 @@
 
         onValue(ref(db, "stats/hearts"), snapshot => {
           document.getElementById("heartCount").textContent = snapshot.val() || 0;
-        });
-
-        onValue(ref(db, "stats/views"), snapshot => {
-          document.getElementById("viewCount").textContent = snapshot.val() || 0;
-        });
-
-        onValue(ref(db, "stats/music"), snapshot => {
-          document.getElementById("musicCount").textContent = snapshot.val() || 0;
         });
 
         document.getElementById("saveNicknameBtn").addEventListener("click", async () => {
@@ -1145,16 +1123,13 @@
         onValue(ref(db, "users"), snapshot => {
           const users = snapshot.val();
           const topHeartsBox = document.getElementById("topHearts");
-          const topMusicBox = document.getElementById("topMusic");
 
           if (!users) {
             topHeartsBox.innerHTML = "<div class='small'>Нет данных пользователей</div>";
-            topMusicBox.innerHTML = "<div class='small'>Нет данных пользователей</div>";
             return;
           }
 
           renderTop(users, "hearts", "topHearts", "❤️");
-          renderTop(users, "musicPlays", "topMusic", "🎵");
         });
 
         function renderTop(users, field, elementId, icon) {
@@ -1178,7 +1153,7 @@
             .map(([nickname, value]) => ({ nickname, value }))
             .filter(user => user.value > 0)
             .sort((a, b) => b.value - a.value)
-            .slice(0, 25);
+            .slice(0, 100);
 
           if (sorted.length === 0) {
             box.innerHTML = "<div class='small'>Пока нет данных</div>";
