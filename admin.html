@@ -305,7 +305,6 @@
       <div class="stats-grid">
         <div class="stat-box">❤️ Сердечки <span class="stat-number" id="statHearts">0</span></div>
         <div class="stat-box">👀 Просмотры <span class="stat-number" id="statViews">0</span></div>
-        <div class="stat-box">🎵 Музыка <span class="stat-number" id="statMusic">0</span></div>
         <div class="stat-box">👥 Пользователи <span class="stat-number" id="statUsers">0</span></div>
       </div>
 
@@ -345,7 +344,7 @@
       <div class="merge-box">
         <h3>🔗 Объединить статистику пользователей</h3>
         <div class="small">
-          Вставь UID старого пользователя и UID нового пользователя. Сердечки и музыка сложатся в новом UID, а старый UID удалится из базы.
+          Вставь UID старого пользователя и UID нового пользователя. Сердечки сложатся в новом UID, а старый UID удалится из базы.
         </div>
 
         <input id="mergeFromUid" placeholder="Старый UID, откуда забрать статистику">
@@ -362,9 +361,6 @@
 
       <h3>❤️ Топ по сердечкам до 100 мест</h3>
       <div id="topHearts" class="scroll-box"></div>
-
-      <h3 style="margin-top:28px;">🎵 Топ по музыке до 100 мест</h3>
-      <div id="topMusic" class="scroll-box"></div>
     </section>
   </div>
 
@@ -530,7 +526,6 @@
     function renderDashboard() {
       document.getElementById("statHearts").textContent = allStats.hearts || 0;
       document.getElementById("statViews").textContent = allStats.views || 0;
-      document.getElementById("statMusic").textContent = allStats.music || 0;
       document.getElementById("statUsers").textContent = Object.keys(allUsers || {}).length;
 
       const messages = Object.values(allMessages || {});
@@ -625,7 +620,7 @@
 
           return text.includes(search);
         })
-        .sort((a, b) => (Number(b.hearts || 0) + Number(b.musicPlays || 0)) - (Number(a.hearts || 0) + Number(a.musicPlays || 0)));
+        .sort((a, b) => Number(b.hearts || 0) - Number(a.hearts || 0));
 
       if (users.length === 0) {
         box.innerHTML = "<div class='small'>Пользователей не найдено.</div>";
@@ -652,11 +647,6 @@
               ❤️ Сердечки<br>
               <span class="stat-number">${Number(user.hearts || 0)}</span>
             </div>
-
-            <div class="stat-box">
-              🎵 Музыка<br>
-              <span class="stat-number">${Number(user.musicPlays || 0)}</span>
-            </div>
           </div>
 
           <div class="buttons">
@@ -678,7 +668,6 @@
 
     function renderTop() {
       renderTopList("topHearts", "hearts", "❤️");
-      renderTopList("topMusic", "musicPlays", "🎵");
     }
 
     function renderTopList(elementId, field, icon) {
@@ -775,9 +764,7 @@
       }
 
       const fromHearts = Number(fromUser.hearts || 0);
-      const fromMusic = Number(fromUser.musicPlays || 0);
       const toHearts = Number(toUser.hearts || 0);
-      const toMusic = Number(toUser.musicPlays || 0);
 
       const ok = confirm(
         "Объединить статистику?\\n\\n" +
@@ -792,7 +779,6 @@
 
       await update(ref(db, "users/" + toUid), {
         hearts: toHearts + fromHearts,
-        musicPlays: toMusic + fromMusic,
         nickname: toUser.nickname || fromUser.nickname || toUser.displayName || fromUser.displayName || "Гость",
         mergedFrom: fromUid,
         mergedAt: Date.now()
@@ -807,10 +793,9 @@
     });
 
     window.resetUserStats = async function(uid) {
-      if (confirm("Сбросить сердечки и музыку этому пользователю?")) {
+      if (confirm("Сбросить сердечки этому пользователю?")) {
         await update(ref(db, "users/" + uid), {
           hearts: 0,
-          musicPlays: 0
         });
       }
     };
