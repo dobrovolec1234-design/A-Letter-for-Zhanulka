@@ -644,8 +644,8 @@
 
           <textarea
             id="storyTextInput"
-            maxlength="3000"
-            placeholder="Напиши свою историю о Жанульке..."
+            maxlength="10000"
+            placeholder="Напиши свою историю о Жанульке... Можно длиннее, до 10000 символов."
           ></textarea>
 
           <button class="send-btn" id="sendStoryBtn" style="margin-top:12px;">
@@ -962,7 +962,7 @@
             userId: userId,
             nickname: nickname.slice(0, 24),
             title: title.slice(0, 80),
-            text: text.slice(0, 3000),
+            text: text.slice(0, 10000),
             status: "pending",
             createdAt: serverTimestamp()
           });
