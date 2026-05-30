@@ -692,27 +692,24 @@
       </div>
 
       <div class="music-player">
-        <div class="track-title" id="trackTitle">track1.mp3</div>
+        <div class="track-title">🎧 Spotify-плейлист Жанульки</div>
 
-        <div class="player-buttons">
-          <button id="prevTrackBtn">⏮</button>
-          <button id="playPauseBtn">▶️ включить</button>
-          <button id="nextTrackBtn">⏭</button>
+        <iframe
+          data-testid="embed-iframe"
+          style="border-radius:12px"
+          src="https://open.spotify.com/embed/playlist/6NySOoEjB8dVVNv6U4OswW?utm_source=generator"
+          width="100%"
+          height="352"
+          frameborder="0"
+          allowfullscreen=""
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy">
+        </iframe>
+
+        <div class="small">
+          Музыка теперь проигрывается через Spotify, поэтому MP3-файлы можно удалить из GitHub.
         </div>
-
-        <input type="range" min="0" max="100" step="1" value="0" id="progressControl" class="progress-control">
-
-        <div class="time-row">
-          <span id="currentTime">0:00</span>
-          <span id="durationTime">0:00</span>
-        </div>
-
-        <div class="volume-label">громкость</div>
-
-        <input type="range" min="0" max="1" step="0.01" value="1" id="volumeControl" class="volume-control">
       </div>
-
-      <audio id="song"></audio>
 
       <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
@@ -1198,82 +1195,7 @@
           });
         }
 
-        const tracks = [
-          "track1.mp3",
-          "track2.mp3",
-          "track3.mp3",
-          "track4.mp3",
-          "track5.mp3",
-          "track6.mp3"
-        ];
-
-        let currentTrack = 0;
-        const audio = document.getElementById("song");
-        const playPauseBtn = document.getElementById("playPauseBtn");
-        const prevTrackBtn = document.getElementById("prevTrackBtn");
-        const nextTrackBtn = document.getElementById("nextTrackBtn");
-        const trackTitle = document.getElementById("trackTitle");
-        const volumeControl = document.getElementById("volumeControl");
-        const progressControl = document.getElementById("progressControl");
-        const currentTimeText = document.getElementById("currentTime");
-        const durationTimeText = document.getElementById("durationTime");
-
-        let isPlaying = false;
-        let lastMusicCount = Number(localStorage.getItem("lastMusicCount") || 0);
-
-        function loadTrack() {
-          audio.src = tracks[currentTrack];
-          trackTitle.textContent = tracks[currentTrack];
-          progressControl.value = 0;
-          currentTimeText.textContent = "0:00";
-          durationTimeText.textContent = "0:00";
-        }
-
-        function countMusicPlay() {
-          if (!userId) return;
-
-          const now = Date.now();
-
-          if (now - lastMusicCount > 30000) {
-            lastMusicCount = now;
-            localStorage.setItem("lastMusicCount", String(now));
-
-            runTransaction(ref(db, "stats/music"), current => {
-              return (current || 0) + 1;
-            });
-
-            runTransaction(ref(db, "users/" + userId + "/musicPlays"), current => {
-              return (current || 0) + 1;
-            });
-          }
-        }
-
-        function playMusic() {
-          audio.play();
-          isPlaying = true;
-          playPauseBtn.textContent = "⏸ выключить";
-          countMusicPlay();
-        }
-
-        function pauseMusic() {
-          audio.pause();
-          isPlaying = false;
-          playPauseBtn.textContent = "▶️ включить";
-        }
-
-        playPauseBtn.addEventListener("click", () => {
-          if (isPlaying) pauseMusic();
-          else playMusic();
-        });
-
-        prevTrackBtn.addEventListener("click", () => {
-          currentTrack--;
-
-          if (currentTrack < 0) currentTrack = tracks.length - 1;
-
-          loadTrack();
-
-          if (isPlaying) audio.play();
+if (isPlaying) audio.play();
         });
 
         nextTrackBtn.addEventListener("click", () => {
