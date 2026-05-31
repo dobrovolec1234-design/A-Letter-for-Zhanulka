@@ -159,7 +159,7 @@
 
     @keyframes scroll {
       from { transform: translateX(0); }
-      to { transform: translateX(-3180px); }
+      to { transform: translateX(-1908px); }
     }
 
     p {
@@ -1011,6 +1011,93 @@
       }
     }
 
+
+    /* === V2.3: auth moved into top-right menu === */
+    .top-auth-row {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 22;
+    }
+
+    .top-auth-row .menu-btn {
+      position: static;
+      top: auto;
+      right: auto;
+    }
+
+    .online-badge {
+      min-height: 48px;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid rgba(207,111,2,0.38);
+      background:
+        linear-gradient(135deg, rgba(207,111,2,0.16), rgba(199,47,34,0.10)),
+        rgba(0,0,0,0.28);
+      color: #f5d6aa;
+      font-size: 15px;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        0 0 18px rgba(207,111,2,0.12);
+      white-space: nowrap;
+    }
+
+    .online-badge.online {
+      color: #b9ffbd;
+      border-color: rgba(72, 220, 96, 0.32);
+      background:
+        linear-gradient(135deg, rgba(32,130,52,0.22), rgba(207,111,2,0.08)),
+        rgba(0,0,0,0.28);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        0 0 18px rgba(72, 220, 96, 0.13);
+    }
+
+    .menu-auth-status {
+      margin: 8px 0 10px;
+      text-align: center;
+      font-size: 13px;
+      opacity: 0.78;
+      word-break: break-word;
+    }
+
+    .side-menu input {
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    .side-menu .auth-btn {
+      margin-top: 8px;
+      font-size: 15px;
+      padding: 12px 14px;
+      text-align: center;
+    }
+
+    .menu-auth-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .top-auth-row {
+        top: 14px;
+        right: 14px;
+      }
+
+      .online-badge {
+        min-height: 44px;
+        font-size: 13px;
+        padding: 0 12px;
+      }
+    }
+
   </style>
 </head>
 
@@ -1026,7 +1113,10 @@
 
   <main class="card">
     <section class="content">
-      <button class="menu-btn" id="menuToggleBtn" aria-label="Меню">☰</button>
+      <div class="top-auth-row">
+        <div class="online-badge" id="topAuthBadge">🔴 Гость</div>
+        <button class="menu-btn" id="menuToggleBtn" aria-label="Меню">☰</button>
+      </div>
 
       <div class="side-menu" id="sideMenu">
         <div class="side-menu-title">Меню</div>
@@ -1037,34 +1127,31 @@
 
         <div class="side-menu-divider"></div>
 
-        <button id="menuLoginFocusBtn">🔑 Вход / аккаунт</button>
-        <button id="menuCloseBtn">✕ Закрыть</button>
-      </div>
+        <div class="side-menu-title" style="font-size:17px;">Аккаунт</div>
 
-      <div class="v2-heart-mark">♥</div>
-      <h1>Для Жанульки</h1>
+        <div class="auth-status menu-auth-status" id="authStatus">Статус: не вошёл</div>
 
-      <div class="panel">
-        <div class="small">Вход нужен, чтобы сердечки, пожелания, истории и фидбэк сохранялись за твоим аккаунтом.</div>
-
-        <button class="auth-btn" id="googleLoginBtn" style="margin-top:12px;">
+        <button class="auth-btn menu-auth-btn" id="googleLoginBtn">
           🔑 Войти через Google
         </button>
 
         <input id="emailInput" type="email" placeholder="Email">
         <input id="passwordInput" type="password" placeholder="Пароль">
 
-        <div class="auth-grid">
-          <button class="auth-btn" id="emailLoginBtn">Войти по почте</button>
+        <div class="auth-grid menu-auth-grid">
+          <button class="auth-btn" id="emailLoginBtn">Войти</button>
           <button class="auth-btn" id="emailRegisterBtn">Регистрация</button>
         </div>
 
-        <button class="auth-btn" id="logoutBtn" style="margin-top:12px;">
+        <button class="auth-btn" id="logoutBtn">
           🚪 Выйти
         </button>
 
-        <div class="auth-status" id="authStatus">Статус: не вошёл</div>
+        <button id="menuCloseBtn">✕ Закрыть</button>
       </div>
+
+      <div class="v2-heart-mark">♥</div>
+      <h1>Для Жанульки</h1>
 
       <div class="tabs compact-tabs">
         <button class="tab-btn active" data-tab="letter">🏠 Главная</button>
@@ -1076,10 +1163,11 @@
       <div class="tab active" id="letter">
         <div class="slider parallax-soft" id="parallaxSlider">
           <div class="slide-track">
-            <img src="photo1.jpg"><img src="photo2.jpg"><img src="photo3.jpg"><img src="photo4.jpg"><img src="photo5.jpg">
-            <img src="photo6.jpg"><img src="photo7.jpg"><img src="photo8.jpg"><img src="photo9.jpg"><img src="photo10.jpg">
-            <img src="photo1.jpg"><img src="photo2.jpg"><img src="photo3.jpg"><img src="photo4.jpg"><img src="photo5.jpg">
-            <img src="photo6.jpg"><img src="photo7.jpg"><img src="photo8.jpg"><img src="photo9.jpg"><img src="photo10.jpg">
+            <img src="photo1.jpg"><img src="photo2.jpg"><img src="photo3.jpg">
+            <img src="photo4.jpg"><img src="photo5.jpg"><img src="photo6.jpg">
+
+            <img src="photo1.jpg"><img src="photo2.jpg"><img src="photo3.jpg">
+            <img src="photo4.jpg"><img src="photo5.jpg"><img src="photo6.jpg">
           </div>
         </div>
 
@@ -1445,6 +1533,12 @@ Email и UID обычным посетителям не показываются
             presenceStarted = false;
             authStatus.textContent = "Статус: не вошёл";
             document.getElementById("aboutEmail").textContent = "не вошёл";
+
+            const topBadge = document.getElementById("topAuthBadge");
+            if (topBadge) {
+              topBadge.textContent = "🔴 Гость";
+              topBadge.classList.remove("online");
+            }
             return;
           }
 
@@ -1453,6 +1547,13 @@ Email и UID обычным посетителям не показываются
           startPresence(user);
 
           authStatus.textContent = "Статус: вошёл как " + (user.email || user.uid);
+
+          const topBadge = document.getElementById("topAuthBadge");
+          if (topBadge) {
+            topBadge.textContent = "🟢 В сети";
+            topBadge.classList.add("online");
+          }
+
           document.getElementById("aboutEmail").textContent = user.email || "Google-аккаунт";
 
           const savedNickname = localStorage.getItem("zhanulkaNickname") || "";
@@ -1507,7 +1608,6 @@ Email и UID обычным посетителям не показываются
         const menuToggleBtn = document.getElementById("menuToggleBtn");
         const sideMenu = document.getElementById("sideMenu");
         const menuCloseBtn = document.getElementById("menuCloseBtn");
-        const menuLoginFocusBtn = document.getElementById("menuLoginFocusBtn");
 
         function openTabById(tabId) {
           document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
@@ -1540,16 +1640,6 @@ Email и UID обычным посетителям не показываются
             openTabById(btn.dataset.tabOpen);
           });
         });
-
-        if (menuLoginFocusBtn) {
-          menuLoginFocusBtn.addEventListener("click", () => {
-            if (sideMenu) sideMenu.classList.remove("open");
-            document.getElementById("googleLoginBtn")?.scrollIntoView({
-              behavior: "smooth",
-              block: "center"
-            });
-          });
-        }
 
         document.addEventListener("click", (event) => {
           if (!sideMenu || !menuToggleBtn) return;
