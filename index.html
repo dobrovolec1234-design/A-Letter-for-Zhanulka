@@ -114,7 +114,7 @@
 
     .tabs {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      grid-template-columns: repeat(7, 1fr);
       gap: 10px;
       margin-bottom: 28px;
     }
@@ -159,7 +159,7 @@
 
     @keyframes scroll {
       from { transform: translateX(0); }
-      to { transform: translateX(-1908px); }
+      to { transform: translateX(-3180px); }
     }
 
     p {
@@ -201,7 +201,7 @@
 
     .panel { margin-top: 20px; }
 
-    input, textarea {
+    input, textarea, select {
       width: 100%;
       margin-top: 10px;
       padding: 13px 14px;
@@ -457,6 +457,22 @@
       }
     }
 
+
+    .datenschutz-text {
+      line-height: 1.7;
+      opacity: 0.9;
+      white-space: pre-wrap;
+    }
+
+    .parallax-soft {
+      will-change: transform;
+      transition: transform 0.08s linear;
+    }
+
+    .feedback-type {
+      margin-top: 10px;
+    }
+
     @media (max-width: 900px) {
       .signature-bg {
         width: 1050px;
@@ -496,7 +512,7 @@
 
 <body>
 
-  <img src="Autograph.jpg" class="signature-bg">
+  <img src="Autograph.jpg" class="signature-bg parallax-soft" id="parallaxSignature">
   <div class="rain" id="rain"></div>
 
   <img src="cats.jpg" class="cat-left-top">
@@ -532,21 +548,22 @@
       </div>
 
       <div class="tabs">
-        <button class="tab-btn active" data-tab="letter">📜 Письмо</button>
-        <button class="tab-btn" data-tab="wishes">💌 Пожелания</button>
-        <button class="tab-btn" data-tab="top">🏆 Топ</button>
-        <button class="tab-btn" data-tab="about">👤 О себе</button>
-        <button class="tab-btn" data-tab="stories">📖 Истории</button>
+        <button class="tab-btn active" data-tab="letter">Письмо</button>
+        <button class="tab-btn" data-tab="wishes">Пожелания</button>
+        <button class="tab-btn" data-tab="top">Топ</button>
+        <button class="tab-btn" data-tab="about">О себе</button>
+        <button class="tab-btn" data-tab="stories">Истории</button>
+        <button class="tab-btn" data-tab="feedback">Фидбэк</button>
+        <button class="tab-btn" data-tab="datenschutz">Datenschutz</button>
       </div>
 
       <div class="tab active" id="letter">
-        <div class="slider">
+        <div class="slider parallax-soft" id="parallaxSlider">
           <div class="slide-track">
-            <img src="photo1.jpg"><img src="photo2.jpg"><img src="photo3.jpg">
-            <img src="photo4.jpg"><img src="photo5.jpg"><img src="photo6.jpg">
-
-            <img src="photo1.jpg"><img src="photo2.jpg"><img src="photo3.jpg">
-            <img src="photo4.jpg"><img src="photo5.jpg"><img src="photo6.jpg">
+            <img src="photo1.jpg"><img src="photo2.jpg"><img src="photo3.jpg"><img src="photo4.jpg"><img src="photo5.jpg">
+            <img src="photo6.jpg"><img src="photo7.jpg"><img src="photo8.jpg"><img src="photo9.jpg"><img src="photo10.jpg">
+            <img src="photo1.jpg"><img src="photo2.jpg"><img src="photo3.jpg"><img src="photo4.jpg"><img src="photo5.jpg">
+            <img src="photo6.jpg"><img src="photo7.jpg"><img src="photo8.jpg"><img src="photo9.jpg"><img src="photo10.jpg">
           </div>
         </div>
 
@@ -622,7 +639,7 @@
 
       <div class="tab" id="about">
         <div class="panel">
-          <div class="story-form-title">👤 О себе</div>
+          <div class="story-form-title">О себе</div>
 
           <div class="small">
             Здесь можно изменить ник. Твой внутренний ID скрыт от обычных посетителей и виден только в админке.
@@ -671,6 +688,75 @@
         </div>
 
         <div class="story-counter" id="storyCounter">История 0 / 0</div>
+      </div>
+
+
+      <div class="tab" id="feedback">
+        <div class="panel">
+          <div class="story-form-title">Фидбэк по сайту</div>
+
+          <div class="small">
+            Напиши, что улучшить, что сломалось или что добавить. Фидбэк виден только администратору.
+          </div>
+
+          <select id="feedbackTypeInput" class="feedback-type">
+            <option value="idea">💡 Идея</option>
+            <option value="bug">🐞 Ошибка</option>
+            <option value="design">🎨 Дизайн</option>
+            <option value="other">✉️ Другое</option>
+          </select>
+
+          <textarea id="feedbackTextInput" maxlength="1500" placeholder="Напиши свой фидбэк..."></textarea>
+
+          <button class="send-btn" id="sendFeedbackBtn" style="margin-top:12px;">
+            отправить фидбэк
+          </button>
+
+          <div class="small">
+            Данные сохраняются в Firebase: UID, email, ник, тип фидбэка и текст сообщения.
+          </div>
+        </div>
+      </div>
+
+      <div class="tab" id="datenschutz">
+        <div class="panel">
+          <div class="story-form-title">Datenschutz / защита данных</div>
+
+          <div class="datenschutz-text">
+Этот сайт является неофициальным фан-проектом.
+
+Для работы сайта используются Firebase Authentication и Firebase Realtime Database.
+
+Какие данные могут сохраняться:
+• email аккаунта;
+• UID пользователя;
+• никнейм;
+• количество сердечек;
+• пожелания;
+• истории;
+• фидбэк по сайту;
+• время последнего посещения.
+
+Зачем это нужно:
+• чтобы работал вход на сайт;
+• чтобы сохранялся ник;
+• чтобы работали пожелания, истории и модерация;
+• чтобы администратор мог улучшать сайт по фидбэку;
+• чтобы защищать сайт от спама.
+
+Публично на сайте могут отображаться только:
+• никнейм;
+• одобренные пожелания;
+• одобренные истории;
+• количество сердечек в топе.
+
+Email и UID обычным посетителям не показываются. Они доступны только администратору в админ-панели.
+
+Данные не продаются и не используются для рекламы.
+
+Если ты хочешь удалить свои данные с сайта, напиши администратору сайта.
+          </div>
+        </div>
       </div>
 
       <div class="music-player">
@@ -836,6 +922,22 @@
           });
         });
 
+
+        window.addEventListener("scroll", () => {
+          const y = window.scrollY || 0;
+          const signature = document.getElementById("parallaxSignature");
+          const slider = document.getElementById("parallaxSlider");
+
+          if (signature) {
+            signature.style.transform =
+              `translate(-50%, calc(-50% + ${y * 0.08}px)) rotate(-5deg)`;
+          }
+
+          if (slider) {
+            slider.style.transform = `translateY(${y * 0.025}px)`;
+          }
+        });
+
         const rain = document.getElementById("rain");
 
         for (let i = 0; i < 90; i++) {
@@ -984,6 +1086,46 @@
           document.getElementById("storyTextInput").value = "";
 
           alert("История отправлена на модерацию");
+        });
+
+
+        document.getElementById("sendFeedbackBtn").addEventListener("click", async () => {
+          if (!requireLogin()) return;
+
+          const type = document.getElementById("feedbackTypeInput").value;
+          const text = document.getElementById("feedbackTextInput").value.trim();
+          const nickname = nicknameInput.value.trim() || aboutNicknameInput.value.trim() || "Гость";
+          const user = auth.currentUser;
+
+          const lastFeedbackTime = Number(localStorage.getItem("lastFeedbackTime") || 0);
+          const now = Date.now();
+
+          if (now - lastFeedbackTime < 60000) {
+            alert("Можно отправлять только 1 фидбэк в минуту");
+            return;
+          }
+
+          if (text.length < 5) {
+            alert("Фидбэк слишком короткий");
+            return;
+          }
+
+          const newFeedbackRef = push(ref(db, "feedback"));
+
+          await set(newFeedbackRef, {
+            userId: userId,
+            email: user?.email || "",
+            nickname: nickname.slice(0, 24),
+            type: type,
+            text: text.slice(0, 1500),
+            status: "new",
+            createdAt: serverTimestamp()
+          });
+
+          localStorage.setItem("lastFeedbackTime", String(now));
+          document.getElementById("feedbackTextInput").value = "";
+
+          alert("Спасибо! Фидбэк отправлен");
         });
 
         onValue(ref(db, "messages"), snapshot => {
@@ -1152,7 +1294,7 @@
           });
         }
 
-        const hearts = ["🖤", "❤️", "💜", "💔", "✨", "♡"];
+        const hearts = ["❤️"];
         let lastHeartClick = 0;
 
         document.addEventListener("click", function(e) {
@@ -1171,7 +1313,7 @@
 
           const now = Date.now();
 
-          if (now - lastHeartClick < 2000) return;
+          
 
           lastHeartClick = now;
 
