@@ -94,7 +94,7 @@
 
     .tabs {
       display: grid;
-      grid-template-columns: repeat(7, 1fr);
+      grid-template-columns: repeat(8, 1fr);
       gap: 10px;
       margin: 20px 0;
     }
@@ -293,10 +293,11 @@
       <button class="tab-btn active" data-panel="dashboardPanel">📊 Обзор</button>
       <button class="tab-btn" data-panel="pendingMessagesPanel">⏳ Пожелания</button>
       <button class="tab-btn" data-panel="approvedMessagesPanel">✅ Одобренные</button>
-      <button class="tab-btn" data-panel="pendingStoriesPanel">📖 Истории</button>
+      <button class="tab-btn" data-panel="pendingStoriesPanel">Истории</button>
       <button class="tab-btn" data-panel="approvedStoriesPanel">📚 Опубликованные</button>
       <button class="tab-btn" data-panel="usersPanel">👥 Пользователи</button>
-      <button class="tab-btn" data-panel="topPanel">🏆 Топ</button>
+      <button class="tab-btn" data-panel="topPanel">Топ</button>
+      <button class="tab-btn" data-panel="feedbackPanel">Фидбэк</button>
     </div>
 
     <section class="panel active" id="dashboardPanel">
@@ -305,13 +306,14 @@
       <div class="stats-grid">
         <div class="stat-box">❤️ Сердечки <span class="stat-number" id="statHearts">0</span></div>
         <div class="stat-box">👀 Просмотры <span class="stat-number" id="statViews">0</span></div>
+        <div class="stat-box">🎵 Музыка <span class="stat-number" id="statMusic">0</span></div>
         <div class="stat-box">👥 Пользователи <span class="stat-number" id="statUsers">0</span></div>
       </div>
 
       <div class="stats-grid">
         <div class="stat-box">⏳ Пожелания <span class="stat-number" id="statPendingMessages">0</span></div>
         <div class="stat-box">✅ Одобренные <span class="stat-number" id="statApprovedMessages">0</span></div>
-        <div class="stat-box">📖 Истории <span class="stat-number" id="statPendingStories">0</span></div>
+        <div class="stat-box">Истории <span class="stat-number" id="statPendingStories">0</span></div>
         <div class="stat-box">📚 Опубликованные <span class="stat-number" id="statApprovedStories">0</span></div>
       </div>
     </section>
@@ -327,7 +329,7 @@
     </section>
 
     <section class="panel" id="pendingStoriesPanel">
-      <h2>📖 Истории на модерации</h2>
+      <h2>Истории на модерации</h2>
       <div id="pendingStories"></div>
     </section>
 
@@ -344,7 +346,7 @@
       <div class="merge-box">
         <h3>🔗 Объединить статистику пользователей</h3>
         <div class="small">
-          Вставь UID старого пользователя и UID нового пользователя. Сердечки сложатся в новом UID, а старый UID удалится из базы.
+          Вставь UID старого пользователя и UID нового пользователя. Сердечки и музыка сложатся в новом UID, а старый UID удалится из базы.
         </div>
 
         <input id="mergeFromUid" placeholder="Старый UID, откуда забрать статистику">
@@ -357,10 +359,19 @@
     </section>
 
     <section class="panel" id="topPanel">
-      <h2>🏆 Топы</h2>
+      <h2>Топы</h2>
 
       <h3>❤️ Топ по сердечкам до 100 мест</h3>
       <div id="topHearts" class="scroll-box"></div>
+
+      <h3 style="margin-top:28px;">🎵 Топ по музыке до 100 мест</h3>
+      <div id="topMusic" class="scroll-box"></div>
+    </section>
+
+    <section class="panel" id="feedbackPanel">
+      <h2>Фидбэк пользователей</h2>
+      <div class="small">Здесь видны предложения, ошибки и идеи от пользователей сайта.</div>
+      <div id="feedbackList"></div>
     </section>
   </div>
 
@@ -412,6 +423,7 @@
     let allMessages = {};
     let allStories = {};
     let allStats = {};
+    let allFeedback = {};
 
     document.getElementById("googleLoginBtn").addEventListener("click", async () => {
       try {
@@ -521,11 +533,17 @@
         renderDashboard();
         renderStories();
       });
+
+      onValue(ref(db, "feedback"), snapshot => {
+        allFeedback = snapshot.val() || {};
+        renderFeedback();
+      });
     }
 
     function renderDashboard() {
       document.getElementById("statHearts").textContent = allStats.hearts || 0;
       document.getElementById("statViews").textContent = allStats.views || 0;
+      document.getElementById("statMusic").textContent = allStats.music || 0;
       document.getElementById("statUsers").textContent = Object.keys(allUsers || {}).length;
 
       const messages = Object.values(allMessages || {});
@@ -620,7 +638,7 @@
 
           return text.includes(search);
         })
-        .sort((a, b) => Number(b.hearts || 0) - Number(a.hearts || 0));
+        .sort((a, b) => (Number(b.hearts || 0) + Number(b.musicPlays || 0)) - (Number(a.hearts || 0) + Number(a.musicPlays || 0)));
 
       if (users.length === 0) {
         box.innerHTML = "<div class='small'>Пользователей не найдено.</div>";
@@ -647,6 +665,11 @@
               ❤️ Сердечки<br>
               <span class="stat-number">${Number(user.hearts || 0)}</span>
             </div>
+
+            <div class="stat-box">
+              🎵 Музыка<br>
+              <span class="stat-number">${Number(user.musicPlays || 0)}</span>
+            </div>
           </div>
 
           <div class="buttons">
@@ -668,6 +691,7 @@
 
     function renderTop() {
       renderTopList("topHearts", "hearts", "❤️");
+      renderTopList("topMusic", "musicPlays", "🎵");
     }
 
     function renderTopList(elementId, field, icon) {
@@ -708,6 +732,68 @@
         box.appendChild(div);
       });
     }
+
+
+    function renderFeedback() {
+      const box = document.getElementById("feedbackList");
+      if (!box) return;
+
+      box.innerHTML = "";
+
+      const items = Object.entries(allFeedback || {})
+        .sort((a, b) => (b[1].createdAt || 0) - (a[1].createdAt || 0));
+
+      if (items.length === 0) {
+        box.innerHTML = "<div class='small'>Фидбэка пока нет.</div>";
+        return;
+      }
+
+      items.forEach(([id, item]) => {
+        const div = document.createElement("div");
+        div.className = "item";
+
+        div.innerHTML = `
+          <div class="title">💡 ${escapeHTML(item.type || "feedback")} — ${escapeHTML(item.nickname || "Гость")}</div>
+          <div class="text">${escapeHTML(item.text || "")}</div>
+
+          <div class="meta">
+            Статус: ${escapeHTML(item.status || "new")}<br>
+            Email: ${escapeHTML(item.email || "нет")}<br>
+            UID: ${escapeHTML(item.userId || "unknown")}<br>
+            Создано: ${formatDate(item.createdAt)}
+          </div>
+
+          <div class="buttons">
+            <button class="approve" onclick="markFeedbackDone('${id}')">✅ Выполнено</button>
+            <button class="warn" onclick="markFeedbackRead('${id}')">👁 Прочитано</button>
+          </div>
+
+          <button class="danger" onclick="deleteFeedback('${id}')">❌ Удалить</button>
+        `;
+
+        box.appendChild(div);
+      });
+    }
+
+    window.markFeedbackDone = async function(id) {
+      await update(ref(db, "feedback/" + id), {
+        status: "done",
+        updatedAt: Date.now()
+      });
+    };
+
+    window.markFeedbackRead = async function(id) {
+      await update(ref(db, "feedback/" + id), {
+        status: "read",
+        updatedAt: Date.now()
+      });
+    };
+
+    window.deleteFeedback = async function(id) {
+      if (confirm("Удалить фидбэк?")) {
+        await remove(ref(db, "feedback/" + id));
+      }
+    };
 
     window.approveItem = async function(path, id) {
       await update(ref(db, path + "/" + id), {
@@ -764,7 +850,9 @@
       }
 
       const fromHearts = Number(fromUser.hearts || 0);
+      const fromMusic = Number(fromUser.musicPlays || 0);
       const toHearts = Number(toUser.hearts || 0);
+      const toMusic = Number(toUser.musicPlays || 0);
 
       const ok = confirm(
         "Объединить статистику?\\n\\n" +
@@ -779,6 +867,7 @@
 
       await update(ref(db, "users/" + toUid), {
         hearts: toHearts + fromHearts,
+        musicPlays: toMusic + fromMusic,
         nickname: toUser.nickname || fromUser.nickname || toUser.displayName || fromUser.displayName || "Гость",
         mergedFrom: fromUid,
         mergedAt: Date.now()
@@ -793,9 +882,10 @@
     });
 
     window.resetUserStats = async function(uid) {
-      if (confirm("Сбросить сердечки этому пользователю?")) {
+      if (confirm("Сбросить сердечки и музыку этому пользователю?")) {
         await update(ref(db, "users/" + uid), {
           hearts: 0,
+          musicPlays: 0
         });
       }
     };
