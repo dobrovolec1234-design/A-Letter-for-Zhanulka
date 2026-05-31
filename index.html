@@ -1098,6 +1098,243 @@
       }
     }
 
+
+    /* === V2.5: mobile layout fix === */
+    @media (max-width: 900px) {
+      body {
+        padding: 12px 8px !important;
+        align-items: flex-start !important;
+      }
+
+      .card {
+        width: 100% !important;
+        padding: 84px 14px 24px !important;
+        border-radius: 24px !important;
+        overflow: hidden !important;
+      }
+
+      h1 {
+        font-size: clamp(48px, 17vw, 72px) !important;
+        line-height: 0.95 !important;
+        margin-bottom: 24px !important;
+      }
+
+      .v2-heart-mark {
+        width: 54px !important;
+        height: 54px !important;
+        font-size: 26px !important;
+        margin-bottom: 10px !important;
+      }
+
+      .top-auth-row {
+        top: 18px !important;
+        right: 14px !important;
+        left: auto !important;
+        gap: 8px !important;
+      }
+
+      .online-badge {
+        min-height: 42px !important;
+        padding: 0 12px !important;
+        font-size: 14px !important;
+      }
+
+      .menu-btn {
+        width: 46px !important;
+        height: 46px !important;
+        font-size: 24px !important;
+      }
+
+      .side-menu {
+        position: fixed !important;
+        top: 74px !important;
+        left: 12px !important;
+        right: 12px !important;
+        width: auto !important;
+        max-height: calc(100vh - 92px) !important;
+        overflow-y: auto !important;
+        border-radius: 22px !important;
+        padding: 14px !important;
+      }
+
+      .side-menu button,
+      .side-menu input,
+      .side-menu .auth-btn {
+        font-size: 16px !important;
+      }
+
+      .tabs.compact-tabs {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+        padding: 12px !important;
+      }
+
+      .tab-btn {
+        font-size: 20px !important;
+        padding: 16px !important;
+      }
+
+      .slider {
+        margin-top: 18px !important;
+        margin-bottom: 24px !important;
+        border-radius: 22px !important;
+      }
+
+      .slide-track {
+        gap: 12px !important;
+        animation-duration: 42s !important;
+      }
+
+      .slide-track img {
+        width: 230px !important;
+        height: 330px !important;
+        border-radius: 22px !important;
+      }
+
+      @keyframes scroll {
+        from { transform: translateX(0); }
+        to { transform: translateX(-1452px); }
+      }
+
+      .v2-home-grid,
+      .v2-welcome,
+      .v2-side-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .panel,
+      .music-player,
+      .story-card,
+      .message-item,
+      .top-item {
+        border-radius: 22px !important;
+      }
+
+      .v2-welcome {
+        min-height: auto !important;
+        padding: 26px 20px !important;
+        gap: 18px !important;
+      }
+
+      .v2-welcome h2,
+      .story-form-title,
+      .spotify-shell-title strong {
+        font-size: 28px !important;
+        line-height: 1.15 !important;
+      }
+
+      p {
+        font-size: 22px !important;
+        line-height: 1.55 !important;
+      }
+
+      .v2-red-line {
+        font-size: 23px !important;
+        line-height: 1.35 !important;
+      }
+
+      .v2-cat-glow {
+        height: 110px !important;
+        font-size: 62px !important;
+      }
+
+      .v2-universe {
+        grid-template-columns: 1fr !important;
+        gap: 18px !important;
+      }
+
+      .v2-universe .num {
+        font-size: 42px !important;
+      }
+
+      .v2-universe .label {
+        font-size: 18px !important;
+      }
+
+      .v2-latest-item,
+      .message-item {
+        min-width: 0 !important;
+        max-width: none !important;
+        width: 100% !important;
+        font-size: 21px !important;
+        line-height: 1.45 !important;
+      }
+
+      .v2-latest-name,
+      .message-name {
+        font-size: 22px !important;
+      }
+
+      .music-player {
+        padding: 18px 12px !important;
+        overflow: hidden !important;
+      }
+
+      .track-title {
+        font-size: 20px !important;
+        line-height: 1.3 !important;
+      }
+
+      .music-player iframe {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 520px !important;
+        border-radius: 18px !important;
+        display: block !important;
+      }
+
+      input,
+      textarea,
+      select,
+      button {
+        font-size: 18px !important;
+      }
+
+      .cat-left-top,
+      .cat-right-top,
+      .cat-left-bottom,
+      .cat-right-bottom {
+        width: 95px !important;
+        height: 95px !important;
+        opacity: 0.38 !important;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .card {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+      }
+
+      h1 {
+        font-size: clamp(44px, 16vw, 62px) !important;
+      }
+
+      .slide-track img {
+        width: 205px !important;
+        height: 305px !important;
+      }
+
+      @keyframes scroll {
+        from { transform: translateX(0); }
+        to { transform: translateX(-1302px); }
+      }
+
+      .music-player iframe {
+        height: 500px !important;
+      }
+
+      .v2-welcome h2,
+      .story-form-title,
+      .spotify-shell-title strong {
+        font-size: 26px !important;
+      }
+
+      p {
+        font-size: 20px !important;
+      }
+    }
+
   </style>
 </head>
 
