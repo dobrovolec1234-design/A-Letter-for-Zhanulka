@@ -1335,6 +1335,54 @@
       }
     }
 
+
+    /* === V2.6: status badge moved inside menu === */
+    .top-auth-row {
+      justify-content: flex-end !important;
+    }
+
+    .menu-status-badge {
+      width: 100%;
+      min-height: 44px;
+      margin: 8px 0 12px;
+      padding: 0 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      border: 1px solid rgba(207,111,2,0.38);
+      background:
+        linear-gradient(135deg, rgba(207,111,2,0.16), rgba(199,47,34,0.10)),
+        rgba(0,0,0,0.28);
+      color: #f5d6aa;
+      font-size: 15px;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        0 0 18px rgba(207,111,2,0.12);
+      text-align: center;
+    }
+
+    .menu-status-badge.online {
+      color: #b9ffbd;
+      border-color: rgba(72, 220, 96, 0.32);
+      background:
+        linear-gradient(135deg, rgba(32,130,52,0.22), rgba(207,111,2,0.08)),
+        rgba(0,0,0,0.28);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        0 0 18px rgba(72, 220, 96, 0.13);
+    }
+
+    @media (max-width: 900px) {
+      .top-auth-row {
+        right: 18px !important;
+      }
+
+      .top-auth-row .online-badge {
+        display: none !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -1351,12 +1399,12 @@
   <main class="card">
     <section class="content">
       <div class="top-auth-row">
-        <div class="online-badge" id="topAuthBadge">🔴 Гость</div>
         <button class="menu-btn" id="menuToggleBtn" aria-label="Меню">☰</button>
       </div>
 
       <div class="side-menu" id="sideMenu">
         <div class="side-menu-title">Меню</div>
+        <div class="menu-status-badge" id="menuStatusBadge">🔴 Гость</div>
 
         <button data-tab-open="about">👤 О себе</button>
         <button data-tab-open="feedback">💡 Фидбэк</button>
@@ -1772,10 +1820,14 @@ Email и UID обычным посетителям не показываются
             document.getElementById("aboutEmail").textContent = "не вошёл";
 
             const topBadge = document.getElementById("topAuthBadge");
-            if (topBadge) {
-              topBadge.textContent = "🔴 Гость";
-              topBadge.classList.remove("online");
-            }
+            const menuBadge = document.getElementById("menuStatusBadge");
+
+            [topBadge, menuBadge].forEach(badge => {
+              if (badge) {
+                badge.textContent = "🔴 Гость";
+                badge.classList.remove("online");
+              }
+            });
             return;
           }
 
@@ -1786,10 +1838,14 @@ Email и UID обычным посетителям не показываются
           authStatus.textContent = "Статус: вошёл как " + (user.email || user.uid);
 
           const topBadge = document.getElementById("topAuthBadge");
-          if (topBadge) {
-            topBadge.textContent = "🟢 В сети";
-            topBadge.classList.add("online");
-          }
+          const menuBadge = document.getElementById("menuStatusBadge");
+
+          [topBadge, menuBadge].forEach(badge => {
+            if (badge) {
+              badge.textContent = "🟢 В сети";
+              badge.classList.add("online");
+            }
+          });
 
           document.getElementById("aboutEmail").textContent = user.email || "Google-аккаунт";
 
