@@ -537,7 +537,7 @@
     }
 
     .signature-bg {
-      opacity: 0.10;
+      opacity: 0.16;
       filter:
         drop-shadow(0 0 18px rgba(255,59,47,0.18))
         drop-shadow(0 0 36px rgba(201,155,90,0.12)) !important;
@@ -1383,6 +1383,61 @@
       }
     }
 
+
+    /* === V2.7: autograph returns as card background === */
+    .signature-card-bg {
+      position: absolute;
+      left: 50%;
+      top: 46%;
+      width: min(980px, 125%);
+      max-width: none;
+      transform: translate(-50%, -50%) rotate(-5deg);
+      opacity: 0.075;
+      z-index: 0;
+      pointer-events: none;
+      user-select: none;
+      filter:
+        drop-shadow(0 0 18px rgba(207,111,2,0.18))
+        drop-shadow(0 0 34px rgba(255,59,47,0.10));
+      mix-blend-mode: screen;
+    }
+
+    .fan-disclaimer {
+      position: fixed;
+      left: 14px;
+      bottom: 14px;
+      z-index: 30;
+      max-width: 300px;
+      padding: 10px 13px;
+      border-radius: 16px;
+      border: 1px solid rgba(207,111,2,0.26);
+      background:
+        linear-gradient(135deg, rgba(31,9,6,0.78), rgba(7,5,4,0.72)),
+        rgba(0,0,0,0.58);
+      color: rgba(245,226,196,0.72);
+      font-size: 12px;
+      line-height: 1.4;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 0 18px rgba(207,111,2,0.10);
+    }
+
+    @media (max-width: 900px) {
+      .signature-card-bg {
+        width: 940px;
+        top: 38%;
+        opacity: 0.055;
+      }
+
+      .fan-disclaimer {
+        position: static;
+        margin: 18px auto 0;
+        max-width: 100%;
+        text-align: center;
+        font-size: 11px;
+      }
+    }
+
   </style>
 </head>
 
@@ -1397,6 +1452,7 @@
   <img src="cats4.jpg" class="cat-right-bottom">
 
   <main class="card">
+    <img src="Autograph.jpg" class="signature-card-bg" alt="">
     <section class="content">
       <div class="top-auth-row">
         <button class="menu-btn" id="menuToggleBtn" aria-label="Меню">☰</button>
@@ -2370,6 +2426,11 @@ Email и UID обычным посетителям не показываются
 
     </section>
   </main>
+
+
+  <div class="fan-disclaimer">
+    ❤️ Фанатский сайт. Создан поклонником Жанны. Проект не является официальным и не претендует на авторские права.
+  </div>
 
 </body>
 </html>
