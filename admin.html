@@ -583,6 +583,33 @@
       }
     }
 
+  
+    /* === V3.3: admin security warning === */
+    .security-note {
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(207,111,2,0.45);
+      background:
+        linear-gradient(135deg, rgba(120,20,10,0.25), rgba(0,0,0,0.35)),
+        rgba(0,0,0,0.22);
+      color: #f5e2c4;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .security-title {
+      color: #ffb15c;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .security-note p {
+      margin: 8px 0 0;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
   </style>
 </head>
 
@@ -595,6 +622,19 @@
 
     <input id="emailInput" type="email" placeholder="Email">
     <input id="passwordInput" type="password" placeholder="Пароль">
+
+        <div class="security-note">
+          <div class="security-title">⚠ Важно</div>
+          <p>
+            Не используйте пароль от своей почты Gmail, Mail.ru, Яндекс и других сервисов.
+            Создайте отдельный пароль специально для этого сайта.
+          </p>
+          <p>
+            Сайт не запрашивает пароль от вашей электронной почты.
+            Пароль используется только для аккаунта на этом сайте.
+          </p>
+        </div>
+
 
     <div class="auth-grid">
       <button id="emailLoginBtn">Войти по почте</button>
