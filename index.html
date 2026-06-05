@@ -1869,7 +1869,7 @@
     }
 
   
-    /* === V3.6: new welcome + live stats dashboard, fixed quick buttons === */
+    /* === V3.9: stable welcome dashboard + modal buttons === */
     .zhan-hero-grid {
       display: grid !important;
       grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.95fr) !important;
@@ -1903,9 +1903,6 @@
       line-height: 1.08 !important;
       margin: 0 0 28px !important;
       color: var(--gold-soft, #e0bd82) !important;
-      text-shadow:
-        0 0 18px rgba(201,155,90,0.22),
-        0 0 36px rgba(0,0,0,0.75);
     }
 
     .zhan-welcome-panel p {
@@ -1920,7 +1917,6 @@
       font-size: clamp(24px, 3vw, 34px) !important;
       line-height: 1.35 !important;
       color: var(--orange-hot, #ff8a18) !important;
-      text-shadow: 0 0 14px rgba(207,111,2,0.38) !important;
     }
 
     .zhan-author {
@@ -1937,7 +1933,6 @@
       font-size: clamp(30px, 3.4vw, 42px);
       font-weight: 700;
       color: var(--gold-soft, #e0bd82);
-      text-shadow: 0 0 16px rgba(207,111,2,0.22);
       margin-bottom: 8px;
     }
 
@@ -1958,9 +1953,7 @@
       padding: 22px;
       border-radius: 18px;
       border: 1px solid rgba(207,111,2,0.26);
-      background:
-        radial-gradient(circle at 50% 0%, rgba(207,111,2,0.10), transparent 60%),
-        rgba(0,0,0,0.23);
+      background: rgba(0,0,0,0.23);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -1995,16 +1988,8 @@
       text-align: center !important;
       font-size: 34px !important;
       border: 1px solid rgba(207,111,2,0.26) !important;
-      background:
-        radial-gradient(circle at 50% 0%, rgba(255,232,196,0.06), transparent 62%),
-        rgba(255,232,196,0.045) !important;
+      background: rgba(255,232,196,0.045) !important;
       cursor: pointer;
-    }
-
-    .zhan-quick-icon:hover {
-      transform: translateY(-2px);
-      border-color: rgba(207,111,2,0.55) !important;
-      box-shadow: 0 0 18px rgba(207,111,2,0.22) !important;
     }
 
     .zhan-latest-panel {
@@ -2016,22 +2001,6 @@
       color: var(--gold-soft, #e0bd82);
       font-size: clamp(24px, 3vw, 34px);
       margin-bottom: 18px;
-    }
-
-    .zhan-latest-panel .v2-latest-list {
-      display: grid;
-      gap: 10px;
-    }
-
-    .zhan-latest-panel .v2-latest-item {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-      align-items: center;
-      padding: 14px 18px;
-      border-radius: 16px;
-      border: 1px solid rgba(201,155,90,0.14);
-      background: rgba(0,0,0,0.18);
     }
 
     .zhan-all-wishes-btn {
@@ -2048,36 +2017,6 @@
       text-align: center !important;
     }
 
-    .zhan-all-wishes-btn:hover {
-      color: var(--orange-hot, #ff8a18) !important;
-      background: transparent !important;
-    }
-
-    @media (max-width: 900px) {
-      .zhan-hero-grid {
-        grid-template-columns: 1fr !important;
-      }
-
-      .zhan-welcome-panel {
-        min-height: auto;
-        padding: 26px 18px !important;
-      }
-
-      .zhan-live-grid {
-        grid-template-columns: 1fr !important;
-      }
-
-      .zhan-quick-icon {
-        height: 82px;
-      }
-
-      .zhan-latest-panel .v2-latest-item {
-        grid-template-columns: 1fr;
-      }
-    }
-
-  
-    /* === V3.8: modal for write wishes / stories === */
     .write-choice-modal {
       position: fixed;
       inset: 0;
@@ -2104,9 +2043,7 @@
       background:
         radial-gradient(circle at 12% 0%, rgba(207,111,2,0.18), transparent 38%),
         linear-gradient(145deg, rgba(31,9,6,0.97), rgba(7,5,4,0.97));
-      box-shadow:
-        0 26px 90px rgba(0,0,0,0.70),
-        0 0 34px rgba(207,111,2,0.22);
+      box-shadow: 0 26px 90px rgba(0,0,0,0.70);
       text-align: center;
     }
 
@@ -2137,11 +2074,6 @@
       text-align: center;
     }
 
-    .write-choice-btn:hover {
-      border-color: rgba(207,111,2,0.58);
-      box-shadow: 0 0 18px rgba(207,111,2,0.20);
-    }
-
     .write-choice-close {
       position: absolute;
       top: 12px;
@@ -2157,6 +2089,25 @@
       font-size: 24px;
       line-height: 1;
       text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .zhan-hero-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .zhan-welcome-panel {
+        min-height: auto;
+        padding: 26px 18px !important;
+      }
+
+      .zhan-live-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .zhan-quick-icon {
+        height: 82px;
+      }
     }
 
   </style>
@@ -2292,9 +2243,9 @@
             </div>
 
             <div class="zhan-quick-icons">
-              <button class="zhan-quick-icon" type="button" onclick="zhanOpenTabAndScroll('letter', 'parallaxSlider')" title="Фото">🐾</button>
-              <button class="zhan-quick-icon" type="button" onclick="zhanOpenTabAndScroll('letter', 'musicPlayer')" title="Музыка">🎵</button>
-              <button class="zhan-quick-icon" type="button" onclick="zhanOpenWriteChoice()" title="Написать пожелание или историю">✨</button>
+              <button class="zhan-quick-icon" type="button" id="zhanPhotosBtn" title="Фото">🐾</button>
+              <button class="zhan-quick-icon" type="button" id="zhanMusicBtn" title="Музыка">🎵</button>
+              <button class="zhan-quick-icon" type="button" id="zhanWriteBtn" title="Написать пожелание или историю">✨</button>
             </div>
           </div>
 
@@ -2305,7 +2256,7 @@
               <div class="small">Пока нет одобренных пожеланий.</div>
             </div>
 
-            <button class="zhan-all-wishes-btn" type="button" onclick="zhanOpenTabAndScroll('wishes', null)">
+            <button class="zhan-all-wishes-btn" type="button" id="zhanAllWishesBtn">
               Все пожелания ›
             </button>
           </div>
@@ -3277,18 +3228,19 @@ Email и UID обычным посетителям не показываются
 
     </section>
   </main>
-<div class="write-choice-modal" id="writeChoiceModal" aria-hidden="true">
+
+  <div class="write-choice-modal" id="writeChoiceModal" aria-hidden="true">
     <div class="write-choice-card">
-      <button class="write-choice-close" type="button" onclick="zhanCloseWriteChoice()">×</button>
+      <button class="write-choice-close" type="button" id="zhanWriteCloseBtn">×</button>
 
       <h2>Что написать?</h2>
       <p>Выбери, что хочешь оставить на сайте.</p>
 
-      <button class="write-choice-btn" type="button" onclick="zhanGoWrite('wishes')">
+      <button class="write-choice-btn" type="button" id="zhanWriteWishBtn">
         💌 Написать пожелание
       </button>
 
-      <button class="write-choice-btn" type="button" onclick="zhanGoWrite('stories')">
+      <button class="write-choice-btn" type="button" id="zhanWriteStoryBtn">
         📖 Написать историю
       </button>
     </div>
@@ -3296,64 +3248,93 @@ Email и UID обычным посетителям не показываются
 
 
   <script>
-    function zhanOpenTabAndScroll(tabName, targetId) {
-      const tabButton = document.querySelector('.tab-btn[data-tab="' + tabName + '"]');
+    (function () {
+      function openTab(tabName) {
+        document.querySelectorAll(".tab-btn").forEach(function (button) {
+          button.classList.remove("active");
+        });
 
-      if (tabButton) {
-        tabButton.click();
-      } else {
-        document.querySelectorAll(".tab").forEach((tab) => tab.classList.remove("active"));
-        document.querySelectorAll(".tab-btn").forEach((button) => button.classList.remove("active"));
+        document.querySelectorAll(".tab").forEach(function (tab) {
+          tab.classList.remove("active");
+        });
 
+        const button = document.querySelector('.tab-btn[data-tab="' + tabName + '"]');
         const tab = document.getElementById(tabName);
-        if (tab) {
-          tab.classList.add("active");
-        }
+
+        if (button) button.classList.add("active");
+        if (tab) tab.classList.add("active");
       }
 
-      setTimeout(() => {
-        if (targetId) {
-          const target = document.getElementById(targetId);
-          if (target) {
-            target.scrollIntoView({ behavior: "smooth", block: "center" });
+      function openTabAndScroll(tabName, targetId) {
+        openTab(tabName);
+
+        setTimeout(function () {
+          if (targetId) {
+            const target = document.getElementById(targetId);
+            if (target) {
+              target.scrollIntoView({ behavior: "smooth", block: "center" });
+            }
+            return;
           }
-          return;
-        }
 
-        const tab = document.getElementById(tabName);
-        if (tab) {
-          tab.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      }, 120);
-    }
+          const tab = document.getElementById(tabName);
+          if (tab) {
+            tab.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }, 120);
+      }
 
-    function zhanOpenWriteChoice() {
-      const modal = document.getElementById("writeChoiceModal");
-      if (modal) {
+      function openWriteModal() {
+        const modal = document.getElementById("writeChoiceModal");
+        if (!modal) return;
         modal.classList.add("open");
         modal.setAttribute("aria-hidden", "false");
       }
-    }
 
-    function zhanCloseWriteChoice() {
-      const modal = document.getElementById("writeChoiceModal");
-      if (modal) {
+      function closeWriteModal() {
+        const modal = document.getElementById("writeChoiceModal");
+        if (!modal) return;
         modal.classList.remove("open");
         modal.setAttribute("aria-hidden", "true");
       }
-    }
 
-    function zhanGoWrite(tabName) {
-      zhanCloseWriteChoice();
-      zhanOpenTabAndScroll(tabName, null);
-    }
+      window.zhanOpenTabAndScroll = openTabAndScroll;
+      window.zhanOpenWriteChoice = openWriteModal;
 
-    document.addEventListener("click", function (event) {
-      const modal = document.getElementById("writeChoiceModal");
-      if (modal && event.target === modal) {
-        zhanCloseWriteChoice();
-      }
-    });
+      document.addEventListener("DOMContentLoaded", function () {
+        const photosBtn = document.getElementById("zhanPhotosBtn");
+        const musicBtn = document.getElementById("zhanMusicBtn");
+        const writeBtn = document.getElementById("zhanWriteBtn");
+        const allWishesBtn = document.getElementById("zhanAllWishesBtn");
+        const closeBtn = document.getElementById("zhanWriteCloseBtn");
+        const wishBtn = document.getElementById("zhanWriteWishBtn");
+        const storyBtn = document.getElementById("zhanWriteStoryBtn");
+        const modal = document.getElementById("writeChoiceModal");
+
+        if (photosBtn) photosBtn.onclick = function () { openTabAndScroll("letter", "parallaxSlider"); };
+        if (musicBtn) musicBtn.onclick = function () { openTabAndScroll("letter", "musicPlayer"); };
+        if (writeBtn) writeBtn.onclick = function () { openWriteModal(); };
+        if (allWishesBtn) allWishesBtn.onclick = function () { openTabAndScroll("wishes", null); };
+
+        if (closeBtn) closeBtn.onclick = closeWriteModal;
+
+        if (wishBtn) wishBtn.onclick = function () {
+          closeWriteModal();
+          openTabAndScroll("wishes", null);
+        };
+
+        if (storyBtn) storyBtn.onclick = function () {
+          closeWriteModal();
+          openTabAndScroll("stories", null);
+        };
+
+        if (modal) {
+          modal.addEventListener("click", function (event) {
+            if (event.target === modal) closeWriteModal();
+          });
+        }
+      });
+    })();
   </script>
 
 </body>
