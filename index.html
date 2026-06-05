@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Для Жанульки</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Literata:opsz,wght@7..72,400;7..72,600;7..72,700&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#030303;--card:rgba(22,8,6,.78);--text:#f5e2c4;--muted:rgba(245,226,196,.70);--gold:#e0bd82;--orange:#cf6f02;--rose:#c82f22;--line:rgba(201,155,90,.24);--shadow:0 28px 90px rgba(0,0,0,.64)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;color:var(--text);font-family:"Literata",serif;background:radial-gradient(circle at 9% 10%,rgba(207,111,2,.22),transparent 30%),radial-gradient(circle at 88% 12%,rgba(199,47,34,.18),transparent 32%),linear-gradient(135deg,#020202,#090403 48%,#2a0805);overflow-x:hidden}body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:58px 58px;mask-image:radial-gradient(circle at center,#000,transparent 75%)}
+    .cat-side{position:fixed;width:120px;height:120px;border-radius:28px;z-index:2;opacity:.72;pointer-events:none;object-fit:cover;background:rgba(255,232,196,.045);border:1px solid var(--line);filter:drop-shadow(0 0 18px rgba(207,111,2,.18))}.cat-left-top{left:-42px;top:86px}.cat-right-top{right:-42px;top:86px}.cat-left-bottom{left:-42px;bottom:86px}.cat-right-bottom{right:-42px;bottom:86px}
+    nav.container-fluid{position:sticky;top:0;z-index:20;padding:16px clamp(14px,4vw,44px);border-bottom:1px solid var(--line);background:rgba(10,4,6,.62);backdrop-filter:blur(18px)}nav a{color:var(--text);text-decoration:none}.login-chip{width:auto;margin:0;padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,232,196,.055);color:var(--text)}.auth-mini{font-size:13px;color:var(--muted);margin-right:8px}
+    main.container{max-width:1180px;padding:46px 16px 28px}.grid{display:block}.glass{border:1px solid var(--line);background:linear-gradient(145deg,rgba(255,232,196,.10),rgba(255,232,196,.035)),var(--card);box-shadow:var(--shadow);border-radius:32px;backdrop-filter:blur(18px)}.hero{display:grid;grid-template-columns:1.15fr .95fr;gap:28px;align-items:stretch;min-height:72vh}.hero-card{padding:clamp(28px,5vw,64px);position:relative;overflow:hidden}.hero-card:after{content:"❤";position:absolute;right:38px;bottom:22px;font-size:130px;color:rgba(199,47,34,.15);transform:rotate(-6deg)}.badge{display:inline-flex;gap:8px;align-items:center;padding:8px 13px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.055);color:var(--gold);font-weight:700}h1{font-family:"Great Vibes",cursive;font-size:clamp(82px,13vw,156px);line-height:.82;margin:24px 0;color:#fff1d9;text-shadow:0 0 34px rgba(255,209,139,.22)}h2{margin:0 0 8px;color:var(--gold);font-size:clamp(32px,5vw,52px)}h3{color:var(--muted);margin-top:0}.lead{font-size:clamp(20px,2.5vw,30px);line-height:1.55;color:var(--muted);max-width:760px}.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 18px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);text-decoration:none;font-weight:800}.btn.primary{border:0;background:linear-gradient(135deg,var(--gold),var(--orange));color:#1d0905}
+    .stats-hero{padding:24px;display:grid;gap:16px}.stats-title{padding:20px;border-radius:24px;background:radial-gradient(circle at top,rgba(207,111,2,.16),transparent 60%),rgba(0,0,0,.16);border:1px solid var(--line);text-align:center}.stats-title .big{font-family:"Great Vibes",cursive;font-size:72px;line-height:.9;color:#fff1d9}.live-stats{display:grid;grid-template-columns:1fr 1fr;gap:14px}.live-stat{min-height:130px;padding:18px;border-radius:24px;background:rgba(0,0,0,.18);border:1px solid var(--line);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}.live-stat b{font-size:38px;color:#fff1d9}.live-stat span{color:var(--muted)}.quick-links{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.quick-links a{min-height:96px;border-radius:22px;border:1px solid var(--line);background:rgba(255,255,255,.055);display:grid;place-items:center;font-size:38px;text-decoration:none}.section{margin-top:28px;padding:34px}.section p{line-height:1.75;color:var(--muted)}.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}.photo{height:230px;border-radius:24px;background:linear-gradient(135deg,rgba(199,47,34,.18),rgba(207,111,2,.16));border:1px solid var(--line);overflow:hidden;display:grid;place-items:center;color:var(--muted)}.photo img{width:100%;height:100%;object-fit:cover;display:block}.photo.tall{height:300px}.spotify-frame{width:100%;min-height:380px;border:0;border-radius:24px;background:#111}.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}.tab-btn{width:auto;margin:0;padding:11px 15px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.055);color:var(--text)}.tab-btn.active{background:linear-gradient(135deg,rgba(207,111,2,.28),rgba(199,47,34,.15));border-color:rgba(255,209,139,.45)}.tab{display:none}.tab.active{display:block}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.item{padding:20px;border-radius:22px;background:rgba(255,255,255,.055);border:1px solid var(--line)}.item strong{color:var(--gold)}.item p{white-space:pre-wrap}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}input,textarea{border-radius:16px!important;background:rgba(0,0,0,.30)!important;border:1px solid var(--line)!important;color:var(--text)!important}textarea{grid-column:1/-1;min-height:130px}button[type=submit],.submit-btn{grid-column:1/-1;border-radius:16px;border:0;background:linear-gradient(135deg,var(--orange),var(--rose));color:#220805;font-weight:900}.notice{display:none;margin-top:12px;padding:12px 14px;border-radius:16px;background:rgba(99,230,190,.10);border:1px solid rgba(99,230,190,.22);color:#d6fff2}.modal-backdrop{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.62);backdrop-filter:blur(8px)}.modal{width:min(560px,100%);padding:26px;border-radius:26px;border:1px solid var(--line);background:linear-gradient(145deg,rgba(45,31,35,.98),rgba(18,8,10,.98));box-shadow:var(--shadow)}.modal-row{display:flex;justify-content:space-between;gap:12px;align-items:center}.close-btn{width:auto;margin:0;border-radius:999px;padding:8px 12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text)}.auth-box{margin-top:14px;padding:16px;border-radius:20px;background:rgba(0,0,0,.16);border:1px solid var(--line)}.auth-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.site-footer{margin-top:34px;padding:28px;text-align:center}.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:10px}.footer-links a,.footer-links button{width:auto;margin:0;padding:10px 14px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.045);color:var(--text);text-decoration:none}.footer-bottom{margin-top:16px;color:var(--muted);font-size:13px}
+    @media(max-width:900px){main.container{padding-top:22px}.hero{grid-template-columns:1fr;min-height:auto}.live-stats,.gallery,.cards,.form-grid,.auth-grid{grid-template-columns:1fr}.cat-side{width:64px;height:64px;opacity:.50;border-radius:18px}.cat-left-top{left:-22px;top:76px}.cat-right-top{right:-22px;top:76px}.cat-left-bottom{left:-22px;bottom:40px}.cat-right-bottom{right:-22px;bottom:40px}nav.container-fluid ul:last-child li:nth-child(1),nav.container-fluid ul:last-child li:nth-child(2){display:none}h1{font-size:clamp(74px,22vw,112px)}.section{padding:24px 18px}.spotify-frame{min-height:352px}}
+  
+    /* === V4.0 hybrid polish === */
+    .footer-subtitle{color:var(--muted);line-height:1.6;margin:0 0 16px}
+    .security-note{margin-top:12px;padding:14px;border-radius:18px;border:1px solid rgba(207,111,2,.42);background:linear-gradient(135deg,rgba(120,20,10,.24),rgba(0,0,0,.35));color:var(--text);font-size:14px;line-height:1.5}
+    .security-note p{margin:8px 0 0;font-size:14px;line-height:1.5;color:var(--muted)}
+    .hero-card:after{color:rgba(207,111,2,.13)!important}
+    .btn.primary,button[type=submit],.submit-btn{background:linear-gradient(135deg,var(--orange),var(--rose))!important;color:#fff1d9!important}
+    .photo{background:linear-gradient(135deg,rgba(207,111,2,.18),rgba(199,47,34,.14))!important}
+    nav.container-fluid{background:rgba(7,4,3,.68)!important}
+    .auth-mini{max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:inline-block;vertical-align:middle}
+
+  
+    /* === V4.3 order + compact auth popover === */
+    .welcome-top{margin-top:28px!important}
+    .letter-quote{font-size:clamp(24px,4vw,34px);color:var(--orange)!important;font-weight:700;margin-top:18px}
+    .small-note{font-size:14px;color:var(--muted)!important;margin-top:-8px}
+    .auth-popover{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.58);backdrop-filter:blur(8px);padding:88px 16px 18px}
+    .auth-popover.open{display:block}
+    .auth-popover-card{width:min(520px,calc(100vw - 32px));margin:0 24px 0 auto;padding:22px;border-radius:24px}
+    .auth-popover-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+    .auth-popover-head h2{font-size:34px;margin:0 0 4px}
+    .auth-popover-head p{margin:0;color:var(--muted)}
+    .auth-close-btn{width:auto!important;border-radius:999px!important;padding:8px 14px!important;background:rgba(255,255,255,.06)!important;border:1px solid var(--line)!important;color:var(--text)!important}
+    .auth-popover .auth-box{display:grid;gap:10px;margin-top:16px}
+    .privacy-inline{display:none;margin-top:12px;color:var(--muted);font-size:13px;line-height:1.55}
+    .privacy-inline:target{display:block}
+    .spotify-frame{min-height:480px}
+    @media(max-width:900px){
+      .auth-popover{padding-top:76px}
+      .auth-popover-card{margin:0 auto;width:100%}
+      .spotify-frame{min-height:430px}
+    }
+
+  
+    /* === V4.4 welcome + stats hero === */
+    .welcome-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.75fr);
+      gap: 24px;
+      align-items: stretch;
+      padding: clamp(28px, 5vw, 48px);
+      margin-top: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .welcome-hero::after {
+      content: "❤";
+      position: absolute;
+      right: 42%;
+      bottom: 24px;
+      font-size: 116px;
+      color: rgba(207,111,2,.10);
+      transform: rotate(-6deg);
+      pointer-events: none;
+    }
+
+    .welcome-copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    .welcome-title {
+      font-family: "Literata", serif;
+      font-size: clamp(44px, 6vw, 72px);
+      line-height: 1.05;
+      margin: 22px 0 18px;
+      color: var(--gold);
+      text-shadow: 0 0 34px rgba(207,111,2,.16);
+    }
+
+    .welcome-copy p {
+      max-width: 760px;
+      font-size: clamp(18px, 2vw, 22px);
+      line-height: 1.7;
+    }
+
+    .welcome-stats {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 14px;
+      padding: 18px;
+      border-radius: 26px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.16);
+    }
+
+    .stats-title.compact {
+      padding: 18px;
+      min-height: auto;
+    }
+
+    .stats-title.compact .big {
+      font-size: clamp(38px, 5vw, 62px);
+    }
+
+    .welcome-stats .live-stat {
+      min-height: 112px;
+    }
+
+    .welcome-stats .quick-links a {
+      min-height: 76px;
+      font-size: 32px;
+    }
+
+    @media (max-width: 900px) {
+      .welcome-hero {
+        grid-template-columns: 1fr;
+        padding: 24px 18px;
+      }
+
+      .welcome-hero::after {
+        right: 16px;
+        bottom: 10px;
+        font-size: 92px;
+      }
+
+      .welcome-stats {
+        padding: 14px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <img src="cats.jpg" class="cat-side cat-left-top" alt="">
+  <img src="cats2.jpg" class="cat-side cat-right-top" alt="">
+  <img src="cats3.jpg" class="cat-side cat-left-bottom" alt="">
+  <img src="cats4.jpg" class="cat-side cat-right-bottom" alt="">
+  <nav class="container-fluid"><ul><li><strong>Для Жанульки</strong></li></ul><ul><li><a href="#letter">Письмо</a></li><li><a href="#music">Музыка</a></li><li><span class="auth-mini" id="authStatus">Гость</span><button class="login-chip" id="topLoginBtn">Войти</button></li></ul></nav>
+
+  <div class="auth-popover" id="authPopover">
+    <div class="auth-popover-card glass">
+      <div class="auth-popover-head">
+        <div>
+          <h2>Вход</h2>
+          <p>Google или Email/пароль</p>
+        </div>
+        <button class="auth-close-btn" id="authCloseBtn" type="button">×</button>
+      </div>
+      <div class="auth-box">
+        <button id="googleLoginBtn">Войти через Google</button>
+        <input id="emailLoginInput" type="email" placeholder="Email">
+        <input id="passwordLoginInput" type="password" placeholder="Пароль">
+        <div class="security-note">
+          <strong>⚠ Важно</strong>
+          <p>Не используйте пароль от своей почты Gmail, Mail.ru, Яндекс и других сервисов. Создайте отдельный пароль специально для этого сайта.</p>
+          <p>Сайт не запрашивает пароль от вашей электронной почты. Пароль используется только для аккаунта на этом сайте.</p>
+        </div>
+        <div class="auth-grid">
+          <button id="emailLoginBtn">Войти по Email</button>
+          <button id="emailRegisterBtn">Регистрация</button>
+        </div>
+        <button id="logoutBtn" class="secondary">Выйти</button>
+        <div class="notice" id="authNotice"></div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="grid">
+      <section class="welcome-hero glass" id="letter">
+        <div class="welcome-copy">
+          <span class="badge">❤️ Личное письмо</span>
+
+          <h1 class="welcome-title">Добро пожаловать ♥</h1>
+
+          <h3>Фанатское письмо и маленькая тёплая страница</h3>
+
+          <p>
+            Это место для тех, кто чувствует музыку Жанульки, её слова и её атмосферу.
+            Здесь хранятся воспоминания, пожелания, истории и маленькие фанатские моменты.
+          </p>
+
+          <p class="letter-quote">«Спасибо, что ты есть. Спасибо за музыку.»</p>
+          <p class="small-note">— от фанатов</p>
+
+          <div class="hero-actions">
+            <a class="btn primary" href="#letter">Открыть письмо</a>
+            <a class="btn" href="#write">Оставить пожелание</a>
+          </div>
+        </div>
+
+        <aside class="welcome-stats">
+          <div class="stats-title compact">
+            <div class="big">Живая статистика</div>
+            <p>Сайт обновляется в реальном времени</p>
+          </div>
+
+          <div class="live-stats">
+            <div class="live-stat">
+              <b id="heartsCount">0</b>
+              <span>❤️ сердечек</span>
+            </div>
+
+            <div class="live-stat">
+              <b id="messagesCount">0</b>
+              <span>💌 пожеланий</span>
+            </div>
+
+            <div class="live-stat">
+              <b id="storiesCount">0</b>
+              <span>📖 историй</span>
+            </div>
+
+            <div class="live-stat">
+              <b id="onlineCount">0</b>
+              <span>🟢 онлайн</span>
+            </div>
+          </div>
+
+          <div class="quick-links">
+            <a href="#gallery">🐾</a>
+            <a href="#music">🎵</a>
+            <a href="#wishes">✨</a>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section glass" id="wishes"><h2>Пожелания и истории</h2><div class="tabs"><button class="tab-btn active" data-tab="wishTab">Пожелания</button><button class="tab-btn" data-tab="storyTab">Истории</button></div><div class="tab active" id="wishTab"><div class="cards" id="approvedMessages"><div class="item"><strong>Загрузка</strong><p>Получаем пожелания...</p></div></div></div><div class="tab" id="storyTab"><div class="cards" id="approvedStories"><div class="item"><strong>Загрузка</strong><p>Получаем истории...</p></div></div></div></section>
+
+      <section class="section glass" id="write"><h2>Написать пожелание или историю</h2><p>Чтобы оставить пожелание или историю, войдите через Google или Email.</p><div class="tabs"><button class="tab-btn active" data-tab="messageFormTab">Пожелание</button><button class="tab-btn" data-tab="storyFormTab">История</button></div><div class="tab active" id="messageFormTab"><form class="form-grid" id="messageForm"><input id="firstname" placeholder="Имя" required><input id="email" type="email" placeholder="Email" required><textarea id="message" placeholder="Ваше пожелание" required></textarea><button type="submit">Отправить пожелание</button></form><div class="notice" id="messageNotice">Пожелание отправлено на модерацию.</div></div><div class="tab" id="storyFormTab"><form class="form-grid" id="storyForm"><input id="storyTitle" placeholder="Название истории" required><input id="storyName" placeholder="Ваше имя" required><textarea id="storyText" placeholder="История" required></textarea><button type="submit">Отправить историю</button></form><div class="notice" id="storyNotice">История отправлена на модерацию.</div></div></section>
+
+      <section class="section glass" id="music"><h2>Музыка</h2><p>Spotify-плейлист Жанульки.</p><iframe class="spotify-frame" src="https://open.spotify.com/embed/playlist/6NySOoEjB8dVVNv6U4OswW?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></section>
+
+      <section class="section glass" id="gallery"><h2>Галерея</h2><p>Фотографии с концерта и маленькие воспоминания.</p><div class="gallery"><div class="photo"><img src="photo1.jpg" alt="Фото 1" onerror="this.onerror=null;this.src='images/photo1.jpg';this.addEventListener('error',()=>{var p=this.parentElement;this.remove();p.textContent='Фото 1'})"></div><div class="photo tall"><img src="photo2.jpg" alt="Фото 2" onerror="this.onerror=null;this.src='images/photo2.jpg';this.addEventListener('error',()=>{var p=this.parentElement;this.remove();p.textContent='Фото 2'})"></div><div class="photo"><img src="photo3.jpg" alt="Фото 3" onerror="this.onerror=null;this.src='images/photo3.jpg';this.addEventListener('error',()=>{var p=this.parentElement;this.remove();p.textContent='Фото 3'})"></div><div class="photo"><img src="photo4.jpg" alt="Фото 4" onerror="this.onerror=null;this.src='images/photo4.jpg';this.addEventListener('error',()=>{var p=this.parentElement;this.remove();p.textContent='Фото 4'})"></div><div class="photo tall"><img src="photo5.jpg" alt="Фото 5" onerror="this.onerror=null;this.src='images/photo5.jpg';this.addEventListener('error',()=>{var p=this.parentElement;this.remove();p.textContent='Фото 5'})"></div><div class="photo"><img src="photo6.jpg" alt="Фото 6" onerror="this.onerror=null;this.src='images/photo6.jpg';this.addEventListener('error',()=>{var p=this.parentElement;this.remove();p.textContent='Фото 6'})"></div></div></section></div>
+  </main>
+  <section class="section glass" id="rules"><h2>Правила сайта</h2><p>Можно писать пожелания, делиться историями и оставлять идеи по сайту.</p><p>Нельзя публиковать оскорбления, спам, рекламу, чужие личные данные, незаконный или опасный контент. Администрация может удалить материалы, которые нарушают правила.</p></section>
+
+  <footer class="container site-footer">
+    <p class="footer-subtitle">Фанатский проект, созданный с любовью.<br>Место для пожеланий, историй, музыки и маленьких воспоминаний.</p>
+    <div class="footer-links">
+      <a href="#rules">📜 Site Rules</a>
+      <button id="feedbackOpenBtn">💡 Feedback</button>
+      <a href="#privacyInfo">🔒 Privacy Policy</a>
+    </div>
+    <div id="privacyInfo" class="privacy-inline">Privacy Policy: this fan site uses Firebase Authentication and Firebase Realtime Database for login, moderation, statistics, wishes, stories, feedback and online status. Data is not sold and is not used for advertising.</div>
+    <div class="footer-bottom">Неофициальный фанатский сайт. Все права на музыку, изображения и материалы принадлежат их правообладателям.</div>
+  </footer>
+  <div class="modal-backdrop" id="feedbackModal"><div class="modal"><div class="modal-row"><h2>Feedback</h2><button class="close-btn" data-close="feedbackModal">×</button></div><p>Сообщение увидит только администратор.</p><form id="feedbackForm" class="form-grid"><input id="feedbackName" placeholder="Имя"><input id="feedbackEmail" type="email" placeholder="Email"><textarea id="feedbackText" placeholder="Сообщение" required></textarea><button type="submit">Отправить</button></form><div class="notice" id="feedbackNotice">Feedback отправлен.</div></div></div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+    import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
+    import { getDatabase, ref, onValue, push, set, update, increment, onDisconnect, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-database.js";
+    const firebaseConfig={apiKey:"AIzaSyAnBQnt8bK-3G0zjNyIQsLY5s-_rjIV2Mk",authDomain:"a-letter-for-zhanulka.firebaseapp.com",databaseURL:"https://a-letter-for-zhanulka-default-rtdb.europe-west1.firebasedatabase.app",projectId:"a-letter-for-zhanulka",storageBucket:"a-letter-for-zhanulka.firebasestorage.app",messagingSenderId:"479179895784",appId:"1:479179895784:web:7f3bcd70ed9070c0816a5d"};
+    const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getDatabase(app),provider=new GoogleAuthProvider();const P={stats:'stats',messages:'messages',stories:'stories',feedback:'feedback',users:'users',presence:'presence'};const $=id=>document.getElementById(id);const safe=v=>String(v||'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+    document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{const parent=btn.closest('.section');parent.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));parent.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');$(btn.dataset.tab).classList.add('active')}));function showNotice(id,t){$(id).textContent=t;$(id).style.display='block'}function openAuth(){location.hash='write';showNotice('authNotice','Сначала войдите через Google или Email.')}async function needAuth(){if(auth.currentUser)return true;openAuth();return false}
+    $('topLoginBtn').onclick=()=>auth.currentUser?signOut(auth):$('authPopover').classList.add('open');$('authCloseBtn').onclick=()=>$('authPopover').classList.remove('open');$('authPopover').addEventListener('click',e=>{if(e.target.id==='authPopover')$('authPopover').classList.remove('open')});$('googleLoginBtn').onclick=()=>signInWithPopup(auth,provider).catch(e=>showNotice('authNotice',e.message));$('emailLoginBtn').onclick=()=>signInWithEmailAndPassword(auth,$('emailLoginInput').value,$('passwordLoginInput').value).catch(e=>showNotice('authNotice',e.message));$('emailRegisterBtn').onclick=()=>createUserWithEmailAndPassword(auth,$('emailLoginInput').value,$('passwordLoginInput').value).catch(e=>showNotice('authNotice',e.message));$('logoutBtn').onclick=()=>signOut(auth);
+    onAuthStateChanged(auth,user=>{ $('authStatus').textContent=user?'Авторизован':'Гость';$('topLoginBtn').textContent=user?'Выйти':'Войти'; if(user){set(ref(db,`${P.users}/${user.uid}`),{email:user.email||'',displayName:user.displayName||'Гость',photoURL:user.photoURL||'',lastSeen:Date.now()}).catch(()=>{});const pr=ref(db,`${P.presence}/${user.uid}`);set(pr,{online:true,email:user.email||'',name:user.displayName||'Гость',lastSeen:serverTimestamp()}).catch(()=>{});onDisconnect(pr).set({online:false,email:user.email||'',name:user.displayName||'Гость',lastSeen:serverTimestamp()});}});
+    update(ref(db,P.stats),{views:increment(1)}).catch(()=>{});onValue(ref(db,P.stats),s=>{$('heartsCount').textContent=(s.val()||{}).hearts||0});onValue(ref(db,P.presence),s=>{$('onlineCount').textContent=Object.values(s.val()||{}).filter(u=>u&&u.online).length});
+    document.addEventListener('click',e=>{if(e.target.closest('button,a,input,textarea'))return;const h=document.createElement('span');h.textContent='❤';h.style.cssText=`position:fixed;left:${e.clientX}px;top:${e.clientY}px;pointer-events:none;color:#c82f22;font-size:24px;z-index:999;animation:up 1.4s ease forwards`;document.body.appendChild(h);setTimeout(()=>h.remove(),1400);update(ref(db,P.stats),{hearts:increment(1)}).catch(()=>{})});const st=document.createElement('style');st.textContent='@keyframes up{to{transform:translateY(-80px) scale(1.8);opacity:0}}';document.head.appendChild(st);
+    $('messageForm').onsubmit=async e=>{e.preventDefault();if(!await needAuth())return;await push(ref(db,P.messages),{name:$('firstname').value.trim(),email:$('email').value.trim(),text:$('message').value.trim(),status:'pending',createdAt:Date.now(),uid:auth.currentUser.uid});e.target.reset();$('messageNotice').style.display='block'};
+    $('storyForm').onsubmit=async e=>{e.preventDefault();if(!await needAuth())return;await push(ref(db,P.stories),{title:$('storyTitle').value.trim(),name:$('storyName').value.trim(),text:$('storyText').value.trim(),status:'pending',createdAt:Date.now(),uid:auth.currentUser.uid});e.target.reset();$('storyNotice').style.display='block'};
+    $('feedbackOpenBtn').onclick=()=>{if(!auth.currentUser){openAuth();return}$('feedbackModal').style.display='flex'};document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>$(b.dataset.close).style.display='none');$('feedbackForm').onsubmit=async e=>{e.preventDefault();if(!await needAuth())return;await push(ref(db,P.feedback),{name:$('feedbackName').value.trim(),email:$('feedbackEmail').value.trim()||auth.currentUser.email,text:$('feedbackText').value.trim(),createdAt:Date.now(),uid:auth.currentUser.uid});e.target.reset();$('feedbackNotice').style.display='block'};
+    onValue(ref(db,P.messages),s=>{const arr=Object.values(s.val()||{}).filter(x=>x.status==='approved').sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));$('messagesCount').textContent=arr.length;$('approvedMessages').innerHTML=arr.length?arr.slice(0,12).map(x=>`<div class="item"><strong>${safe(x.name||'Гость')}</strong><p>${safe(x.text)}</p></div>`).join(''):'<div class="item"><strong>Пока пусто</strong><p>Одобренные пожелания появятся здесь.</p></div>'});
+    onValue(ref(db,P.stories),s=>{const arr=Object.values(s.val()||{}).filter(x=>x.status==='approved').sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));$('storiesCount').textContent=arr.length;$('approvedStories').innerHTML=arr.length?arr.slice(0,12).map(x=>`<div class="item"><strong>${safe(x.title||x.name||'История')}</strong><p>${safe(x.text)}</p></div>`).join(''):'<div class="item"><strong>Пока пусто</strong><p>Опубликованные истории появятся здесь.</p></div>'});
+  </script>
+</body>
+</html>
