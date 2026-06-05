@@ -50,92 +50,102 @@
     }
 
   
-    /* === V4.4 welcome + stats hero === */
-    .welcome-hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.75fr);
-      gap: 24px;
-      align-items: stretch;
-      padding: clamp(28px, 5vw, 48px);
-      margin-top: 28px;
-      position: relative;
-      overflow: hidden;
+    /* === V4.5 fixes: no email in wish form, gallery slider, visible cats === */
+    #messageForm.form-grid {
+      grid-template-columns: 1fr !important;
     }
 
-    .welcome-hero::after {
-      content: "❤";
-      position: absolute;
-      right: 42%;
-      bottom: 24px;
-      font-size: 116px;
-      color: rgba(207,111,2,.10);
-      transform: rotate(-6deg);
-      pointer-events: none;
+    #messageForm textarea {
+      grid-column: 1 / -1;
     }
 
-    .welcome-copy {
-      position: relative;
-      z-index: 1;
+    .cat-left-top {
+      left: 10px !important;
+      top: 110px !important;
     }
 
-    .welcome-title {
-      font-family: "Literata", serif;
-      font-size: clamp(44px, 6vw, 72px);
-      line-height: 1.05;
-      margin: 22px 0 18px;
-      color: var(--gold);
-      text-shadow: 0 0 34px rgba(207,111,2,.16);
+    .cat-right-top {
+      right: 10px !important;
+      top: 110px !important;
     }
 
-    .welcome-copy p {
-      max-width: 760px;
-      font-size: clamp(18px, 2vw, 22px);
-      line-height: 1.7;
+    .cat-left-bottom {
+      left: 10px !important;
+      bottom: 84px !important;
     }
 
-    .welcome-stats {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      gap: 14px;
-      padding: 18px;
-      border-radius: 26px;
-      border: 1px solid var(--line);
-      background: rgba(0,0,0,.16);
+    .cat-right-bottom {
+      right: 10px !important;
+      bottom: 84px !important;
     }
 
-    .stats-title.compact {
-      padding: 18px;
-      min-height: auto;
+    .gallery {
+      display: flex !important;
+      gap: 18px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 12px 4px 18px;
+      grid-template-columns: none !important;
     }
 
-    .stats-title.compact .big {
-      font-size: clamp(38px, 5vw, 62px);
+    .gallery::-webkit-scrollbar {
+      height: 8px;
     }
 
-    .welcome-stats .live-stat {
-      min-height: 112px;
+    .gallery::-webkit-scrollbar-thumb {
+      background: rgba(207,111,2,.45);
+      border-radius: 999px;
     }
 
-    .welcome-stats .quick-links a {
-      min-height: 76px;
-      font-size: 32px;
+    .photo,
+    .photo.tall {
+      flex: 0 0 min(780px, 88vw);
+      width: min(780px, 88vw);
+      height: min(78vh, 720px) !important;
+      scroll-snap-align: center;
+      border-radius: 28px;
     }
 
-    @media (max-width: 900px) {
-      .welcome-hero {
-        grid-template-columns: 1fr;
-        padding: 24px 18px;
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain !important;
+      background: rgba(0,0,0,.32);
+    }
+
+    .gallery-hint {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    @media(max-width:900px) {
+      .cat-left-top {
+        left: 8px !important;
+        top: 94px !important;
       }
 
-      .welcome-hero::after {
-        right: 16px;
-        bottom: 10px;
-        font-size: 92px;
+      .cat-right-top {
+        right: 8px !important;
+        top: 94px !important;
       }
 
-      .welcome-stats {
-        padding: 14px;
+      .cat-left-bottom {
+        left: 8px !important;
+        bottom: 70px !important;
+      }
+
+      .cat-right-bottom {
+        right: 8px !important;
+        bottom: 70px !important;
+      }
+
+      .photo,
+      .photo.tall {
+        flex-basis: 88vw;
+        width: 88vw;
+        height: min(72vh, 620px) !important;
       }
     }
 
@@ -176,77 +186,24 @@
     </div>
   </div>
 
-  <main class="container">
-    <div class="grid">
-      <section class="welcome-hero glass" id="letter">
-        <div class="welcome-copy">
-          <span class="badge">❤️ Личное письмо</span>
-
-          <h1 class="welcome-title">Добро пожаловать ♥</h1>
-
-          <h3>Фанатское письмо и маленькая тёплая страница</h3>
-
+  <main class="container"><div class="grid"><section class="section glass welcome-top" id="letter">
+          <hgroup>
+            <h2>Добро пожаловать ♥</h2>
+            <h3>Фанатское письмо и маленькая тёплая страница</h3>
+          </hgroup>
           <p>
             Это место для тех, кто чувствует музыку Жанульки, её слова и её атмосферу.
             Здесь хранятся воспоминания, пожелания, истории и маленькие фанатские моменты.
           </p>
-
           <p class="letter-quote">«Спасибо, что ты есть. Спасибо за музыку.»</p>
           <p class="small-note">— от фанатов</p>
-
-          <div class="hero-actions">
-            <a class="btn primary" href="#letter">Открыть письмо</a>
-            <a class="btn" href="#write">Оставить пожелание</a>
-          </div>
-        </div>
-
-        <aside class="welcome-stats">
-          <div class="stats-title compact">
-            <div class="big">Живая статистика</div>
-            <p>Сайт обновляется в реальном времени</p>
-          </div>
-
-          <div class="live-stats">
-            <div class="live-stat">
-              <b id="heartsCount">0</b>
-              <span>❤️ сердечек</span>
-            </div>
-
-            <div class="live-stat">
-              <b id="messagesCount">0</b>
-              <span>💌 пожеланий</span>
-            </div>
-
-            <div class="live-stat">
-              <b id="storiesCount">0</b>
-              <span>📖 историй</span>
-            </div>
-
-            <div class="live-stat">
-              <b id="onlineCount">0</b>
-              <span>🟢 онлайн</span>
-            </div>
-          </div>
-
-          <div class="quick-links">
-            <a href="#gallery">🐾</a>
-            <a href="#music">🎵</a>
-            <a href="#wishes">✨</a>
-          </div>
-        </aside>
-      </section>
-
-      <section class="section glass" id="wishes"><h2>Пожелания и истории</h2><div class="tabs"><button class="tab-btn active" data-tab="wishTab">Пожелания</button><button class="tab-btn" data-tab="storyTab">Истории</button></div><div class="tab active" id="wishTab"><div class="cards" id="approvedMessages"><div class="item"><strong>Загрузка</strong><p>Получаем пожелания...</p></div></div></div><div class="tab" id="storyTab"><div class="cards" id="approvedStories"><div class="item"><strong>Загрузка</strong><p>Получаем истории...</p></div></div></div></section>
-
-      <section class="section glass" id="write"><h2>Написать пожелание или историю</h2><p>Чтобы оставить пожелание или историю, войдите через Google или Email.</p><div class="tabs"><button class="tab-btn active" data-tab="messageFormTab">Пожелание</button><button class="tab-btn" data-tab="storyFormTab">История</button></div><div class="tab active" id="messageFormTab"><form class="form-grid" id="messageForm"><input id="firstname" placeholder="Имя" required><input id="email" type="email" placeholder="Email" required><textarea id="message" placeholder="Ваше пожелание" required></textarea><button type="submit">Отправить пожелание</button></form><div class="notice" id="messageNotice">Пожелание отправлено на модерацию.</div></div><div class="tab" id="storyFormTab"><form class="form-grid" id="storyForm"><input id="storyTitle" placeholder="Название истории" required><input id="storyName" placeholder="Ваше имя" required><textarea id="storyText" placeholder="История" required></textarea><button type="submit">Отправить историю</button></form><div class="notice" id="storyNotice">История отправлена на модерацию.</div></div></section>
-
-      <section class="section glass" id="music"><h2>Музыка</h2><p>Spotify-плейлист Жанульки.</p><iframe class="spotify-frame" src="https://open.spotify.com/embed/playlist/6NySOoEjB8dVVNv6U4OswW?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></section>
-
-      <section class="section glass" id="gallery"><h2>Галерея</h2><p>Фотографии с концерта и маленькие воспоминания.</p><div class="gallery"><div class="photo"><img src="photo1.jpg" alt="Фото 1" onerror="this.onerror=null;this.src='images/photo1.jpg';this.addEventListener('error',()=>{var p=this.parentElement;this.remove();p.textContent='Фото 1'})"></div><div class="photo tall"><img src="photo2.jpg" alt="Фото 2" onerror="this.onerror=null;this.src='images/photo2.jpg';this.addEventListener('error',()=>{var p=this.parentElement;this.remove();p.textContent='Фото 2'})"></div><div class="photo"><img src="photo3.jpg" alt="Фото 3" onerror="this.onerror=null;this.src='images/photo3.jpg';this.addEventListener('error',()=>{var p=this.parentElement;this.remove();p.textContent='Фото 3'})"></div><div class="photo"><img src="photo4.jpg" alt="Фото 4" onerror="this.onerror=null;this.src='images/photo4.jpg';this.addEventListener('error',()=>{var p=this.parentElement;this.remove();p.textContent='Фото 4'})"></div><div class="photo tall"><img src="photo5.jpg" alt="Фото 5" onerror="this.onerror=null;this.src='images/photo5.jpg';this.addEventListener('error',()=>{var p=this.parentElement;this.remove();p.textContent='Фото 5'})"></div><div class="photo"><img src="photo6.jpg" alt="Фото 6" onerror="this.onerror=null;this.src='images/photo6.jpg';this.addEventListener('error',()=>{var p=this.parentElement;this.remove();p.textContent='Фото 6'})"></div></div></section></div>
-  </main>
+        </section>
+        <section class="section glass" id="wishes"><h2>Пожелания и истории</h2><div class="tabs"><button class="tab-btn active" data-tab="wishTab">Пожелания</button><button class="tab-btn" data-tab="storyTab">Истории</button></div><div class="tab active" id="wishTab"><div class="cards" id="approvedMessages"><div class="item"><strong>Загрузка</strong><p>Получаем пожелания...</p></div></div></div><div class="tab" id="storyTab"><div class="cards" id="approvedStories"><div class="item"><strong>Загрузка</strong><p>Получаем истории...</p></div></div></div></section>
+        <section class="section glass" id="write"><h2>Написать пожелание или историю</h2><p>Чтобы оставить пожелание или историю, войдите через Google или Email.</p><div class="tabs"><button class="tab-btn active" data-tab="messageFormTab">Пожелание</button><button class="tab-btn" data-tab="storyFormTab">История</button></div><div class="tab active" id="messageFormTab"><form class="form-grid" id="messageForm"><input id="firstname" placeholder="Имя" required><textarea id="message" placeholder="Ваше пожелание" required></textarea><button type="submit">Отправить пожелание</button></form><div class="notice" id="messageNotice">Пожелание отправлено на модерацию.</div></div><div class="tab" id="storyFormTab"><form class="form-grid" id="storyForm"><input id="storyTitle" placeholder="Название истории" required><input id="storyName" placeholder="Ваше имя" required><textarea id="storyText" placeholder="История" required></textarea><button type="submit">Отправить историю</button></form><div class="notice" id="storyNotice">История отправлена на модерацию.</div></div></section>
+        <section class="section glass" id="music"><h2>Музыка</h2><p>Spotify-плейлист Жанульки.</p><iframe class="spotify-frame" src="https://open.spotify.com/embed/playlist/6NySOoEjB8dVVNv6U4OswW?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></section>
+        <section class="section glass" id="gallery"><h2>Галерея</h2><p>Фотографии с концерта и маленькие воспоминания.</p><p class="gallery-hint">Листай фотографии влево и вправо.</p><div class="gallery"><div class="photo"><img src="photo1.jpg" alt="Фото 1" onerror="this.onerror=null;this.src='images/photo1.jpg';this.addEventListener('error',()=>{var p=this.parentElement;this.remove();p.textContent='Фото 1'})"></div><div class="photo tall"><img src="photo2.jpg" alt="Фото 2" onerror="this.onerror=null;this.src='images/photo2.jpg';this.addEventListener('error',()=>{var p=this.parentElement;this.remove();p.textContent='Фото 2'})"></div><div class="photo"><img src="photo3.jpg" alt="Фото 3" onerror="this.onerror=null;this.src='images/photo3.jpg';this.addEventListener('error',()=>{var p=this.parentElement;this.remove();p.textContent='Фото 3'})"></div><div class="photo"><img src="photo4.jpg" alt="Фото 4" onerror="this.onerror=null;this.src='images/photo4.jpg';this.addEventListener('error',()=>{var p=this.parentElement;this.remove();p.textContent='Фото 4'})"></div><div class="photo tall"><img src="photo5.jpg" alt="Фото 5" onerror="this.onerror=null;this.src='images/photo5.jpg';this.addEventListener('error',()=>{var p=this.parentElement;this.remove();p.textContent='Фото 5'})"></div><div class="photo"><img src="photo6.jpg" alt="Фото 6" onerror="this.onerror=null;this.src='images/photo6.jpg';this.addEventListener('error',()=>{var p=this.parentElement;this.remove();p.textContent='Фото 6'})"></div></div></section></div></main>
   <section class="section glass" id="rules"><h2>Правила сайта</h2><p>Можно писать пожелания, делиться историями и оставлять идеи по сайту.</p><p>Нельзя публиковать оскорбления, спам, рекламу, чужие личные данные, незаконный или опасный контент. Администрация может удалить материалы, которые нарушают правила.</p></section>
-
-  <footer class="container site-footer">
+<footer class="container site-footer">
     <p class="footer-subtitle">Фанатский проект, созданный с любовью.<br>Место для пожеланий, историй, музыки и маленьких воспоминаний.</p>
     <div class="footer-links">
       <a href="#rules">📜 Site Rules</a>
@@ -263,12 +220,12 @@
     import { getDatabase, ref, onValue, push, set, update, increment, onDisconnect, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-database.js";
     const firebaseConfig={apiKey:"AIzaSyAnBQnt8bK-3G0zjNyIQsLY5s-_rjIV2Mk",authDomain:"a-letter-for-zhanulka.firebaseapp.com",databaseURL:"https://a-letter-for-zhanulka-default-rtdb.europe-west1.firebasedatabase.app",projectId:"a-letter-for-zhanulka",storageBucket:"a-letter-for-zhanulka.firebasestorage.app",messagingSenderId:"479179895784",appId:"1:479179895784:web:7f3bcd70ed9070c0816a5d"};
     const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getDatabase(app),provider=new GoogleAuthProvider();const P={stats:'stats',messages:'messages',stories:'stories',feedback:'feedback',users:'users',presence:'presence'};const $=id=>document.getElementById(id);const safe=v=>String(v||'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-    document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{const parent=btn.closest('.section');parent.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));parent.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');$(btn.dataset.tab).classList.add('active')}));function showNotice(id,t){$(id).textContent=t;$(id).style.display='block'}function openAuth(){location.hash='write';showNotice('authNotice','Сначала войдите через Google или Email.')}async function needAuth(){if(auth.currentUser)return true;openAuth();return false}
+    document.querySelectorAll('.tab-btn').forEach(btn=>btn.addEventListener('click',()=>{const parent=btn.closest('.section');parent.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));parent.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');$(btn.dataset.tab).classList.add('active')}));function showNotice(id,t){$(id).textContent=t;$(id).style.display='block'}function openAuth(){$('authPopover').classList.add('open');showNotice('authNotice','Сначала войдите через Google или Email.')}async function needAuth(){if(auth.currentUser)return true;openAuth();return false}
     $('topLoginBtn').onclick=()=>auth.currentUser?signOut(auth):$('authPopover').classList.add('open');$('authCloseBtn').onclick=()=>$('authPopover').classList.remove('open');$('authPopover').addEventListener('click',e=>{if(e.target.id==='authPopover')$('authPopover').classList.remove('open')});$('googleLoginBtn').onclick=()=>signInWithPopup(auth,provider).catch(e=>showNotice('authNotice',e.message));$('emailLoginBtn').onclick=()=>signInWithEmailAndPassword(auth,$('emailLoginInput').value,$('passwordLoginInput').value).catch(e=>showNotice('authNotice',e.message));$('emailRegisterBtn').onclick=()=>createUserWithEmailAndPassword(auth,$('emailLoginInput').value,$('passwordLoginInput').value).catch(e=>showNotice('authNotice',e.message));$('logoutBtn').onclick=()=>signOut(auth);
     onAuthStateChanged(auth,user=>{ $('authStatus').textContent=user?'Авторизован':'Гость';$('topLoginBtn').textContent=user?'Выйти':'Войти'; if(user){set(ref(db,`${P.users}/${user.uid}`),{email:user.email||'',displayName:user.displayName||'Гость',photoURL:user.photoURL||'',lastSeen:Date.now()}).catch(()=>{});const pr=ref(db,`${P.presence}/${user.uid}`);set(pr,{online:true,email:user.email||'',name:user.displayName||'Гость',lastSeen:serverTimestamp()}).catch(()=>{});onDisconnect(pr).set({online:false,email:user.email||'',name:user.displayName||'Гость',lastSeen:serverTimestamp()});}});
     update(ref(db,P.stats),{views:increment(1)}).catch(()=>{});onValue(ref(db,P.stats),s=>{$('heartsCount').textContent=(s.val()||{}).hearts||0});onValue(ref(db,P.presence),s=>{$('onlineCount').textContent=Object.values(s.val()||{}).filter(u=>u&&u.online).length});
     document.addEventListener('click',e=>{if(e.target.closest('button,a,input,textarea'))return;const h=document.createElement('span');h.textContent='❤';h.style.cssText=`position:fixed;left:${e.clientX}px;top:${e.clientY}px;pointer-events:none;color:#c82f22;font-size:24px;z-index:999;animation:up 1.4s ease forwards`;document.body.appendChild(h);setTimeout(()=>h.remove(),1400);update(ref(db,P.stats),{hearts:increment(1)}).catch(()=>{})});const st=document.createElement('style');st.textContent='@keyframes up{to{transform:translateY(-80px) scale(1.8);opacity:0}}';document.head.appendChild(st);
-    $('messageForm').onsubmit=async e=>{e.preventDefault();if(!await needAuth())return;await push(ref(db,P.messages),{name:$('firstname').value.trim(),email:$('email').value.trim(),text:$('message').value.trim(),status:'pending',createdAt:Date.now(),uid:auth.currentUser.uid});e.target.reset();$('messageNotice').style.display='block'};
+    $('messageForm').onsubmit=async e=>{e.preventDefault();if(!await needAuth())return;await push(ref(db,P.messages),{name:$('firstname').value.trim(),email:auth.currentUser.email||'',text:$('message').value.trim(),status:'pending',createdAt:Date.now(),uid:auth.currentUser.uid});e.target.reset();$('messageNotice').style.display='block'};
     $('storyForm').onsubmit=async e=>{e.preventDefault();if(!await needAuth())return;await push(ref(db,P.stories),{title:$('storyTitle').value.trim(),name:$('storyName').value.trim(),text:$('storyText').value.trim(),status:'pending',createdAt:Date.now(),uid:auth.currentUser.uid});e.target.reset();$('storyNotice').style.display='block'};
     $('feedbackOpenBtn').onclick=()=>{if(!auth.currentUser){openAuth();return}$('feedbackModal').style.display='flex'};document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>$(b.dataset.close).style.display='none');$('feedbackForm').onsubmit=async e=>{e.preventDefault();if(!await needAuth())return;await push(ref(db,P.feedback),{name:$('feedbackName').value.trim(),email:$('feedbackEmail').value.trim()||auth.currentUser.email,text:$('feedbackText').value.trim(),createdAt:Date.now(),uid:auth.currentUser.uid});e.target.reset();$('feedbackNotice').style.display='block'};
     onValue(ref(db,P.messages),s=>{const arr=Object.values(s.val()||{}).filter(x=>x.status==='approved').sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));$('messagesCount').textContent=arr.length;$('approvedMessages').innerHTML=arr.length?arr.slice(0,12).map(x=>`<div class="item"><strong>${safe(x.name||'Гость')}</strong><p>${safe(x.text)}</p></div>`).join(''):'<div class="item"><strong>Пока пусто</strong><p>Одобренные пожелания появятся здесь.</p></div>'});
