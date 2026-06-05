@@ -1842,6 +1842,32 @@
       }
     }
 
+  
+    /* === V3.4: compact footer and clean menu === */
+    .site-footer {
+      padding-top: 22px !important;
+    }
+
+    .site-footer .footer-logo,
+    .footer-stats {
+      display: none !important;
+    }
+
+    .footer-subtitle {
+      margin-top: 0 !important;
+      margin-bottom: 16px !important;
+    }
+
+    .footer-links {
+      margin: 16px 0 !important;
+    }
+
+    .side-menu button[data-tab-open="feedback"],
+    .side-menu button[data-tab-open="rules"],
+    .side-menu button[data-tab-open="datenschutz"] {
+      display: none !important;
+    }
+
   </style>
 </head>
 
@@ -1867,15 +1893,12 @@
         <div class="menu-status-badge" id="menuStatusBadge">🔴 Гость</div>
 
         <button data-tab-open="about">👤 О себе</button>
-        <button data-tab-open="feedback">💡 Фидбэк</button>
-        <button data-tab-open="rules">📜 Правила сайта</button>
-        <button data-tab-open="datenschutz">🔒 Datenschutz</button>
 
         <div class="side-menu-divider"></div>
 
         <div class="side-menu-title" style="font-size:17px;">Аккаунт</div>
 
-        <div class="auth-status menu-auth-status" id="authStatus">Статус: не вошёл</div>
+        <div class="auth-status menu-auth-status" id="authStatus">🔴 Не авторизован</div>
 
         <button class="auth-btn menu-auth-btn" id="googleLoginBtn">
           🔑 Войти через Google
@@ -2343,7 +2366,7 @@ Email и UID обычным посетителям не показываются
             userId = null;
             userRef = null;
             presenceStarted = false;
-            authStatus.textContent = "Статус: не вошёл";
+            authStatus.textContent = "🔴 Не авторизован";
             document.getElementById("aboutEmail").textContent = "не вошёл";
 
             const topBadge = document.getElementById("topAuthBadge");
@@ -2926,9 +2949,7 @@ Email и UID обычным посетителям не показываются
       </script>
 
       <footer class="site-footer">
-        <div class="footer-logo">♥ Для Жанульки</div>
-
-        <div class="footer-subtitle">
+<div class="footer-subtitle">
           Фанатский проект, созданный с любовью.<br>
           Место для пожеланий, историй, музыки и маленьких воспоминаний.
         </div>
@@ -2938,13 +2959,6 @@ Email и UID обычным посетителям не показываются
           <button class="footer-link" data-footer-tab="feedback">💡 Фидбэк</button>
           <button class="footer-link" data-footer-tab="datenschutz">🔒 Datenschutz</button>
         </div>
-
-        <div class="footer-stats">
-          <div class="footer-stat">❤️ Сердечки <strong id="footerHeartsCount">0</strong></div>
-          <div class="footer-stat">💌 Пожелания <strong id="footerWishesCount">0</strong></div>
-          <div class="footer-stat">📖 Истории <strong id="footerStoriesCount">0</strong></div>
-        </div>
-
         <div class="footer-bottom">
           Неофициальный фанатский сайт. Все права на музыку, изображения и материалы принадлежат их правообладателям.
         </div>
