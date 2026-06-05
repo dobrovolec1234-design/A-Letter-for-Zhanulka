@@ -1869,10 +1869,10 @@
     }
 
   
-    /* === V3.5: new welcome + live stats dashboard === */
+    /* === V3.7: welcome + live stats dashboard final === */
     .zhan-hero-grid {
       display: grid !important;
-      grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.95fr) !important;
+      grid-template-columns: minmax(0, 1.55fr) minmax(320px, 0.82fr) !important;
       gap: 22px !important;
       margin-top: 22px !important;
     }
@@ -1899,7 +1899,8 @@
     }
 
     .zhan-welcome-panel h2 {
-      font-size: clamp(42px, 5.2vw, 66px) !important;
+      max-width: 100%;
+      font-size: clamp(40px, 4.7vw, 64px) !important;
       line-height: 1.08 !important;
       margin: 0 0 28px !important;
       color: var(--gold-soft, #e0bd82) !important;
@@ -1909,7 +1910,7 @@
     }
 
     .zhan-welcome-panel p {
-      max-width: 620px;
+      max-width: 720px;
       font-size: clamp(19px, 2vw, 25px) !important;
       line-height: 1.5 !important;
       color: rgba(245,226,196,0.92) !important;
@@ -1930,11 +1931,11 @@
     }
 
     .zhan-stats-panel {
-      padding: clamp(22px, 3vw, 30px) !important;
+      padding: clamp(20px, 2.5vw, 28px) !important;
     }
 
     .zhan-stats-title {
-      font-size: clamp(30px, 3.4vw, 42px);
+      font-size: clamp(28px, 3vw, 40px);
       font-weight: 700;
       color: var(--gold-soft, #e0bd82);
       text-shadow: 0 0 16px rgba(207,111,2,0.22);
@@ -1943,8 +1944,8 @@
 
     .zhan-stats-subtitle {
       color: rgba(245,226,196,0.80);
-      font-size: 17px;
-      margin-bottom: 24px;
+      font-size: 16px;
+      margin-bottom: 22px;
     }
 
     .zhan-live-grid {
@@ -1954,8 +1955,8 @@
     }
 
     .zhan-live-card {
-      min-height: 112px;
-      padding: 22px;
+      min-height: 108px;
+      padding: 20px;
       border-radius: 18px;
       border: 1px solid rgba(207,111,2,0.26);
       background:
@@ -1967,7 +1968,7 @@
     }
 
     .zhan-live-number {
-      font-size: clamp(28px, 3vw, 38px);
+      font-size: clamp(26px, 2.7vw, 36px);
       font-weight: 700;
       color: var(--gold-soft, #e0bd82);
       line-height: 1.1;
@@ -1976,7 +1977,7 @@
     .zhan-live-label {
       margin-top: 10px;
       color: rgba(245,226,196,0.75);
-      font-size: 16px;
+      font-size: 15px;
     }
 
     .zhan-quick-icons {
@@ -1990,15 +1991,35 @@
       height: 108px;
       margin-top: 0 !important;
       border-radius: 18px !important;
-      display: grid;
-      place-items: center;
+      display: grid !important;
+      place-items: center !important;
       text-align: center !important;
-      font-size: 34px !important;
+      font-size: 32px !important;
       border: 1px solid rgba(207,111,2,0.26) !important;
       background:
         radial-gradient(circle at 50% 0%, rgba(255,232,196,0.06), transparent 62%),
         rgba(255,232,196,0.045) !important;
       cursor: pointer;
+      gap: 4px;
+    }
+
+    .zhan-quick-icon span {
+      display: block;
+      line-height: 1;
+      font-size: 32px;
+    }
+
+    .zhan-quick-icon small {
+      display: block;
+      color: rgba(245,226,196,0.72);
+      font-size: 13px;
+      line-height: 1;
+    }
+
+    .zhan-quick-icon:hover {
+      transform: translateY(-2px);
+      border-color: rgba(207,111,2,0.55) !important;
+      box-shadow: 0 0 18px rgba(207,111,2,0.22) !important;
     }
 
     .zhan-latest-panel {
@@ -2039,6 +2060,7 @@
       font-size: 18px !important;
       cursor: pointer;
       box-shadow: none !important;
+      text-align: center !important;
     }
 
     .zhan-all-wishes-btn:hover {
@@ -2202,9 +2224,20 @@
             </div>
 
             <div class="zhan-quick-icons">
-              <button class="zhan-quick-icon" data-tab-open="wishes">🐾</button>
-              <button class="zhan-quick-icon" data-tab-open="letter">🎵</button>
-              <button class="zhan-quick-icon" data-tab-open="stories">✨</button>
+              <button class="zhan-quick-icon" data-tab-open="letter" data-scroll-target="parallaxSlider" title="Фото">
+                <span>🐾</span>
+                <small>Фото</small>
+              </button>
+
+              <button class="zhan-quick-icon" data-tab-open="letter" data-scroll-target="musicPlayer" title="Музыка">
+                <span>🎵</span>
+                <small>Музыка</small>
+              </button>
+
+              <button class="zhan-quick-icon" data-tab-open="wishes" title="Пожелания">
+                <span>✨</span>
+                <small>Пожелания</small>
+              </button>
             </div>
           </div>
 
@@ -2431,7 +2464,7 @@ Email и UID обычным посетителям не показываются
         </div>
       </div>
 
-      <div class="music-player">
+      <div class="music-player" id="musicPlayer">
         <div class="spotify-shell-title">
           <strong>Сейчас играет</strong>
           <span class="spotify-note">♪</span>
@@ -3187,5 +3220,30 @@ Email и UID обычным посетителям не показываются
 
     </section>
   </main>
+
+  <script>
+    document.addEventListener("click", function (event) {
+      const button = event.target.closest("[data-tab-open]");
+      if (!button) return;
+
+      const tabName = button.dataset.tabOpen;
+      const targetId = button.dataset.scrollTarget;
+
+      const tabButton = document.querySelector('.tab-btn[data-tab="' + tabName + '"]');
+      if (tabButton) {
+        tabButton.click();
+      }
+
+      if (targetId) {
+        setTimeout(function () {
+          const target = document.getElementById(targetId);
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }, 120);
+      }
+    });
+  </script>
+
 </body>
 </html>
