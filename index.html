@@ -1868,6 +1868,207 @@
       display: none !important;
     }
 
+  
+    /* === V3.5: new welcome + live stats dashboard === */
+    .zhan-hero-grid {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.95fr) !important;
+      gap: 22px !important;
+      margin-top: 22px !important;
+    }
+
+    .zhan-welcome-panel,
+    .zhan-stats-panel,
+    .zhan-latest-panel {
+      border-radius: 26px !important;
+      border: 1px solid rgba(207,111,2,0.34) !important;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(207,111,2,0.08), transparent 42%),
+        linear-gradient(145deg, rgba(20,10,6,0.78), rgba(5,4,3,0.72)) !important;
+      box-shadow:
+        0 0 26px rgba(0,0,0,0.34),
+        inset 0 1px 0 rgba(255,255,255,0.04) !important;
+    }
+
+    .zhan-welcome-panel {
+      min-height: 470px;
+      display: flex !important;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(28px, 5vw, 48px) !important;
+    }
+
+    .zhan-welcome-panel h2 {
+      font-size: clamp(42px, 5.2vw, 66px) !important;
+      line-height: 1.08 !important;
+      margin: 0 0 28px !important;
+      color: var(--gold-soft, #e0bd82) !important;
+      text-shadow:
+        0 0 18px rgba(201,155,90,0.22),
+        0 0 36px rgba(0,0,0,0.75);
+    }
+
+    .zhan-welcome-panel p {
+      max-width: 620px;
+      font-size: clamp(19px, 2vw, 25px) !important;
+      line-height: 1.5 !important;
+      color: rgba(245,226,196,0.92) !important;
+    }
+
+    .zhan-welcome-panel .v2-red-line {
+      margin-top: 24px !important;
+      font-size: clamp(24px, 3vw, 34px) !important;
+      line-height: 1.35 !important;
+      color: var(--orange-hot, #ff8a18) !important;
+      text-shadow: 0 0 14px rgba(207,111,2,0.38) !important;
+    }
+
+    .zhan-author {
+      text-align: left !important;
+      margin-top: 22px !important;
+      font-size: 17px !important;
+    }
+
+    .zhan-stats-panel {
+      padding: clamp(22px, 3vw, 30px) !important;
+    }
+
+    .zhan-stats-title {
+      font-size: clamp(30px, 3.4vw, 42px);
+      font-weight: 700;
+      color: var(--gold-soft, #e0bd82);
+      text-shadow: 0 0 16px rgba(207,111,2,0.22);
+      margin-bottom: 8px;
+    }
+
+    .zhan-stats-subtitle {
+      color: rgba(245,226,196,0.80);
+      font-size: 17px;
+      margin-bottom: 24px;
+    }
+
+    .zhan-live-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .zhan-live-card {
+      min-height: 112px;
+      padding: 22px;
+      border-radius: 18px;
+      border: 1px solid rgba(207,111,2,0.26);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(207,111,2,0.10), transparent 60%),
+        rgba(0,0,0,0.23);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .zhan-live-number {
+      font-size: clamp(28px, 3vw, 38px);
+      font-weight: 700;
+      color: var(--gold-soft, #e0bd82);
+      line-height: 1.1;
+    }
+
+    .zhan-live-label {
+      margin-top: 10px;
+      color: rgba(245,226,196,0.75);
+      font-size: 16px;
+    }
+
+    .zhan-quick-icons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .zhan-quick-icon {
+      height: 108px;
+      margin-top: 0 !important;
+      border-radius: 18px !important;
+      display: grid;
+      place-items: center;
+      text-align: center !important;
+      font-size: 34px !important;
+      border: 1px solid rgba(207,111,2,0.26) !important;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,232,196,0.06), transparent 62%),
+        rgba(255,232,196,0.045) !important;
+      cursor: pointer;
+    }
+
+    .zhan-latest-panel {
+      grid-column: 1 / -1;
+      padding: 24px !important;
+    }
+
+    .zhan-latest-panel .story-form-title {
+      color: var(--gold-soft, #e0bd82);
+      font-size: clamp(24px, 3vw, 34px);
+      margin-bottom: 18px;
+    }
+
+    .zhan-latest-panel .v2-latest-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .zhan-latest-panel .v2-latest-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(201,155,90,0.14);
+      background: rgba(0,0,0,0.18);
+    }
+
+    .zhan-all-wishes-btn {
+      width: auto !important;
+      display: block;
+      margin: 18px auto 0 !important;
+      padding: 10px 18px !important;
+      border: 0 !important;
+      background: transparent !important;
+      color: var(--gold-soft, #e0bd82) !important;
+      font-size: 18px !important;
+      cursor: pointer;
+      box-shadow: none !important;
+    }
+
+    .zhan-all-wishes-btn:hover {
+      color: var(--orange-hot, #ff8a18) !important;
+      background: transparent !important;
+    }
+
+    @media (max-width: 900px) {
+      .zhan-hero-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .zhan-welcome-panel {
+        min-height: auto;
+        padding: 26px 18px !important;
+      }
+
+      .zhan-live-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .zhan-quick-icon {
+        height: 82px;
+      }
+
+      .zhan-latest-panel .v2-latest-item {
+        grid-template-columns: 1fr;
+      }
+    }
+
   </style>
 </head>
 
@@ -1953,52 +2154,72 @@
           </div>
         </div>
 
-        <div class="v2-home-grid">
-          <div class="panel v2-welcome">
-            <div>
-              <h2>Добро пожаловать ♥</h2>
-              <p>
-                Это место для тех, кто чувствует музыку Жанульки, её слова и её атмосферу.
-                Здесь хранятся воспоминания, пожелания, истории и маленькие фанатские моменты.
-              </p>
-              <div class="v2-red-line">«Спасибо, что ты есть. Спасибо за музыку.»</div>
-              <div class="small" style="text-align:left;">— от фанатов</div>
+        
+        <div class="v2-home-grid zhan-hero-grid">
+          <div class="panel zhan-welcome-panel">
+            <h2>Добро пожаловать 🧡</h2>
+
+            <p>
+              Это место для тех, кто чувствует музыку
+              Жанульки, её слова и её атмосферу.
+              Здесь хранятся воспоминания,
+              пожелания, истории и маленькие
+              фанатские моменты.
+            </p>
+
+            <div class="v2-red-line">
+              «Спасибо, что ты есть.<br>
+              Спасибо за музыку.»
             </div>
 
-            <div class="v2-cat-glow">🐈</div>
+            <div class="small zhan-author">— от фанатов</div>
           </div>
 
-          <div class="v2-side-grid">
-            <div class="panel">
-              <div class="story-form-title">Наша вселенная</div>
-              <div class="v2-universe">
-                <div>
-                  <div>❤️</div>
-                  <span class="num" id="homeHeartsCount">0</span>
-                  <span class="label">сердечек</span>
-                </div>
-                <div>
-                  <div>💌</div>
-                  <span class="num" id="homeWishesCount">0</span>
-                  <span class="label">пожеланий</span>
-                </div>
-                <div>
-                  <div>🐾</div>
-                  <span class="num" id="onlineCount">0</span>
-                  <span class="label">онлайн</span>
-                </div>
+          <div class="panel zhan-stats-panel">
+            <div class="zhan-stats-title">Живая статистика</div>
+            <div class="zhan-stats-subtitle">Сайт обновляется в реальном времени</div>
+
+            <div class="zhan-live-grid">
+              <div class="zhan-live-card">
+                <div class="zhan-live-number">❤️ <span id="homeHeartsCount">0</span></div>
+                <div class="zhan-live-label">сердечек</div>
+              </div>
+
+              <div class="zhan-live-card">
+                <div class="zhan-live-number">💌 <span id="homeWishesCount">0</span></div>
+                <div class="zhan-live-label">пожеланий</div>
+              </div>
+
+              <div class="zhan-live-card">
+                <div class="zhan-live-number">📖 <span id="homeStoriesCount">0</span></div>
+                <div class="zhan-live-label">историй</div>
+              </div>
+
+              <div class="zhan-live-card">
+                <div class="zhan-live-number">🟢 <span id="onlineCount">0</span></div>
+                <div class="zhan-live-label">онлайн</div>
               </div>
             </div>
 
-            <div class="panel">
-              <div class="story-form-title">Последние пожелания</div>
-              <div id="latestMessagesHome" class="v2-latest-list">
-                <div class="small">Пока нет одобренных пожеланий.</div>
-              </div>
+            <div class="zhan-quick-icons">
+              <button class="zhan-quick-icon" data-tab-open="wishes">🐾</button>
+              <button class="zhan-quick-icon" data-tab-open="letter">🎵</button>
+              <button class="zhan-quick-icon" data-tab-open="stories">✨</button>
             </div>
+          </div>
+
+          <div class="panel zhan-latest-panel">
+            <div class="story-form-title">✉️ Последние пожелания</div>
+
+            <div id="latestMessagesHome" class="v2-latest-list">
+              <div class="small">Пока нет одобренных пожеланий.</div>
+            </div>
+
+            <button class="zhan-all-wishes-btn" data-tab-open="wishes">
+              Все пожелания ›
+            </button>
           </div>
         </div>
-      </div>
 
       <div class="tab" id="wishes">
 
