@@ -2245,7 +2245,7 @@
             <div class="zhan-quick-icons">
               <button class="zhan-quick-icon" type="button" id="zhanPhotosBtn" title="Фото">🐾</button>
               <button class="zhan-quick-icon" type="button" id="zhanMusicBtn" title="Музыка">🎵</button>
-              <button class="zhan-quick-icon" type="button" id="zhanWriteBtn" title="Написать пожелание или историю">✨</button>
+              <button class="zhan-quick-icon" type="button" id="zhanWriteBtn" title="Написать пожелание или историю" onclick="document.getElementById('writeChoiceModal').classList.add('open');document.getElementById('writeChoiceModal').setAttribute('aria-hidden','false');">✨</button>
             </div>
           </div>
 
@@ -3231,18 +3231,14 @@ Email и UID обычным посетителям не показываются
 
   <div class="write-choice-modal" id="writeChoiceModal" aria-hidden="true">
     <div class="write-choice-card">
-      <button class="write-choice-close" type="button" id="zhanWriteCloseBtn">×</button>
+      <button class="write-choice-close" type="button" id="zhanWriteCloseBtn" onclick="document.getElementById('writeChoiceModal').classList.remove('open');document.getElementById('writeChoiceModal').setAttribute('aria-hidden','true');">×</button>
 
       <h2>Что написать?</h2>
       <p>Выбери, что хочешь оставить на сайте.</p>
 
-      <button class="write-choice-btn" type="button" id="zhanWriteWishBtn">
-        💌 Написать пожелание
-      </button>
+      <button class="write-choice-btn" type="button" id="zhanWriteWishBtn" onclick="document.getElementById('writeChoiceModal').classList.remove('open');document.querySelector('.tab-btn[data-tab=&quot;wishes&quot;]').click();setTimeout(()=>document.getElementById('wishes').scrollIntoView({behavior:'smooth',block:'start'}),120);">💌 Написать пожелание</button>
 
-      <button class="write-choice-btn" type="button" id="zhanWriteStoryBtn">
-        📖 Написать историю
-      </button>
+      <button class="write-choice-btn" type="button" id="zhanWriteStoryBtn" onclick="document.getElementById('writeChoiceModal').classList.remove('open');document.querySelector('.tab-btn[data-tab=&quot;stories&quot;]').click();setTimeout(()=>document.getElementById('stories').scrollIntoView({behavior:'smooth',block:'start'}),120);">📖 Написать историю</button>
     </div>
   </div>
 
@@ -3335,6 +3331,20 @@ Email и UID обычным посетителям не показываются
         }
       });
     })();
+  </script>
+
+
+  <script>
+    document.addEventListener("click", function(event) {
+      const star = event.target.closest("#zhanWriteBtn");
+      if (!star) return;
+
+      const modal = document.getElementById("writeChoiceModal");
+      if (modal) {
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+      }
+    }, true);
   </script>
 
 </body>
