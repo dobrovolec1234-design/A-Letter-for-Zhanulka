@@ -1868,297 +1868,6 @@
       display: none !important;
     }
 
-  
-    /* === V3.9: stable welcome dashboard + modal buttons === */
-    .zhan-hero-grid {
-      display: grid !important;
-      grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.95fr) !important;
-      gap: 22px !important;
-      margin-top: 22px !important;
-    }
-
-    .zhan-welcome-panel,
-    .zhan-stats-panel,
-    .zhan-latest-panel {
-      border-radius: 26px !important;
-      border: 1px solid rgba(207,111,2,0.34) !important;
-      background:
-        radial-gradient(circle at 10% 0%, rgba(207,111,2,0.08), transparent 42%),
-        linear-gradient(145deg, rgba(20,10,6,0.78), rgba(5,4,3,0.72)) !important;
-      box-shadow:
-        0 0 26px rgba(0,0,0,0.34),
-        inset 0 1px 0 rgba(255,255,255,0.04) !important;
-    }
-
-    .zhan-welcome-panel {
-      min-height: 470px;
-      display: flex !important;
-      flex-direction: column;
-      justify-content: center;
-      padding: clamp(28px, 5vw, 48px) !important;
-    }
-
-    .zhan-welcome-panel h2 {
-      font-size: clamp(42px, 5.2vw, 66px) !important;
-      line-height: 1.08 !important;
-      margin: 0 0 28px !important;
-      color: var(--gold-soft, #e0bd82) !important;
-    }
-
-    .zhan-welcome-panel p {
-      max-width: 620px;
-      font-size: clamp(19px, 2vw, 25px) !important;
-      line-height: 1.5 !important;
-      color: rgba(245,226,196,0.92) !important;
-    }
-
-    .zhan-welcome-panel .v2-red-line {
-      margin-top: 24px !important;
-      font-size: clamp(24px, 3vw, 34px) !important;
-      line-height: 1.35 !important;
-      color: var(--orange-hot, #ff8a18) !important;
-    }
-
-    .zhan-author {
-      text-align: left !important;
-      margin-top: 22px !important;
-      font-size: 17px !important;
-    }
-
-    .zhan-stats-panel {
-      padding: clamp(22px, 3vw, 30px) !important;
-    }
-
-    .zhan-stats-title {
-      font-size: clamp(30px, 3.4vw, 42px);
-      font-weight: 700;
-      color: var(--gold-soft, #e0bd82);
-      margin-bottom: 8px;
-    }
-
-    .zhan-stats-subtitle {
-      color: rgba(245,226,196,0.80);
-      font-size: 17px;
-      margin-bottom: 24px;
-    }
-
-    .zhan-live-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
-
-    .zhan-live-card {
-      min-height: 112px;
-      padding: 22px;
-      border-radius: 18px;
-      border: 1px solid rgba(207,111,2,0.26);
-      background: rgba(0,0,0,0.23);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .zhan-live-number {
-      font-size: clamp(28px, 3vw, 38px);
-      font-weight: 700;
-      color: var(--gold-soft, #e0bd82);
-      line-height: 1.1;
-    }
-
-    .zhan-live-label {
-      margin-top: 10px;
-      color: rgba(245,226,196,0.75);
-      font-size: 16px;
-    }
-
-    .zhan-quick-icons {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 18px;
-    }
-
-    .zhan-quick-icon {
-      height: 108px;
-      margin-top: 0 !important;
-      border-radius: 18px !important;
-      display: grid;
-      place-items: center;
-      text-align: center !important;
-      font-size: 34px !important;
-      border: 1px solid rgba(207,111,2,0.26) !important;
-      background: rgba(255,232,196,0.045) !important;
-      cursor: pointer;
-    }
-
-    .zhan-latest-panel {
-      grid-column: 1 / -1;
-      padding: 24px !important;
-    }
-
-    .zhan-latest-panel .story-form-title {
-      color: var(--gold-soft, #e0bd82);
-      font-size: clamp(24px, 3vw, 34px);
-      margin-bottom: 18px;
-    }
-
-    .zhan-all-wishes-btn {
-      width: auto !important;
-      display: block;
-      margin: 18px auto 0 !important;
-      padding: 10px 18px !important;
-      border: 0 !important;
-      background: transparent !important;
-      color: var(--gold-soft, #e0bd82) !important;
-      font-size: 18px !important;
-      cursor: pointer;
-      box-shadow: none !important;
-      text-align: center !important;
-    }
-
-    .write-choice-modal {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-      background: rgba(0,0,0,0.62);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 99999;
-    }
-
-    .write-choice-modal.open {
-      display: flex;
-    }
-
-    .write-choice-card {
-      width: min(460px, 100%);
-      position: relative;
-      padding: 28px;
-      border-radius: 26px;
-      border: 1px solid rgba(207,111,2,0.42);
-      background:
-        radial-gradient(circle at 12% 0%, rgba(207,111,2,0.18), transparent 38%),
-        linear-gradient(145deg, rgba(31,9,6,0.97), rgba(7,5,4,0.97));
-      box-shadow: 0 26px 90px rgba(0,0,0,0.70);
-      text-align: center;
-    }
-
-    .write-choice-card h2 {
-      margin: 0 0 8px;
-      color: var(--gold-soft, #e0bd82);
-      font-size: 32px;
-    }
-
-    .write-choice-card p {
-      margin-bottom: 18px;
-      color: rgba(245,226,196,0.78);
-      font-size: 16px !important;
-    }
-
-    .write-choice-btn {
-      width: 100%;
-      margin-top: 10px;
-      padding: 15px 16px;
-      border-radius: 16px;
-      border: 1px solid rgba(207,111,2,0.34);
-      background:
-        linear-gradient(135deg, rgba(207,111,2,0.28), rgba(199,47,34,0.14)),
-        rgba(255,232,196,0.045);
-      color: var(--text, #f5e2c4);
-      cursor: pointer;
-      font-size: 18px;
-      text-align: center;
-    }
-
-    .write-choice-close {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      width: 38px !important;
-      height: 38px;
-      padding: 0 !important;
-      border-radius: 999px;
-      border: 1px solid rgba(207,111,2,0.34);
-      background: rgba(0,0,0,0.24);
-      color: var(--text, #f5e2c4);
-      cursor: pointer;
-      font-size: 24px;
-      line-height: 1;
-      text-align: center;
-    }
-
-    @media (max-width: 900px) {
-      .zhan-hero-grid {
-        grid-template-columns: 1fr !important;
-      }
-
-      .zhan-welcome-panel {
-        min-height: auto;
-        padding: 26px 18px !important;
-      }
-
-      .zhan-live-grid {
-        grid-template-columns: 1fr !important;
-      }
-
-      .zhan-quick-icon {
-        height: 82px;
-      }
-    }
-
-  
-    /* === V4.6: inline write panel, no popup === */
-    .zhan-inline-write-panel {
-      grid-column: 1 / -1;
-      padding: 24px !important;
-      margin-top: 18px !important;
-    }
-
-    .zhan-write-tabs {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 16px 0 12px;
-    }
-
-    .zhan-write-tab {
-      width: auto !important;
-      margin-top: 0 !important;
-      padding: 11px 16px !important;
-      border-radius: 999px !important;
-      border: 1px solid rgba(207,111,2,0.34) !important;
-      background: rgba(255,232,196,0.045) !important;
-      color: var(--text, #f5e2c4) !important;
-      cursor: pointer;
-      font-size: 16px !important;
-    }
-
-    .zhan-write-tab.active {
-      background: linear-gradient(135deg, rgba(207,111,2,0.36), rgba(199,47,34,0.22)) !important;
-      border-color: rgba(207,111,2,0.58) !important;
-      color: #fff1d9 !important;
-      box-shadow: 0 0 18px rgba(207,111,2,0.18) !important;
-    }
-
-    #quickWriteText {
-      min-height: 140px;
-    }
-
-    @media (max-width: 900px) {
-      .zhan-write-tabs {
-        display: grid;
-        grid-template-columns: 1fr;
-      }
-
-      .zhan-write-tab {
-        width: 100% !important;
-      }
-    }
-
   </style>
 </head>
 
@@ -2244,96 +1953,52 @@
           </div>
         </div>
 
-        
-        <div class="v2-home-grid zhan-hero-grid">
-          <div class="panel zhan-welcome-panel">
-            <h2>Добро пожаловать 🧡</h2>
-
-            <p>
-              Это место для тех, кто чувствует музыку
-              Жанульки, её слова и её атмосферу.
-              Здесь хранятся воспоминания,
-              пожелания, истории и маленькие
-              фанатские моменты.
-            </p>
-
-            <div class="v2-red-line">
-              «Спасибо, что ты есть.<br>
-              Спасибо за музыку.»
+        <div class="v2-home-grid">
+          <div class="panel v2-welcome">
+            <div>
+              <h2>Добро пожаловать ♥</h2>
+              <p>
+                Это место для тех, кто чувствует музыку Жанульки, её слова и её атмосферу.
+                Здесь хранятся воспоминания, пожелания, истории и маленькие фанатские моменты.
+              </p>
+              <div class="v2-red-line">«Спасибо, что ты есть. Спасибо за музыку.»</div>
+              <div class="small" style="text-align:left;">— от фанатов</div>
             </div>
 
-            <div class="small zhan-author">— от фанатов</div>
+            <div class="v2-cat-glow">🐈</div>
           </div>
 
-          <div class="panel zhan-stats-panel">
-            <div class="zhan-stats-title">Живая статистика</div>
-            <div class="zhan-stats-subtitle">Сайт обновляется в реальном времени</div>
-
-            <div class="zhan-live-grid">
-              <div class="zhan-live-card">
-                <div class="zhan-live-number">❤️ <span id="homeHeartsCount">0</span></div>
-                <div class="zhan-live-label">сердечек</div>
-              </div>
-
-              <div class="zhan-live-card">
-                <div class="zhan-live-number">💌 <span id="homeWishesCount">0</span></div>
-                <div class="zhan-live-label">пожеланий</div>
-              </div>
-
-              <div class="zhan-live-card">
-                <div class="zhan-live-number">📖 <span id="homeStoriesCount">0</span></div>
-                <div class="zhan-live-label">историй</div>
-              </div>
-
-              <div class="zhan-live-card">
-                <div class="zhan-live-number">🟢 <span id="onlineCount">0</span></div>
-                <div class="zhan-live-label">онлайн</div>
+          <div class="v2-side-grid">
+            <div class="panel">
+              <div class="story-form-title">Наша вселенная</div>
+              <div class="v2-universe">
+                <div>
+                  <div>❤️</div>
+                  <span class="num" id="homeHeartsCount">0</span>
+                  <span class="label">сердечек</span>
+                </div>
+                <div>
+                  <div>💌</div>
+                  <span class="num" id="homeWishesCount">0</span>
+                  <span class="label">пожеланий</span>
+                </div>
+                <div>
+                  <div>🐾</div>
+                  <span class="num" id="onlineCount">0</span>
+                  <span class="label">онлайн</span>
+                </div>
               </div>
             </div>
 
-            <div class="zhan-quick-icons">
-              <button class="zhan-quick-icon" type="button" id="zhanPhotosBtn" title="Фото">🐾</button>
-              <button class="zhan-quick-icon" type="button" id="zhanMusicBtn" title="Музыка">🎵</button>
-              <button class="zhan-quick-icon" type="button" id="zhanWriteBtn" title="Написать пожелание или историю">✨</button>
-            </div>
-          </div>
-
-          <div class="panel zhan-latest-panel">
-            <div class="story-form-title">✉️ Последние пожелания</div>
-
-            <div id="latestMessagesHome" class="v2-latest-list">
-              <div class="small">Пока нет одобренных пожеланий.</div>
-            </div>
-
-            <button class="zhan-all-wishes-btn" type="button" id="zhanAllWishesBtn">
-              Все пожелания ›
-            </button>
-          </div>
-
-
-          <div class="panel zhan-inline-write-panel" id="quickWritePanel">
-            <div class="story-form-title">✍️ Написать</div>
-            <div class="small" style="text-align:left;">
-              Чтобы оставить пожелание или историю, войди через Google или Email. Почту здесь вводить не нужно.
-            </div>
-
-            <div class="zhan-write-tabs">
-              <button type="button" class="zhan-write-tab active" id="quickWishTab">💌 Пожелание</button>
-              <button type="button" class="zhan-write-tab" id="quickStoryTab">📖 История</button>
-            </div>
-
-            <input id="quickWriteTitle" maxlength="80" placeholder="Название истории" style="display:none;">
-            <textarea id="quickWriteText" maxlength="10000" placeholder="Ваше пожелание"></textarea>
-
-            <button class="send-btn" id="quickWriteSendBtn" type="button" style="margin-top:12px;">
-              Отправить пожелание
-            </button>
-
-            <div class="small" id="quickWriteStatus">
-              Запись появится на сайте после одобрения в админке.
+            <div class="panel">
+              <div class="story-form-title">Последние пожелания</div>
+              <div id="latestMessagesHome" class="v2-latest-list">
+                <div class="small">Пока нет одобренных пожеланий.</div>
+              </div>
             </div>
           </div>
         </div>
+      </div>
 
       <div class="tab" id="wishes">
 
@@ -2545,7 +2210,7 @@ Email и UID обычным посетителям не показываются
         </div>
       </div>
 
-      <div class="music-player" id="musicPlayer">
+      <div class="music-player">
         <div class="spotify-shell-title">
           <strong>Сейчас играет</strong>
           <span class="spotify-note">♪</span>
@@ -2848,14 +2513,14 @@ Email и UID обычным посетителям не показываются
 
         onValue(ref(db, "messages"), snapshot => {
           const data = snapshot.val() || {};
-          const count = Object.values(data).filter(item => item.status === "approved" || item.approved === true || !item.status).length;
+          const count = Object.values(data).filter(item => item.status === "approved").length;
           const el = document.getElementById("footerWishesCount");
           if (el) el.textContent = count;
         });
 
         onValue(ref(db, "stories"), snapshot => {
           const data = snapshot.val() || {};
-          const count = Object.values(data).filter(item => item.status === "approved" || item.approved === true || !item.status).length;
+          const count = Object.values(data).filter(item => item.status === "approved").length;
           const el = document.getElementById("footerStoriesCount");
           if (el) el.textContent = count;
         });
@@ -3281,108 +2946,7 @@ Email и UID обычным посетителям не показываются
             .replaceAll('"', "&quot;")
             .replaceAll("'", "&#039;");
         }
-      
-        // === V4.6: inline write panel submit logic ===
-        let quickWriteMode = "wish";
-
-        const quickWishTab = document.getElementById("quickWishTab");
-        const quickStoryTab = document.getElementById("quickStoryTab");
-        const quickWriteTitle = document.getElementById("quickWriteTitle");
-        const quickWriteText = document.getElementById("quickWriteText");
-        const quickWriteSendBtn = document.getElementById("quickWriteSendBtn");
-        const quickWriteStatus = document.getElementById("quickWriteStatus");
-
-        function setQuickWriteMode(mode) {
-          quickWriteMode = mode;
-          if (quickWishTab) quickWishTab.classList.toggle("active", mode === "wish");
-          if (quickStoryTab) quickStoryTab.classList.toggle("active", mode === "story");
-          if (quickWriteTitle) quickWriteTitle.style.display = mode === "story" ? "block" : "none";
-          if (quickWriteText) {
-            quickWriteText.placeholder = mode === "story"
-              ? "Напиши свою историю о Жанульке..."
-              : "Ваше пожелание";
-          }
-          if (quickWriteSendBtn) {
-            quickWriteSendBtn.textContent = mode === "story"
-              ? "Отправить историю"
-              : "Отправить пожелание";
-          }
-        }
-
-        if (quickWishTab) quickWishTab.addEventListener("click", () => setQuickWriteMode("wish"));
-        if (quickStoryTab) quickStoryTab.addEventListener("click", () => setQuickWriteMode("story"));
-
-        if (quickWriteSendBtn) {
-          quickWriteSendBtn.addEventListener("click", async () => {
-            if (!requireLogin()) return;
-
-            const nickname = nicknameInput.value.trim() || aboutNicknameInput.value.trim() || "Гость";
-            const text = (quickWriteText?.value || "").trim();
-
-            if (text.length < 2) {
-              alert("Напиши текст");
-              return;
-            }
-
-            if (quickWriteMode === "wish") {
-              const lastMessageTime = Number(localStorage.getItem("lastMessageTime") || 0);
-              const now = Date.now();
-
-              if (now - lastMessageTime < 60000) {
-                alert("Можно отправлять пожелание не чаще 1 раза в минуту");
-                return;
-              }
-
-              await push(ref(db, "messages"), {
-                name: nickname,
-                text: text.slice(0, 700),
-                status: "pending",
-                userId: userId,
-                createdAt: serverTimestamp()
-              });
-
-              localStorage.setItem("lastMessageTime", String(now));
-              if (quickWriteText) quickWriteText.value = "";
-              if (quickWriteStatus) quickWriteStatus.textContent = "Пожелание отправлено на модерацию.";
-              alert("Пожелание отправлено на модерацию");
-              return;
-            }
-
-            const title = (quickWriteTitle?.value || "").trim();
-
-            if (!title || text.length < 10) {
-              alert("Для истории нужны название и текст минимум 10 символов");
-              return;
-            }
-
-            const lastStoryTime = Number(localStorage.getItem("lastStoryTime") || 0);
-            const now = Date.now();
-
-            if (now - lastStoryTime < 180000) {
-              alert("Историю можно отправлять не чаще 1 раза в 3 минуты");
-              return;
-            }
-
-            await push(ref(db, "stories"), {
-              title: title.slice(0, 80),
-              name: nickname,
-              text: text.slice(0, 10000),
-              status: "pending",
-              userId: userId,
-              createdAt: serverTimestamp()
-            });
-
-            localStorage.setItem("lastStoryTime", String(now));
-            if (quickWriteTitle) quickWriteTitle.value = "";
-            if (quickWriteText) quickWriteText.value = "";
-            if (quickWriteStatus) quickWriteStatus.textContent = "История отправлена на модерацию.";
-            alert("История отправлена на модерацию");
-          });
-        }
-
-        setQuickWriteMode("wish");
-
-</script>
+      </script>
 
       <footer class="site-footer">
 <div class="footer-subtitle">
@@ -3402,142 +2966,5 @@ Email и UID обычным посетителям не показываются
 
     </section>
   </main>
-<script>
-    (function () {
-      function openTab(tabName) {
-        document.querySelectorAll(".tab-btn").forEach(function (button) {
-          button.classList.remove("active");
-        });
-
-        document.querySelectorAll(".tab").forEach(function (tab) {
-          tab.classList.remove("active");
-        });
-
-        const button = document.querySelector('.tab-btn[data-tab="' + tabName + '"]');
-        const tab = document.getElementById(tabName);
-
-        if (button) button.classList.add("active");
-        if (tab) tab.classList.add("active");
-      }
-
-      function openTabAndScroll(tabName, targetId) {
-        openTab(tabName);
-
-        setTimeout(function () {
-          if (targetId) {
-            const target = document.getElementById(targetId);
-            if (target) {
-              target.scrollIntoView({ behavior: "smooth", block: "center" });
-            }
-            return;
-          }
-
-          const tab = document.getElementById(tabName);
-          if (tab) {
-            tab.scrollIntoView({ behavior: "smooth", block: "start" });
-          }
-        }, 120);
-      }
-
-      function openWriteModal() {
-        const modal = document.getElementById("writeChoiceModal");
-        if (!modal) return;
-        modal.classList.add("open");
-        modal.setAttribute("aria-hidden", "false");
-      }
-
-      function closeWriteModal() {
-        const modal = document.getElementById("writeChoiceModal");
-        if (!modal) return;
-        modal.classList.remove("open");
-        modal.setAttribute("aria-hidden", "true");
-      }
-
-      window.zhanOpenTabAndScroll = openTabAndScroll;
-      window.zhanOpenWriteChoice = openWriteModal;
-
-      document.addEventListener("DOMContentLoaded", function () {
-        const photosBtn = document.getElementById("zhanPhotosBtn");
-        const musicBtn = document.getElementById("zhanMusicBtn");
-        const writeBtn = document.getElementById("zhanWriteBtn");
-        const allWishesBtn = document.getElementById("zhanAllWishesBtn");
-        const closeBtn = document.getElementById("zhanWriteCloseBtn");
-        const wishBtn = document.getElementById("zhanWriteWishBtn");
-        const storyBtn = document.getElementById("zhanWriteStoryBtn");
-        const modal = document.getElementById("writeChoiceModal");
-
-        if (photosBtn) photosBtn.onclick = function () { openTabAndScroll("letter", "parallaxSlider"); };
-        if (musicBtn) musicBtn.onclick = function () { openTabAndScroll("letter", "musicPlayer"); };
-        if (writeBtn) writeBtn.onclick = function () { openWriteModal(); };
-        if (allWishesBtn) allWishesBtn.onclick = function () { openTabAndScroll("wishes", null); };
-
-        if (closeBtn) closeBtn.onclick = closeWriteModal;
-
-        if (wishBtn) wishBtn.onclick = function () {
-          closeWriteModal();
-          openTabAndScroll("wishes", null);
-        };
-
-        if (storyBtn) storyBtn.onclick = function () {
-          closeWriteModal();
-          openTabAndScroll("stories", null);
-        };
-
-        if (modal) {
-          modal.addEventListener("click", function (event) {
-            if (event.target === modal) closeWriteModal();
-          });
-        }
-      });
-    })();
-  </script>
-
-
-  <script>
-    document.addEventListener("click", function(event) {
-      const star = event.target.closest("#zhanWriteBtn");
-      if (!star) return;
-
-      const modal = document.getElementById("writeChoiceModal");
-      if (modal) {
-        modal.classList.add("open");
-        modal.setAttribute("aria-hidden", "false");
-      }
-    }, true);
-  </script>
-
-
-  <script>
-    // === V4.6: star scrolls to inline write panel, no popup ===
-    document.addEventListener("click", function (event) {
-      if (event.target.closest("#zhanWriteBtn")) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-
-        const panel = document.getElementById("quickWritePanel");
-        if (panel) panel.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-
-      if (event.target.closest("#zhanAllWishesBtn")) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-
-        document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
-        document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
-
-        const wishesTab = document.getElementById("wishes");
-        const wishesBtn = document.querySelector('.tab-btn[data-tab="wishes"]');
-
-        if (wishesTab) wishesTab.classList.add("active");
-        if (wishesBtn) wishesBtn.classList.add("active");
-
-        setTimeout(() => {
-          const target = document.getElementById("messageInput") || wishesTab;
-          if (target) target.scrollIntoView({ behavior: "smooth", block: "center" });
-        }, 100);
-      }
-    }, true);
-  </script>
-
 </body>
 </html>
