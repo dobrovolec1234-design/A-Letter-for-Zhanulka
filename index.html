@@ -2245,7 +2245,8 @@
             <div class="zhan-quick-icons">
               <button class="zhan-quick-icon" type="button" id="zhanPhotosBtn" title="Фото">🐾</button>
               <button class="zhan-quick-icon" type="button" id="zhanMusicBtn" title="Музыка">🎵</button>
-              <button class="zhan-quick-icon" type="button" id="zhanWriteBtn" title="Написать пожелание или историю" onclick="document.getElementById('writeChoiceModal').classList.add('open');document.getElementById('writeChoiceModal').setAttribute('aria-hidden','false');">✨</button>
+              <button class="zhan-quick-icon" type="button" id="zhanWriteBtn" title="Написать пожелание или историю" onclick="document.getElementById('writeChoiceModal').classList.add('open');
+">✨</button>
             </div>
           </div>
 
@@ -3229,9 +3230,10 @@ Email и UID обычным посетителям не показываются
     </section>
   </main>
 
-  <div class="write-choice-modal" id="writeChoiceModal" aria-hidden="true">
+  <div class="write-choice-modal" id="writeChoiceModal">
     <div class="write-choice-card">
-      <button class="write-choice-close" type="button" id="zhanWriteCloseBtn" onclick="document.getElementById('writeChoiceModal').classList.remove('open');document.getElementById('writeChoiceModal').setAttribute('aria-hidden','true');">×</button>
+      <button class="write-choice-close" type="button" id="zhanWriteCloseBtn" onclick="document.getElementById('writeChoiceModal').classList.remove('open');
+">×</button>
 
       <h2>Что написать?</h2>
       <p>Выбери, что хочешь оставить на сайте.</p>
@@ -3284,15 +3286,13 @@ Email и UID обычным посетителям не показываются
         const modal = document.getElementById("writeChoiceModal");
         if (!modal) return;
         modal.classList.add("open");
-        modal.setAttribute("aria-hidden", "false");
-      }
+}
 
       function closeWriteModal() {
         const modal = document.getElementById("writeChoiceModal");
         if (!modal) return;
         modal.classList.remove("open");
-        modal.setAttribute("aria-hidden", "true");
-      }
+}
 
       window.zhanOpenTabAndScroll = openTabAndScroll;
       window.zhanOpenWriteChoice = openWriteModal;
@@ -3342,9 +3342,57 @@ Email и UID обычным посетителям не показываются
       const modal = document.getElementById("writeChoiceModal");
       if (modal) {
         modal.classList.add("open");
-        modal.setAttribute("aria-hidden", "false");
-      }
+}
     }, true);
+  </script>
+
+
+  <script>
+    // === V4.1: stable modal without aria-hidden warning ===
+    document.addEventListener("DOMContentLoaded", function () {
+      const modal = document.getElementById("writeChoiceModal");
+      const starBtn = document.getElementById("zhanWriteBtn");
+      const closeBtn = document.getElementById("zhanWriteCloseBtn");
+      const wishBtn = document.getElementById("zhanWriteWishBtn");
+      const storyBtn = document.getElementById("zhanWriteStoryBtn");
+      const allWishesBtn = document.getElementById("zhanAllWishesBtn");
+
+      function openTab(tabName) {
+        document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+        document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
+
+        const tabBtn = document.querySelector('.tab-btn[data-tab="' + tabName + '"]');
+        const tab = document.getElementById(tabName);
+
+        if (tabBtn) tabBtn.classList.add("active");
+        if (tab) tab.classList.add("active");
+
+        setTimeout(function () {
+          if (tab) tab.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 80);
+      }
+
+      function openModal() {
+        if (modal) modal.classList.add("open");
+      }
+
+      function closeModal() {
+        if (modal) modal.classList.remove("open");
+        if (starBtn) starBtn.focus();
+      }
+
+      if (starBtn) starBtn.onclick = openModal;
+      if (closeBtn) closeBtn.onclick = closeModal;
+      if (wishBtn) wishBtn.onclick = function () { closeModal(); openTab("wishes"); };
+      if (storyBtn) storyBtn.onclick = function () { closeModal(); openTab("stories"); };
+      if (allWishesBtn) allWishesBtn.onclick = function () { openTab("wishes"); };
+
+      if (modal) {
+        modal.addEventListener("click", function (event) {
+          if (event.target === modal) closeModal();
+        });
+      }
+    });
   </script>
 
 </body>
