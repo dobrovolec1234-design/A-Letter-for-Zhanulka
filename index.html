@@ -2111,70 +2111,16 @@
     }
 
   
-    /* === V4.8: readable hearts and fixed stats numbers === */
-    .top-item {
-      display: grid !important;
-      grid-template-columns: minmax(0, 1fr) auto !important;
-      align-items: center !important;
-      gap: 14px !important;
-      min-height: 54px !important;
+    /* === V5.0: force active tabs visible and scroll to content === */
+    .tab {
+      display: none !important;
     }
 
-    .top-item > span:last-child,
-    .top-hearts,
-    .heart-count,
-    .user-hearts-count {
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: flex-end !important;
-      gap: 6px !important;
-      min-width: 92px !important;
-      color: #fff1d9 !important;
-      font-weight: 700 !important;
-      text-align: right !important;
-      text-shadow:
-        0 0 8px rgba(255,59,47,0.90),
-        0 0 16px rgba(207,111,2,0.45),
-        0 1px 2px rgba(0,0,0,0.95) !important;
-      white-space: nowrap !important;
-      flex-shrink: 0 !important;
-    }
-
-    .zhan-live-number,
-    .v2-universe .num,
-    .footer-stat strong,
-    #heartsCount,
-    #homeHeartsCount,
-    #homeWishesCount,
-    #homeStoriesCount,
-    #onlineCount,
-    #footerHeartsCount,
-    #footerMessagesCount,
-    #footerStoriesCount {
-      font-variant-numeric: tabular-nums !important;
-      white-space: nowrap !important;
-      overflow: visible !important;
-      text-overflow: clip !important;
-    }
-
-    .zhan-live-card,
-    .stat-box,
-    .footer-stat {
-      overflow: visible !important;
-    }
-
-    @media (max-width: 700px) {
-      .top-item {
-        grid-template-columns: 1fr !important;
-      }
-
-      .top-item > span:last-child,
-      .top-hearts,
-      .heart-count,
-      .user-hearts-count {
-        justify-content: flex-start !important;
-        min-width: 0 !important;
-      }
+    .tab.active {
+      display: block !important;
+      min-height: 120px !important;
+      visibility: visible !important;
+      opacity: 1 !important;
     }
 
   </style>
@@ -2792,7 +2738,12 @@ Email и UID обычным посетителям не показываются
           if (tab) tab.classList.add("active");
 
           if (sideMenu) sideMenu.classList.remove("open");
-          window.scrollTo({ top: 0, behavior: "smooth" });
+          
+          setTimeout(() => {
+            const openedTab = document.getElementById(tabId);
+            if (openedTab) openedTab.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 80);
+    
         }
 
         if (menuToggleBtn && sideMenu) {
@@ -2830,14 +2781,19 @@ Email и UID обычным посетителям не показываются
           btn.addEventListener("click", () => {
             if (typeof openTabById === "function") {
               openTabById(btn.dataset.footerTab);
-              window.scrollTo({ top: 0, behavior: "smooth" });
+              
+          setTimeout(() => {
+            const openedTab = document.getElementById(tabId);
+            if (openedTab) openedTab.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 80);
+    
             }
           });
         });
 
         onValue(ref(db, "stats/hearts"), snapshot => {
           const el = document.getElementById("footerHeartsCount");
-          if (el) el.textContent = zhanFormatNumber(snapshot.val() || 0);
+          if (el) el.textContent = snapshot.val() || 0;
         });
 
         onValue(ref(db, "messages"), snapshot => {
@@ -3416,12 +3372,38 @@ Email и UID обычным посетителям не показываются
 
 
   <script>
-    // === V4.8: safe number formatting for visible stats ===
-    function zhanFormatNumber(value) {
-      const number = Number(value || 0);
-      if (!Number.isFinite(number)) return "0";
-      return number.toLocaleString("ru-RU");
-    }
+    // === V5.0: final tab content visibility fix ===
+    document.addEventListener("click", function (event) {
+      const btn = event.target.closest(".tab-btn[data-tab]");
+      if (!btn) return;
+
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      const tabId = btn.dataset.tab;
+
+      document.querySelectorAll(".tab-btn").forEach(button => {
+        button.classList.remove("active");
+      });
+
+      document.querySelectorAll(".tab").forEach(tab => {
+        tab.classList.remove("active");
+      });
+
+      btn.classList.add("active");
+
+      const tab = document.getElementById(tabId);
+      if (tab) {
+        tab.classList.add("active");
+
+        setTimeout(() => {
+          tab.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }, 120);
+      }
+    }, true);
   </script>
 
 </body>
