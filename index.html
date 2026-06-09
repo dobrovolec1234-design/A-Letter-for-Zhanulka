@@ -2110,69 +2110,17 @@
       }
     }
 
-    /* === CLEAN FIX: inline write panel, visible hearts, stable tabs === */
-    .tab { display: none; }
-    .tab.active { display: block; }
-
-    .zhan-inline-write-panel {
-      grid-column: 1 / -1;
-      padding: 24px !important;
-      margin-top: 18px !important;
+  
+    /* === V5.0: force active tabs visible and scroll to content === */
+    .tab {
+      display: none !important;
     }
 
-    .zhan-write-tabs {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 16px 0 12px;
-    }
-
-    .zhan-write-tab {
-      width: auto !important;
-      margin-top: 0 !important;
-      padding: 11px 16px !important;
-      border-radius: 999px !important;
-      border: 1px solid rgba(207,111,2,0.34) !important;
-      background: rgba(255,232,196,0.045) !important;
-      color: var(--text, #f5e2c4) !important;
-      cursor: pointer;
-      font-size: 16px !important;
-    }
-
-    .zhan-write-tab.active {
-      background: linear-gradient(135deg, rgba(207,111,2,0.36), rgba(199,47,34,0.22)) !important;
-      border-color: rgba(207,111,2,0.58) !important;
-      color: #fff1d9 !important;
-      box-shadow: 0 0 18px rgba(207,111,2,0.18) !important;
-    }
-
-    #quickWriteText { min-height: 140px; }
-
-    .top-item {
-      display: grid !important;
-      grid-template-columns: minmax(0, 1fr) auto !important;
-      align-items: center !important;
-      gap: 14px !important;
-    }
-
-    .top-item > span:last-child {
-      color: #fff1d9 !important;
-      font-weight: 800 !important;
-      min-width: 92px !important;
-      text-align: right !important;
-      white-space: nowrap !important;
-      text-shadow:
-        0 0 8px rgba(255,59,47,0.95),
-        0 0 16px rgba(207,111,2,0.55),
-        0 1px 2px rgba(0,0,0,1) !important;
-    }
-
-    @media (max-width: 900px) {
-      .zhan-write-tabs {
-        display: grid;
-        grid-template-columns: 1fr;
-      }
-      .zhan-write-tab { width: 100% !important; }
+    .tab.active {
+      display: block !important;
+      min-height: 120px !important;
+      visibility: visible !important;
+      opacity: 1 !important;
     }
 
   </style>
@@ -2310,7 +2258,7 @@
             <div class="zhan-quick-icons">
               <button class="zhan-quick-icon" type="button" id="zhanPhotosBtn" title="Фото">🐾</button>
               <button class="zhan-quick-icon" type="button" id="zhanMusicBtn" title="Музыка">🎵</button>
-              <button class="zhan-quick-icon" type="button" id="zhanWriteBtn" title="Написать пожелание или историю">✨</button>
+              <button class="zhan-quick-icon" type="button" id="zhanWriteBtn" title="Написать пожелание или историю" onclick="document.getElementById('writeChoiceModal').classList.add('open');document.getElementById('writeChoiceModal').setAttribute('aria-hidden','false');">✨</button>
             </div>
           </div>
 
@@ -2325,31 +2273,9 @@
               Все пожелания ›
             </button>
           </div>
-
-          <div class="panel zhan-inline-write-panel" id="quickWritePanel">
-            <div class="story-form-title">✍️ Написать</div>
-            <div class="small" style="text-align:left;">
-              Чтобы оставить пожелание или историю, войди через Google или Email. Почту здесь вводить не нужно.
-            </div>
-
-            <div class="zhan-write-tabs">
-              <button type="button" class="zhan-write-tab active" id="quickWishTab">💌 Пожелание</button>
-              <button type="button" class="zhan-write-tab" id="quickStoryTab">📖 История</button>
-            </div>
-
-            <input id="quickWriteTitle" maxlength="80" placeholder="Название истории" style="display:none;">
-            <textarea id="quickWriteText" maxlength="10000" placeholder="Ваше пожелание"></textarea>
-
-            <button class="send-btn" id="quickWriteSendBtn" type="button" style="margin-top:12px;">
-              Отправить пожелание
-            </button>
-
-            <div class="small" id="quickWriteStatus">
-              Запись появится на сайте после одобрения в админке.
-            </div>
-          </div>
-
         </div>
+
+      </div><!-- /tab#letter -->
 
       <div class="tab" id="wishes">
 
@@ -3307,123 +3233,7 @@ Email и UID обычным посетителям не показываются
             .replaceAll('"', "&quot;")
             .replaceAll("'", "&#039;");
         }
-      
-        // === CLEAN FIX: quick write panel + story stats ===
-        let quickWriteMode = "wish";
-
-        const quickWishTab = document.getElementById("quickWishTab");
-        const quickStoryTab = document.getElementById("quickStoryTab");
-        const quickWriteTitle = document.getElementById("quickWriteTitle");
-        const quickWriteText = document.getElementById("quickWriteText");
-        const quickWriteSendBtn = document.getElementById("quickWriteSendBtn");
-        const quickWriteStatus = document.getElementById("quickWriteStatus");
-
-        function setQuickWriteMode(mode) {
-          quickWriteMode = mode;
-          if (quickWishTab) quickWishTab.classList.toggle("active", mode === "wish");
-          if (quickStoryTab) quickStoryTab.classList.toggle("active", mode === "story");
-          if (quickWriteTitle) quickWriteTitle.style.display = mode === "story" ? "block" : "none";
-
-          if (quickWriteText) {
-            quickWriteText.placeholder = mode === "story"
-              ? "Напиши свою историю о Жанульке..."
-              : "Ваше пожелание";
-          }
-
-          if (quickWriteSendBtn) {
-            quickWriteSendBtn.textContent = mode === "story"
-              ? "Отправить историю"
-              : "Отправить пожелание";
-          }
-        }
-
-        if (quickWishTab) quickWishTab.addEventListener("click", () => setQuickWriteMode("wish"));
-        if (quickStoryTab) quickStoryTab.addEventListener("click", () => setQuickWriteMode("story"));
-
-        if (quickWriteSendBtn) {
-          quickWriteSendBtn.addEventListener("click", async () => {
-            if (!requireLogin()) return;
-
-            const nickname = nicknameInput.value.trim() || aboutNicknameInput.value.trim() || "Гость";
-            const text = (quickWriteText?.value || "").trim();
-
-            if (text.length < 2) {
-              alert("Напиши текст");
-              return;
-            }
-
-            if (quickWriteMode === "wish") {
-              const lastMessageTime = Number(localStorage.getItem("lastMessageTime") || 0);
-              const now = Date.now();
-
-              if (now - lastMessageTime < 60000) {
-                alert("Можно отправлять пожелание не чаще 1 раза в минуту");
-                return;
-              }
-
-              await push(ref(db, "messages"), {
-                name: nickname,
-                text: text.slice(0, 700),
-                status: "pending",
-                userId: userId,
-                createdAt: serverTimestamp()
-              });
-
-              localStorage.setItem("lastMessageTime", String(now));
-              if (quickWriteText) quickWriteText.value = "";
-              if (quickWriteStatus) quickWriteStatus.textContent = "Пожелание отправлено на модерацию.";
-              alert("Пожелание отправлено на модерацию");
-              return;
-            }
-
-            const title = (quickWriteTitle?.value || "").trim();
-
-            if (!title || text.length < 10) {
-              alert("Для истории нужны название и текст минимум 10 символов");
-              return;
-            }
-
-            const lastStoryTime = Number(localStorage.getItem("lastStoryTime") || 0);
-            const now = Date.now();
-
-            if (now - lastStoryTime < 180000) {
-              alert("Историю можно отправлять не чаще 1 раза в 3 минуты");
-              return;
-            }
-
-            await push(ref(db, "stories"), {
-              title: title.slice(0, 80),
-              name: nickname,
-              text: text.slice(0, 10000),
-              status: "pending",
-              userId: userId,
-              createdAt: serverTimestamp()
-            });
-
-            localStorage.setItem("lastStoryTime", String(now));
-            if (quickWriteTitle) quickWriteTitle.value = "";
-            if (quickWriteText) quickWriteText.value = "";
-            if (quickWriteStatus) quickWriteStatus.textContent = "История отправлена на модерацию.";
-            alert("История отправлена на модерацию");
-          });
-        }
-
-        setQuickWriteMode("wish");
-
-        onValue(ref(db, "stories"), snapshot => {
-          const data = snapshot.val() || {};
-          const approvedStoriesCount = Object.values(data).filter(item => {
-            if (!item) return false;
-            return item.status === "approved" || item.approved === true || !item.status;
-          }).length;
-
-          ["homeStoriesCount", "footerStoriesCount", "storiesCount", "statStories", "storiesStat"].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.textContent = String(approvedStoriesCount);
-          });
-        });
-
-</script>
+      </script>
 
       <footer class="site-footer">
 <div class="footer-subtitle">
@@ -3443,7 +3253,22 @@ Email и UID обычным посетителям не показываются
 
     </section>
   </main>
-<script>
+
+  <div class="write-choice-modal" id="writeChoiceModal" aria-hidden="true">
+    <div class="write-choice-card">
+      <button class="write-choice-close" type="button" id="zhanWriteCloseBtn" onclick="document.getElementById('writeChoiceModal').classList.remove('open');document.getElementById('writeChoiceModal').setAttribute('aria-hidden','true');">×</button>
+
+      <h2>Что написать?</h2>
+      <p>Выбери, что хочешь оставить на сайте.</p>
+
+      <button class="write-choice-btn" type="button" id="zhanWriteWishBtn" onclick="document.getElementById('writeChoiceModal').classList.remove('open');document.querySelector('.tab-btn[data-tab=&quot;wishes&quot;]').click();setTimeout(()=>document.getElementById('wishes').scrollIntoView({behavior:'smooth',block:'start'}),120);">💌 Написать пожелание</button>
+
+      <button class="write-choice-btn" type="button" id="zhanWriteStoryBtn" onclick="document.getElementById('writeChoiceModal').classList.remove('open');document.querySelector('.tab-btn[data-tab=&quot;stories&quot;]').click();setTimeout(()=>document.getElementById('stories').scrollIntoView({behavior:'smooth',block:'start'}),120);">📖 Написать историю</button>
+    </div>
+  </div>
+
+
+  <script>
     (function () {
       function openTab(tabName) {
         document.querySelectorAll(".tab-btn").forEach(function (button) {
@@ -3547,82 +3372,40 @@ Email и UID обычным посетителям не показываются
     }, true);
   </script>
 
+
   <script>
-    // === CLEAN FIX: final navigation ===
-    (function () {
-      function openTab(tabName, targetId) {
-        document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
-        document.querySelectorAll(".tab-btn").forEach(btn => btn.classList.remove("active"));
+    // === V5.0: final tab content visibility fix ===
+    document.addEventListener("click", function (event) {
+      const btn = event.target.closest(".tab-btn[data-tab]");
+      if (!btn) return;
 
-        const tab = document.getElementById(tabName);
-        const btn = document.querySelector('.tab-btn[data-tab="' + tabName + '"]');
+      event.preventDefault();
+      event.stopImmediatePropagation();
 
-        if (tab) tab.classList.add("active");
-        if (btn) btn.classList.add("active");
+      const tabId = btn.dataset.tab;
+
+      document.querySelectorAll(".tab-btn").forEach(button => {
+        button.classList.remove("active");
+      });
+
+      document.querySelectorAll(".tab").forEach(tab => {
+        tab.classList.remove("active");
+      });
+
+      btn.classList.add("active");
+
+      const tab = document.getElementById(tabId);
+      if (tab) {
+        tab.classList.add("active");
 
         setTimeout(() => {
-          const target = targetId ? document.getElementById(targetId) : tab;
-          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 80);
+          tab.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }, 120);
       }
-
-      document.addEventListener("click", function (event) {
-        const tabBtn = event.target.closest(".tab-btn[data-tab]");
-        if (tabBtn) {
-          event.preventDefault();
-          event.stopImmediatePropagation();
-          openTab(tabBtn.dataset.tab);
-          return;
-        }
-
-        const menuBtn = event.target.closest("[data-tab-open]");
-        if (menuBtn) {
-          event.preventDefault();
-          event.stopImmediatePropagation();
-          openTab(menuBtn.dataset.tabOpen);
-          return;
-        }
-
-        const footerBtn = event.target.closest("[data-footer-tab]");
-        if (footerBtn) {
-          event.preventDefault();
-          event.stopImmediatePropagation();
-          openTab(footerBtn.dataset.footerTab);
-          return;
-        }
-
-        if (event.target.closest("#zhanPhotosBtn")) {
-          event.preventDefault();
-          event.stopImmediatePropagation();
-          openTab("letter", "parallaxSlider");
-          return;
-        }
-
-        if (event.target.closest("#zhanMusicBtn")) {
-          event.preventDefault();
-          event.stopImmediatePropagation();
-          openTab("letter", "musicPlayer");
-          return;
-        }
-
-        if (event.target.closest("#zhanWriteBtn")) {
-          event.preventDefault();
-          event.stopImmediatePropagation();
-          const panel = document.getElementById("quickWritePanel");
-          if (panel) panel.scrollIntoView({ behavior: "smooth", block: "center" });
-          return;
-        }
-
-        if (event.target.closest("#zhanAllWishesBtn")) {
-          event.preventDefault();
-          event.stopImmediatePropagation();
-          openTab("wishes", "messageInput");
-          return;
-        }
-      }, true);
-
-      window.zhanOpenTab = openTab;
-    })();
+    }, true);
   </script>
 
 </body>
